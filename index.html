@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEEE CS KIIT - Advancing Technology Together</title>
+    <link rel="icon" type="image/png" href="ieeecs.png">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -721,7 +722,7 @@
         }
         
         .testimonial-content::before {
-            content: """;
+            content: "";
             font-size: 4rem;
             color: var(--accent-blue);
             opacity: 0.2;
@@ -1130,6 +1131,7 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(76, 201, 240, 0.1);
+            
         }
         
         .leader-card:hover {
@@ -1160,6 +1162,193 @@
             font-weight: 500;
             margin-bottom: 15px;
         }
+        
+        /* Previous CSS code remains the same, adding only new styles */
+        
+        /* Modal/Popup Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 14, 23, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 30px rgba(76, 201, 240, 0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-blue);
+        }
+        
+        .modal-title {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Volunteer Form Styles */
+        .volunteer-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .volunteer-form .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .volunteer-form .form-input, 
+        .volunteer-form .form-textarea,
+        .volunteer-form .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid rgba(76, 201, 240, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .volunteer-form .form-input:focus, 
+        .volunteer-form .form-textarea:focus,
+        .volunteer-form .form-select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+        }
+        
+        .volunteer-form .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Events Section Additions */
+        .events-container {
+            position: relative;
+        }
+        
+        .events-grid .event-card {
+            display: block;
+        }
+        
+        .events-grid .event-card.hidden {
+            display: none;
+        }
+        
+        .see-all-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .all-events {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .all-events.active {
+            display: grid;
+        }
+        
+        /* Responsive adjustments for modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 30px 20px;
+                margin: 10% auto;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 14, 23, 0.98);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        border-top: 1px solid rgba(76, 201, 240, 0.2);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        height: 0;
+        overflow: hidden;
+        transition: height 0.4s ease;
+        display: flex !important; /* Force display flex when active */
+    }
+    
+    .nav-links.active {
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+    
+    .nav-links a {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(76, 201, 240, 0.1);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links a:last-child {
+        border-bottom: none;
+    }
+    
+    /* Close button style */
+    .mobile-menu-btn .close-icon {
+        display: none;
+    }
+    
+    .mobile-menu-btn.active .close-icon {
+        display: block;
+    }
+    
+    .mobile-menu-btn.active .menu-icon {
+        display: none;
+    }
+}
     </style>
 </head>
 <body>
@@ -1168,7 +1357,7 @@
         <div class="container nav-container">
             <a href="#" class="logo">
                 <div class="logo-img">
-                    <i class="fas fa-microchip"></i>
+                    <img src="ieeecs.png" alt=" IEEE logo" style="width: 100px; height: 40px;  ">
                 </div>
                 IEEE CS KIIT
             </a>
@@ -1183,13 +1372,14 @@
                 <a href="#join" class="btn btn-primary">Join Us</a>
                 <a href="https://kiit.ac.in/" >
     <img src="kiit-logo.png" alt="KIIT" 
-     style="width: 130px; height: 60px;  ">
+     style="width: 80px; height: 60px;  ">
 </a>
             </div>
             
             <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
+    <i class="fas fa-bars menu-icon"></i>
+    <i class="fas fa-times close-icon"></i>
+</button>
         </div>
     </nav>
 
@@ -1234,7 +1424,7 @@
                 </div>
                 
                 <div class="about-image">
-                    <i class="fas fa-laptop-code"></i>
+                    <img src="about_us.jpg" alt="about us img" style="width: 600px;">
                 </div>
             </div>
             
@@ -1312,22 +1502,10 @@
     <!-- Leadership Section -->
     <section id="leadership">
         <div class="container">
-            <h2 class="section-title">Our Leadership</h2>
+            <h2 class="section-title">Executive Members</h2>
             
             <div class="leadership-grid">
-                <div class="leader-card fade-in">
-                    <div class="leader-img">
-                        <img src="amaiyasir.jpg" alt="amaiya ranjan sir">
-                    </div>
-                    <h3>Dr. Amiya Ranjan Panda</h3>
-                    <div class="leader-role">Advisor</div>
-                    <p>Full-stack developer and open-source contributor passionate about cybersecurity.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
+                
                 <div class="leader-card fade-in">
                     <div class="leader-img">
                         <img src="prajwal.jpg" alt="prajwal">
@@ -1350,15 +1528,29 @@
                     <div class="leader-role">Vice Chairperson</div>
                     <p>Data Science enthusiast with experience in organizing tech events and workshops.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/shuvashish-barman" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-github"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                
-                <div class="leader-card fade-in">
+
+                <div class="leader-card fade-in" >
                     <div class="leader-img">
-                        <i class="fas fa-user"></i>
+                        <img src="sajan.jpg" alt="sajan">
+                    </div>
+                    <h3>Mr. Sajan Kumar Sah</h3>
+                    <div class="leader-role">Treasurer</div>
+                    <p>AI/ML researcher driven to apply deep learning for impactful real-world problems.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/sajan-sah-7b5713257?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/MR-SAJAN-SAH" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://sajankumar.com.np/" class="social-link"><i class="fas fa-user"></i></a>
+                    </div>
+                </div>
+
+                <div class="leader-card fade-in" >
+                    <div class="leader-img">
+                        <img src="debyandu.jpg" alt="debyandu">
                     </div>
                     <h3>Dibyendu Ganguly</h3>
                     <div class="leader-role">Secretary</div>
@@ -1372,11 +1564,11 @@
 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
-                        <img src="sajan.jpg" alt="sajan">
+                        <img src="shahil.jpg" alt="sahil">
                     </div>
-                    <h3>Mr. Sajan Kumar Sah</h3>
-                    <div class="leader-role">Treasurer</div>
-                    <p>AI/ML researcher driven to apply deep learning for impactful real-world problems.</p>
+                    <h3>Shahil Verma</h3>
+                    <div class="leader-role">Webmasters</div>
+                    <p>Full-stack developer and open-source contributor passionate about cybersecurity.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-github"></i></a>
@@ -1386,10 +1578,10 @@
 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
-                        <img src="shahil.jpg" alt="sahil">
+                        <img src="rajiv.jpg" alt="rajiv">
                     </div>
-                    <h3>Sahil Verma</h3>
-                    <div class="leader-role">Webmasters</div>
+                    <h3>Rajiv Kasaudhan</h3>
+                    <div class="leader-role">Founding Member</div>
                     <p>Full-stack developer and open-source contributor passionate about cybersecurity.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -1401,18 +1593,6 @@
             
             <!-- Additional Team Members (Initially Hidden) -->
             <div class="additional-members" id="additional-members">
-                <div class="leader-card fade-in">
-                    <div class="leader-img">
-                        <img src="rajiv.jpg" alt="rajiv">
-                    </div>
-                    <h3>Rajiv Kasaudhan</h3>
-                    <div class="leader-role">Founding Member</div>
-                    <p>Organizes and manages all society events and workshops with precision.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
                 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -1420,12 +1600,13 @@
                     </div>
                     <h3>Ujjawal Anand</h3>
                     <div class="leader-role">Active Team Member</div>
-                    <p>Manages external communications and partnerships with industry leaders.</p>
+                    <p>Dedicated to learning and leading with curiosity, striving to inspire collaboration and create impact through IEEE by building a community where ideas thrive.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/ujjawalanandofficial/" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
+
                 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -1436,7 +1617,20 @@
                     <p>Leads research initiatives and paper publication efforts for the society.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                                                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                         <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="leader-card fade-in">
+                    <div class="leader-img">
+                        <img src="dip.png" alt="dip">
+                    </div>
+                    <h3>Dip Biswas</h3>
+                    <div class="leader-role">Active Team Member</div>
+                    <p>Organizes and manages all society events and workshops with precision.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
 
@@ -1463,70 +1657,132 @@
     </section>
 
     <!-- Events Section -->
+      <!-- Events Section -->
     <section id="events">
         <div class="container">
             <h2 class="section-title">Our Events</h2>
             
             <div class="events-container">
                 <div class="event-filters">
-                    <div class="event-filter active">All Events</div>
-                    <div class="event-filter">Hackathons</div>
-                    <div class="event-filter">Workshops</div>
-                    <div class="event-filter">Seminars</div>
-                    <div class="event-filter">Competitions</div>
+                    <div class="event-filter active" data-filter="all">All Events</div>
+                    <div class="event-filter" data-filter="hackathon">Hackathons</div>
+                    <div class="event-filter" data-filter="workshop">Workshops</div>
+                    <div class="event-filter" data-filter="seminar">Seminars</div>
+                    <div class="event-filter" data-filter="competition">Competitions</div>
                 </div>
                 
                 <div class="events-grid">
-                    <div class="event-card fade-in">
+                    <!-- Initial events (first 3) -->
+                    <div class="event-card fade-in" data-category="seminar">
+                        <div class="event-image">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">October 12, 2025 (Upcoming Event...)</div>
+                            <h3>Inauguration</h3>
+                            <p class="event-description">The official launch of the IEEE Computer Society KIIT Student Branch Chapter in the presence of our Hon'ble Vice Chancellor, Dean (DEA), and Director. The ceremony will also feature an expert talk on the latest cybersecurity threats and defense mechanisms.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Ceremony</span>
+                                <span class="event-tag">Leadership</span>
+                                <span class="event-tag">Security</span>
+                            </div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card fade-in" data-category="competition">
+                        <div class="event-image">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">October 15, 2025 (Upcoming Event...)</div>
+                            <h3>Research Poster Exhibition</h3>
+                            <p class="event-description">An exhibition of innovative research posters by students. All participants will receive a Participation Certificate and the best entry will be honored with the Best Poster Award.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Research</span>
+                                <span class="event-tag">Innovation</span>
+                                <span class="event-tag">Competition</span>
+                            </div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card fade-in" data-category="hackathon">
                         <div class="event-image">
                             <i class="fas fa-code"></i>
                         </div>
                         <div class="event-content">
                             <div class="event-date">October 25-27, 2025 (Upcoming Event...)</div>
                             <h3>KalpanaX Hackathon</h3>
-                            <p class="event-description">A 48-hour research-driven hackathon inspired by NASA International Space Apps Challenges.</p>
+                            <p class="event-description">A 48-hour research-driven hackathon inspired by NASA International Space Apps Challenges. Students will collaborate to solve real-world problems.</p>
                             <div class="event-tags">
                                 <span class="event-tag">Hackathon</span>
                                 <span class="event-tag">NASA</span>
                                 <span class="event-tag">Physics</span>
                             </div>
-                            <a href="index1.html" class="btn">View Details</a>
+                            <a href="kalpanax.html" class="btn">View Details</a>
                         </div>
                     </div>
-                    
-                    <div class="event-card fade-in">
+                </div>
+                
+                <!-- Additional events (hidden initially) -->
+                <div class="all-events" id="all-events">
+                    <div class="event-card fade-in" data-category="workshop">
                         <div class="event-image">
-                            <i class="fas fa-robot"></i>
+                            <i class="fas fa-laptop-code"></i>
                         </div>
                         <div class="event-content">
-                            <div class="event-date">September 28, 2023</div>
-                            <h3>AI & ML Workshop</h3>
-                            <p class="event-description">Hands-on workshop on building and deploying machine learning models with Python and TensorFlow.</p>
+                            <div class="event-date">November 5, 2025</div>
+                            <h3>Web Development Workshop</h3>
+                            <p class="event-description">Learn modern web development techniques including HTML5, CSS3, JavaScript, and popular frameworks in this hands-on workshop.</p>
                             <div class="event-tags">
+                                <span class="event-tag">Web Dev</span>
                                 <span class="event-tag">Workshop</span>
-                                <span class="event-tag">AI/ML</span>
-                                <span class="event-tag">Python</span>
+                                <span class="event-tag">Beginner</span>
                             </div>
                             <a href="#" class="btn">View Details</a>
                         </div>
                     </div>
                     
-                    <div class="event-card fade-in">
+                    <div class="event-card fade-in" data-category="seminar">
                         <div class="event-image">
-                            <i class="fas fa-shield-alt"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
                         <div class="event-content">
-                            <div class="event-date">October 12, 2025</div>
-                            <h3>Inaguration</h3>
-                            <p class="event-description">Expert talk on latest cybersecurity threats and defense mechanisms by industry professionals.</p>
+                            <div class="event-date">November 15, 2025</div>
+                            <h3>AI & Machine Learning Seminar</h3>
+                            <p class="event-description">Explore the latest advancements in artificial intelligence and machine learning with industry experts and researchers.</p>
                             <div class="event-tags">
+                                <span class="event-tag">AI/ML</span>
                                 <span class="event-tag">Seminar</span>
-                                <span class="event-tag">Security</span>
-                                <span class="event-tag">Networking</span>
+                                <span class="event-tag">Research</span>
                             </div>
                             <a href="#" class="btn">View Details</a>
                         </div>
                     </div>
+                    
+                    <div class="event-card fade-in" data-category="competition">
+                        <div class="event-image">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">December 1, 2025</div>
+                            <h3>Code Sprint Competition</h3>
+                            <p class="event-description">Test your coding skills in this competitive programming event with multiple difficulty levels and exciting prizes.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Coding</span>
+                                <span class="event-tag">Competition</span>
+                                <span class="event-tag">Programming</span>
+                            </div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="see-all-container">
+                    <button id="see-all-btn" class="btn">
+                        <i class="fas fa-chevron-down"></i>See All Events
+                    </button>
                 </div>
             </div>
         </div>
@@ -1539,7 +1795,7 @@
             
             <div class="gallery-container">
                 <div class="gallery-item fade-in">
-                    <i class="fas fa-image"></i>
+                    <img src="pictures/m1.jpg" alt="m1" style="width: 380px;">
                 </div>
                 
                 <div class="gallery-item fade-in">
@@ -1603,7 +1859,7 @@
             <div class="testimonials-container">
                 <div class="testimonial-card fade-in">
                     <div class="testimonial-content">
-                        The IEEE Computer Society has been instrumental in my technical growth. The workshops and hackathons organized by the society helped me secure an internship at a leading tech company.
+                       “I am delighted to see the launch of the IEEE Computer Society KIIT Chapter. This platform will empower students to explore technology, research, and innovation while fostering collaboration and professional growth. I encourage all members to actively participate and make the chapter a vibrant community.”
                     </div>
                     
                     <div class="testimonial-author">
@@ -1619,7 +1875,7 @@
                 
                 <div class="testimonial-card fade-in">
                     <div class="testimonial-content">
-                        As Faculty Advisor, I've witnessed the tremendous impact this society has on students' professional development. The hands-on experience gained through society activities is invaluable.
+                        “The launch of the IEEE Computer Society KIIT Chapter marks an important step toward fostering a strong culture of innovation and learning. I believe this chapter will serve as a platform for students to exchange ideas, enhance technical skills, and contribute meaningfully to society. I look forward to seeing our members grow and excel through this initiative.”
                     </div>
                     
                     <div class="testimonial-author">
@@ -1635,7 +1891,7 @@
                 
                 <div class="testimonial-card fade-in">
                     <div class="testimonial-content">
-                        Joining the IEEE Computer Society was the best decision of my college life. The networking opportunities and technical skills I gained were crucial for my career in software development.
+                        “I am pleased to see the formation of the IEEE Computer Society KIIT Chapter. This initiative will inspire students to think creatively, pursue research, and engage in meaningful technical activities. I am confident that the chapter will grow into a hub of innovation and collaboration at KIIT.”
                     </div>
                     
                     <div class="testimonial-author">
@@ -1644,7 +1900,7 @@
                         </div>
                         <div class="testimonial-info">
                             <h4>Dr. Niranjan Ray</h4>
-                            <p>Faculty Advisor</p>
+                            <p>Faculty</p>
                         </div>
                     </div>
                 </div>
@@ -1855,10 +2111,10 @@
                     
                     <div class="footer-social-links">
                         <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/ieee-cs-kiit" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="footer-social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/ieeecskiit" class="footer-social-link"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 
@@ -1898,6 +2154,16 @@
                 <p>&copy; 2025 IEEE Computer Society KIIT Student Branch Chapter. All rights reserved.</p>
             </div>
         </div>
+
+        <!-- Other sections remain the same -->
+    
+    <!-- Volunteer Application Modal -->
+    <div id="volunteer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Apply as a Volunteer</h2>
+        </div>
+    </div>
     </footer>
 
     <!-- JavaScript -->
@@ -2027,6 +2293,151 @@
                 });
             }
         });
+    </script>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Previous JavaScript code remains the same
+            
+            // Event filtering functionality
+            const eventFilters = document.querySelectorAll('.event-filter');
+            const eventCards = document.querySelectorAll('.event-card');
+            const allEventsSection = document.getElementById('all-events');
+            const seeAllBtn = document.getElementById('see-all-btn');
+            
+            // Function to filter events
+            function filterEvents(category) {
+                eventCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Also filter events in the "all events" section if it's visible
+                if (allEventsSection.classList.contains('active')) {
+                    const allEventCards = allEventsSection.querySelectorAll('.event-card');
+                    allEventCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                }
+            }
+            
+            // Add click event to filters
+            eventFilters.forEach(filter => {
+                filter.addEventListener('click', () => {
+                    // Remove active class from all filters
+                    eventFilters.forEach(f => f.classList.remove('active'));
+                    
+                    // Add active class to clicked filter
+                    filter.classList.add('active');
+                    
+                    // Filter events
+                    const filterValue = filter.dataset.filter;
+                    filterEvents(filterValue);
+                });
+            });
+            
+            // See All Events button functionality
+            seeAllBtn.addEventListener('click', function() {
+                allEventsSection.classList.toggle('active');
+                
+                if (allEventsSection.classList.contains('active')) {
+                    seeAllBtn.innerHTML = '<i class="fas fa-chevron-up"></i>Show Less Events';
+                    // Apply current filter to the expanded events too
+                    const activeFilter = document.querySelector('.event-filter.active').dataset.filter;
+                    filterEvents(activeFilter);
+                } else {
+                    seeAllBtn.innerHTML = '<i class="fas fa-chevron-down"></i>See All Events';
+                }
+            });
+            
+            // Volunteer Modal functionality
+            const volunteerModal = document.getElementById('volunteer-modal');
+            const volunteerBtns = document.querySelectorAll('.volunteer-btn'); // You'll need to add this class to buttons that should open the modal
+            const closeModal = document.querySelector('.close-modal');
+            
+            // Function to open modal
+            function openVolunteerModal() {
+                volunteerModal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+            
+            // Function to close modal
+            function closeVolunteerModal() {
+                volunteerModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+            }
+            
+            // Add click event to volunteer buttons (you need to add .volunteer-btn class to these)
+            if (volunteerBtns.length > 0) {
+                volunteerBtns.forEach(btn => {
+                    btn.addEventListener('click', openVolunteerModal);
+                });
+            }
+            
+            // Close modal when clicking on X
+            closeModal.addEventListener('click', closeVolunteerModal);
+            
+            // Close modal when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target === volunteerModal) {
+                    closeVolunteerModal();
+                }
+            });
+            
+            // Volunteer form submission
+            const volunteerForm = document.querySelector('.volunteer-form');
+            if (volunteerForm) {
+                volunteerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your volunteer application! We will review it and get back to you soon.');
+                    this.reset();
+                    closeVolunteerModal();
+                });
+            }
+            
+            // Add volunteer button to the page (example placement - you can position it wherever you want)
+            const volunteerButton = document.createElement('a');
+            volunteerButton.href = 'volunteer_hiring.html';
+            volunteerButton.className = 'btn btn-primary volunteer-btn floating-btn';
+            volunteerButton.innerHTML = '<i class="fas fa-hands-helping"></i>Apply as Volunteer';
+            volunteerButton.style.position = 'fixed';
+            volunteerButton.style.bottom = '20px';
+            volunteerButton.style.right = '20px';
+            volunteerButton.style.zIndex = '1000';
+            document.body.appendChild(volunteerButton);
+        });
+
+        // Mobile menu toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    mobileMenuBtn.classList.toggle('active');
+});
+
+// Close menu when clicking on a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+    });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+    }
+});
     </script>
 </body>
 </html>
