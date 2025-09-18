@@ -107,6 +107,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .logo {
@@ -128,11 +132,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 25px;
         }
         
         .nav-links a {
@@ -141,13 +153,14 @@
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            white-space: nowrap;
         }
         
-        .nav-links a:hover {
+        .nav-links a:not(.btn):hover {
             color: var(--accent-blue);
         }
         
-        .nav-links a::after {
+        .nav-links a:not(.btn)::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -158,8 +171,29 @@
             transition: width 0.3s ease;
         }
         
-        .nav-links a:hover::after {
+        .nav-links a:not(.btn):hover::after {
             width: 100%;
+        }
+        
+        .kiit-logo {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .kiit-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .kiit-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .mobile-menu-btn {
@@ -169,6 +203,7 @@
             color: var(--text-primary);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
         }
         
         /* Buttons */
@@ -176,17 +211,16 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 14px 32px;
+            padding: 10px 20px;
             background: transparent;
             color: var(--accent-blue);
             border: 1px solid var(--accent-blue);
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 5px;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -279,6 +313,49 @@
         .required:after {
             content: " *";
             color: var(--accent-pink);
+        }
+        
+        /* Gender Selection */
+        .gender-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .gender-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gender-option input[type="radio"]:checked {
+            border-color: var(--accent-blue);
+            background: var(--accent-blue);
+        }
+        
+        .gender-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            background: var(--text-primary);
+            border-radius: 50%;
         }
         
         /* Student Verification */
@@ -447,11 +524,32 @@
                 flex-direction: column;
                 gap: 0;
             }
+            
+            .nav-links {
+                gap: 20px;
+            }
         }
         
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
             }
             
             .mobile-menu-btn {
@@ -484,16 +582,43 @@
             .footer-social-links {
                 justify-content: center;
             }
+            
+            .gender-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-container {
+                padding: 20px 15px;
+            }
+            
+            .verification-container {
+                padding: 25px 15px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav id="navbar">
-        <div class="container nav-container">
+        <div class="nav-container">
             <a href="index.html" class="logo">
                 <div class="logo-img">
-                    <i class="fas fa-laptop-code"></i>
+                    <img src="ieeecs.png" alt="ieeecskiit logo" style="width: 100px; height: 40px;">
                 </div>
                 IEEE CS KIIT
             </a>
@@ -505,6 +630,10 @@
                 <a href="index.html#gallery">Gallery</a>
                 <a href="index.html#contact">Contact</a>
                 <a href="index.html#join" class="btn btn-primary">Join Us</a>
+                <a href="https://kiit.ac.in/" class="kiit-logo">
+                     <img src="kiit-logo.png" alt="KIIT" 
+     style="width: 60px; height: 50px;  ">
+                </a>
             </div>
             
             <button class="mobile-menu-btn">
@@ -519,20 +648,14 @@
             <h2 class="section-title">Volunteer Application</h2>
             
             <div class="verification-container fade-in">
-                <h3>Are you a KIIT University student?</h3>
-                <p>Please let us know so we can customize the application form for you.</p>
+                <h3>KIIT Student Verification</h3>
+                <p>This application is exclusively for KIIT University students.</p>
                 
                 <div class="verification-options">
                     <div class="verification-option" data-kiit="yes">
                         <i class="fas fa-graduation-cap"></i>
-                        <h4>Yes, I am</h4>
-                        <p>KIIT University student</p>
-                    </div>
-                    
-                    <div class="verification-option" data-kiit="no">
-                        <i class="fas fa-globe"></i>
-                        <h4>No, I'm from</h4>
-                        <p>Another institution</p>
+                        <h4>I am a KIIT University student</h4>
+                        <p>Proceed to application</p>
                     </div>
                 </div>
             </div>
@@ -542,7 +665,7 @@
                 <h3 style="text-align: center; margin-bottom: 30px;">KIIT Student Application</h3>
                 
                 <!-- Using FormSubmit.co to send emails to ieeecskiit@gmail.com -->
-                <form id="volunteer-form-kiit" action="https://formsubmit.co/ieeecskiit@gmail.com" method="POST">
+                <form id="volunteer-form-kiit" action="https://formsubmit.co/sah61509@gmail.com" method="POST">
                     <!-- FormSubmit.co configuration -->
                     <input type="hidden" name="_subject" value="New KIIT Student Volunteer Application - IEEE CS KIIT">
                     <input type="hidden" name="_template" value="table">
@@ -558,7 +681,7 @@
                         
                         <div class="form-group">
                             <label for="email" class="form-label required">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@kiit.ac.in" required>
                         </div>
                     </div>
                     
@@ -569,6 +692,26 @@
                         </div>
                         
                         <div class="form-group">
+                            <label class="form-label required">Gender</label>
+                            <div class="gender-options">
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="male" required>
+                                    <span>Male</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="female">
+                                    <span>Female</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="other">
+                                    <span>Other</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="year" class="form-label required">Academic Year</label>
                             <select id="year" name="year" class="form-select" required>
                                 <option value="">Select your year</option>
@@ -578,31 +721,31 @@
                                 <option value="4th">4th Year</option>
                             </select>
                         </div>
-                    </div>
-                    
-                    <div class="form-row">
+                        
                         <div class="form-group">
                             <label for="department" class="form-label required">Department</label>
                             <input type="text" id="department" name="department" class="form-input" placeholder="Computer Science, IT, etc." required>
                         </div>
-                        
+                    </div>
+                    
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="student-id" class="form-label required">Student ID</label>
                             <input type="text" id="student-id" name="student-id" class="form-input" placeholder="Your student ID number" required>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="interests" class="form-label required">Areas of Interest</label>
-                        <select id="interests" name="interests" class="form-select" multiple required>
-                            <option value="technical">Technical Team</option>
-                            <option value="content">Content Team</option>
-                            <option value="marketing">Marketing Team</option>
-                            <option value="media">Media Team</option>
-                            <option value="events">Event Management</option>
-                            <option value="outreach">Outreach Team</option>
-                        </select>
-                        <small>Hold Ctrl/Cmd to select multiple options</small>
+                        
+                        <div class="form-group">
+                            <label for="interests" class="form-label required">Area of Interest</label>
+                            <select id="interests" name="interests" class="form-select" required>
+                                <option value="">Select your area of interest</option>
+                                <option value="technical">Technical Team</option>
+                                <option value="content">Content Team</option>
+                                <option value="marketing">Marketing Team</option>
+                                <option value="media">Media Team</option>
+                                <option value="events">Event Management</option>
+                                <option value="outreach">Outreach Team</option>
+                            </select>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -615,144 +758,22 @@
                         <textarea id="motivation" name="motivation" class="form-textarea" placeholder="Share your motivation for joining our team..." required></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="availability" class="form-label required">How many hours per week can you commit?</label>
-                        <select id="availability" name="availability" class="form-select" required>
-                            <option value="">Select your availability</option>
-                            <option value="1-3">1-3 hours</option>
-                            <option value="3-5">3-5 hours</option>
-                            <option value="5-7">5-7 hours</option>
-                            <option value="7+">7+ hours</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="resume" class="form-label">Upload Resume (Optional)</label>
-                        <input type="file" id="resume" name="resume" class="form-input">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-paper-plane"></i>Submit Application
-                    </button>
-                </form>
-            </div>
-            
-            <!-- Non-KIIT Student Form (Initially Hidden) -->
-            <div id="non-kiit-student-form" class="form-container conditional-section">
-                <h3 style="text-align: center; margin-bottom: 30px;">External Student Application</h3>
-                
-                <!-- Using FormSubmit.co to send emails to ieeecskiit@gmail.com -->
-                <form id="volunteer-form-external" action="https://formsubmit.co/ieeecskiit@gmail.com" method="POST">
-                    <!-- FormSubmit.co configuration -->
-                    <input type="hidden" name="_subject" value="New External Volunteer Application - IEEE CS KIIT">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="#success-message">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="Student Type" value="External Student">
-                    
-                    <div class="form-group">
-                        <label for="country" class="form-label required">Country</label>
-                        <select id="country" name="country" class="form-select" required>
-                            <option value="">Select your country</option>
-                            <option value="India">India</option>
-                            <option value="Nepal">Nepal</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group" id="college-group" style="display: none;">
-                        <label for="college" class="form-label required">College/University</label>
-                        <select id="college" name="college" class="form-select">
-                            <option value="">Select your college</option>
-                            <!-- Options will be populated based on country selection -->
-                        </select>
-                    </div>
-                    
-                    <div class="form-group" id="other-college-group" style="display: none;">
-                        <label for="other-college" class="form-label required">College/University Name</label>
-                        <input type="text" id="other-college" name="other-college" class="form-input" placeholder="Enter your college/university name">
-                    </div>
-                    
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="ext-name" class="form-label required">Full Name</label>
-                            <input type="text" id="ext-name" name="name" class="form-input" placeholder="Your full name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="ext-email" class="form-label required">Email Address</label>
-                            <input type="email" id="ext-email" name="email" class="form-input" placeholder="your.email@example.com" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ext-phone" class="form-label required">Phone Number</label>
-                            <input type="tel" id="ext-phone" name="phone" class="form-input" placeholder="Include country code" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="ext-year" class="form-label required">Academic Year</label>
-                            <select id="ext-year" name="year" class="form-select" required>
-                                <option value="">Select your year</option>
-                                <option value="1st">1st Year</option>
-                                <option value="2nd">2nd Year</option>
-                                <option value="3rd">3rd Year</option>
-                                <option value="4th">4th Year</option>
-                                <option value="5th+">5th Year or above</option>
+                            <label for="availability" class="form-label required">How many hours per week can you commit?</label>
+                            <select id="availability" name="availability" class="form-select" required>
+                                <option value="">Select your availability</option>
+                                <option value="1-3">1-3 hours</option>
+                                <option value="3-5">3-5 hours</option>
+                                <option value="5-7">5-7 hours</option>
+                                <option value="7+">7+ hours</option>
                             </select>
                         </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ext-department" class="form-label required">Department</label>
-                            <input type="text" id="ext-department" name="department" class="form-input" placeholder="Computer Science, IT, etc." required>
-                        </div>
                         
                         <div class="form-group">
-                            <label for="ext-student-id" class="form-label required">Student ID</label>
-                            <input type="text" id="ext-student-id" name="student-id" class="form-input" placeholder="Your student ID number" required>
+                            <label for="resume" class="form-label">Upload Resume (Optional)</label>
+                            <input type="file" id="resume" name="resume" class="form-input">
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ext-interests" class="form-label required">Areas of Interest</label>
-                        <select id="ext-interests" name="interests" class="form-select" multiple required>
-                            <option value="technical">Technical Team</option>
-                            <option value="content">Content Team</option>
-                            <option value="marketing">Marketing Team</option>
-                            <option value="media">Media Team</option>
-                            <option value="events">Event Management</option>
-                            <option value="outreach">Outreach Team</option>
-                        </select>
-                        <small>Hold Ctrl/Cmd to select multiple options</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ext-skills" class="form-label">Relevant Skills & Experience</label>
-                        <textarea id="ext-skills" name="skills" class="form-textarea" placeholder="List any technical skills, previous volunteer experience, or relevant coursework..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ext-motivation" class="form-label required">Why do you want to volunteer with IEEE CS KIIT?</label>
-                        <textarea id="ext-motivation" name="motivation" class="form-textarea" placeholder="Share your motivation for joining our team..." required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ext-availability" class="form-label required">How many hours per week can you commit?</label>
-                        <select id="ext-availability" name="availability" class="form-select" required>
-                            <option value="">Select your availability</option>
-                            <option value="1-3">1-3 hours</option>
-                            <option value="3-5">3-5 hours</option>
-                            <option value="5-7">5-7 hours</option>
-                            <option value="7+">7+ hours</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="ext-resume" class="form-label">Upload Resume (Optional)</label>
-                        <input type="file" id="ext-resume" name="resume" class="form-input">
                     </div>
                     
                     <button type="submit" class="btn btn-primary" style="width: 100%;">
@@ -822,116 +843,43 @@
             });
             
             // Student verification logic
-            const verificationOptions = document.querySelectorAll('.verification-option');
+            const verificationOption = document.querySelector('.verification-option');
             const kiitForm = document.getElementById('kiit-student-form');
-            const nonKiitForm = document.getElementById('non-kiit-student-form');
             const verificationContainer = document.querySelector('.verification-container');
             
-            verificationOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    const isKiitStudent = option.dataset.kiit === 'yes';
-                    
-                    // Hide verification container
-                    verificationContainer.style.display = 'none';
-                    
-                    // Show appropriate form
-                    if (isKiitStudent) {
-                        kiitForm.classList.add('active');
-                    } else {
-                        nonKiitForm.classList.add('active');
-                    }
-                    
-                    // Scroll to the form
-                    setTimeout(() => {
-                        document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                });
+            verificationOption.addEventListener('click', () => {
+                // Hide verification container
+                verificationContainer.style.display = 'none';
+                
+                // Show KIIT form
+                kiitForm.classList.add('active');
+                
+                // Scroll to the form
+                setTimeout(() => {
+                    document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
+                }, 100);
             });
             
-            // Country selection logic for non-KIIT students
-            const countrySelect = document.getElementById('country');
-            const collegeGroup = document.getElementById('college-group');
-            const collegeSelect = document.getElementById('college');
-            const otherCollegeGroup = document.getElementById('other-college-group');
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
             
-            if (countrySelect) {
-                countrySelect.addEventListener('change', function() {
-                    const country = this.value;
-                    
-                    // Reset college selections
-                    collegeSelect.innerHTML = '<option value="">Select your college</option>';
-                    collegeGroup.style.display = 'none';
-                    otherCollegeGroup.style.display = 'none';
-                    
-                    if (country === 'India') {
-                        collegeGroup.style.display = 'block';
-                        // Add Indian colleges
-                        const indianColleges = [
-                            'SOA University',
-                            'Utkal University',
-                            'Silicon Institute of Technology',
-                            'Regional Institute of Education',
-                            'Other'
-                        ];
-                        
-                        indianColleges.forEach(college => {
-                            const option = document.createElement('option');
-                            option.value = college;
-                            option.textContent = college;
-                            collegeSelect.appendChild(option);
-                        });
-                    } else if (country === 'Nepal') {
-                        collegeGroup.style.display = 'block';
-                        // Add Nepalese colleges
-                        const nepalColleges = [
-                            'Global College',
-                            'NIST College',
-                            'KIST College',
-                            'Other'
-                        ];
-                        
-                        nepalColleges.forEach(college => {
-                            const option = document.createElement('option');
-                            option.value = college;
-                            option.textContent = college;
-                            collegeSelect.appendChild(option);
-                        });
-                    } else if (country === 'Other') {
-                        otherCollegeGroup.style.display = 'block';
-                    }
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
                 });
             }
             
-            // College selection logic
-            if (collegeSelect) {
-                collegeSelect.addEventListener('change', function() {
-                    if (this.value === 'Other') {
-                        otherCollegeGroup.style.display = 'block';
-                    } else {
-                        otherCollegeGroup.style.display = 'none';
-                    }
+            // Close mobile menu when clicking on links
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                 });
-            }
-            
-            // Check if we're showing the success message (after form submission)
-            if (window.location.hash === '#success-message') {
-                const successMessage = document.getElementById('success-message');
-                const kiitFormElement = document.getElementById('volunteer-form-kiit');
-                const nonKiitFormElement = document.getElementById('volunteer-form-external');
-                
-                if (successMessage) {
-                    // Hide all forms and verification
-                    verificationContainer.style.display = 'none';
-                    kiitForm.style.display = 'none';
-                    nonKiitForm.style.display = 'none';
-                    successMessage.style.display = 'block';
-                    
-                    // Scroll to the success message
-                    setTimeout(() => {
-                        successMessage.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                }
-            }
+            });
             
             // Fade-in animation on scroll
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -952,14 +900,22 @@
             window.addEventListener('load', checkFade);
             checkFade();
             
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                });
+            // Check if we're showing the success message (after form submission)
+            if (window.location.hash === '#success-message') {
+                const successMessage = document.getElementById('success-message');
+                const kiitFormElement = document.getElementById('volunteer-form-kiit');
+                
+                if (successMessage) {
+                    // Hide all forms and verification
+                    verificationContainer.style.display = 'none';
+                    kiitForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Scroll to the success message
+                    setTimeout(() => {
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
             }
         });
     </script>

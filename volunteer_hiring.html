@@ -132,7 +132,8 @@
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 25px;
         }
         
         .nav-links a {
@@ -141,6 +142,7 @@
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            white-space: nowrap;
         }
         
         .nav-links a:hover {
@@ -162,6 +164,25 @@
             width: 100%;
         }
         
+        .nav-links .btn {
+            margin: 0;
+        }
+        
+        .kiit-logo {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .kiit-logo:hover {
+            transform: scale(1.05);
+        }
+        
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -176,7 +197,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 14px 32px;
+            padding: 12px 24px;
             background: transparent;
             color: var(--accent-blue);
             border: 1px solid var(--accent-blue);
@@ -186,7 +207,6 @@
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 5px;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -280,6 +300,67 @@
             font-size: 3rem;
             color: var(--accent-blue);
             margin-bottom: 20px;
+        }
+        
+        /* Certificate Section */
+        .certificate-section {
+            background: var(--card-bg);
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 80px auto;
+            max-width: 1000px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+        }
+        .certificate-title {
+    text-align: center;
+    width: 100%;
+}
+
+        
+        .certificate-title {
+            margin-bottom: 30px;
+        }
+        
+        .certificate-desc {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .certificate-placeholder {
+            width: 100%;
+            max-width: 700px;
+            height: 450px;
+            margin: 0 auto;
+            background: rgba(10, 14, 23, 0.6);
+            border: 2px dashed var(--accent-blue);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .certificate-placeholder:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(76, 201, 240, 0.3);
+        }
+        
+        .certificate-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+        
+        .certificate-placeholder p {
+            font-size: 1.1rem;
         }
         
         /* Roles Section */
@@ -594,6 +675,10 @@
                 flex-direction: column;
                 gap: 0;
             }
+            
+            .certificate-placeholder {
+                height: 350px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -637,57 +722,69 @@
             .footer-social-links {
                 justify-content: center;
             }
+            
+            .certificate-section {
+                padding: 40px 20px;
+            }
+            
+            .certificate-placeholder {
+                height: 250px;
+            }
+            
+            .certificate-placeholder i {
+                font-size: 3rem;
+            }
         }
 
         /* Mobile Navigation Styles */
-@media (max-width: 768px) {
-    .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 14, 23, 0.98);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        border-top: 1px solid rgba(76, 201, 240, 0.2);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        height: 0;
-        overflow: hidden;
-        transition: height 0.4s ease;
-        display: flex !important; /* Force display flex when active */
-    }
-    
-    .nav-links.active {
-        height: calc(100vh - 70px);
-        overflow-y: auto;
-    }
-    
-    .nav-links a {
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(76, 201, 240, 0.1);
-        width: 100%;
-        text-align: center;
-    }
-    
-    .nav-links a:last-child {
-        border-bottom: none;
-    }
-    
-    /* Close button style */
-    .mobile-menu-btn .close-icon {
-        display: none;
-    }
-    
-    .mobile-menu-btn.active .close-icon {
-        display: block;
-    }
-    
-    .mobile-menu-btn.active .menu-icon {
-        display: none;
-    }
-}
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 14, 23, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-top: 1px solid rgba(76, 201, 240, 0.2);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                height: 0;
+                overflow: hidden;
+                transition: height 0.4s ease;
+                display: flex !important; /* Force display flex when active */
+            }
+            
+            .nav-links.active {
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            
+            .nav-links a {
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(76, 201, 240, 0.1);
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            
+            /* Close button style */
+            .mobile-menu-btn .close-icon {
+                display: none;
+            }
+            
+            .mobile-menu-btn.active .close-icon {
+                display: block;
+            }
+            
+            .mobile-menu-btn.active .menu-icon {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -696,7 +793,7 @@
         <div class="container nav-container">
             <a href="index.html" class="logo">
                 <div class="logo-img">
-                    <i class="fas fa-laptop-code"></i>
+                    <img src="ieeecs.png" alt="ieeecskiit logo" style="width: 100px; height: 40px;">
                 </div>
                 IEEE CS KIIT
             </a>
@@ -708,12 +805,15 @@
                 <a href="index.html#gallery">Gallery</a>
                 <a href="index.html#contact">Contact</a>
                 <a href="index.html#join" class="btn btn-primary">Join Us</a>
+                <a href="https://kiit.ac.in/" class="kiit-logo">
+                    <img src="kiit-logo.png" alt="KIIT" style="width: 60px; height: 50px;">
+                </a>
             </div>
             
             <button class="mobile-menu-btn">
-    <i class="fas fa-bars menu-icon"></i>
-    <i class="fas fa-times close-icon"></i>
-</button>
+                <i class="fas fa-bars menu-icon"></i>
+                <i class="fas fa-times close-icon"></i>
+            </button>
         </div>
     </nav>
 
@@ -783,6 +883,24 @@
                     <h3>Creative Freedom</h3>
                     <p>Bring your ideas to life and have the opportunity to initiate and lead projects that align with your interests.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Section -->
+    <section id="certificate">
+        <div class="container">
+            <div class="certificate-section fade-in">
+                <h2 class="section-title certificate-title">Volunteer Certification</h2>
+                <p class="certificate-desc">Our dedicated volunteers receive official recognition for their contributions. Upon successful completion of your volunteering term, you'll receive a professionally designed certificate that validates your skills and commitment.</p>
+                
+                <div class="certificate-placeholder">
+                    <i class="fas fa-award"></i>
+                    <p>Sample Volunteer Certificate Preview</p>
+                    <p class="text-small">(Certificate design will be displayed here)</p>
+                </div>
+                
+                <p class="certificate-desc">This certificate serves as formal recognition of your valuable contribution to our community and can enhance your professional portfolio.</p>
             </div>
         </div>
     </section>
@@ -980,7 +1098,6 @@
         </div>
     </section>
 
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1100,34 +1217,26 @@
             const navLinks = document.querySelector('.nav-links');
             
             mobileMenuBtn.addEventListener('click', () => {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                }
             });
         });
-
-        // Mobile menu toggle
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navLinks = document.querySelector('.nav-links');
-
-mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    mobileMenuBtn.classList.toggle('active');
-});
-
-// Close menu when clicking on a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-    });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-    }
-});
     </script>
 </body>
 </html>

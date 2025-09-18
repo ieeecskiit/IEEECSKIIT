@@ -87,29 +87,11 @@
         }
         
         /* Navigation */
-        #navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(10, 14, 23, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(76, 201, 240, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        #navbar.scrolled {
-            padding: 10px 0;
-            background: rgba(10, 14, 23, 0.98);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .nav-container {
+       .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 15px;
         }
         
         .logo {
@@ -121,6 +103,7 @@
             font-size: 1.5rem;
             color: var(--text-primary);
             text-decoration: none;
+            z-index: 1001;
         }
         
         .logo-img {
@@ -131,11 +114,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 20px;
         }
         
         .nav-links a {
@@ -144,13 +135,14 @@
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            white-space: nowrap;
         }
         
-        .nav-links a:hover {
+        .nav-links a:not(.btn):hover {
             color: var(--accent-blue);
         }
         
-        .nav-links a::after {
+        .nav-links a:not(.btn)::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -161,8 +153,36 @@
             transition: width 0.3s ease;
         }
         
-        .nav-links a:hover::after {
+        .nav-links a:not(.btn):hover::after {
             width: 100%;
+        }
+        
+        .nav-links .btn {
+            margin: 0;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .kiit-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .kiit-logo:hover {
+            transform: scale(1.05);
+        }
+        #navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(10, 14, 23, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .kiit-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
         
         .mobile-menu-btn {
@@ -172,8 +192,123 @@
             color: var(--text-primary);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
         }
         
+        /* Mobile Navigation */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .nav-links .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .nav-links a:not(.btn, .kiit-logo) {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 14, 23, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                gap: 20px;
+                transition: right 0.4s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links a:not(.btn, .kiit-logo) {
+                display: block;
+                width: 100%;
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(76, 201, 240, 0.1);
+                text-align: left;
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-links .btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            .kiit-logo {
+                display: none;
+            }
+            
+            .mobile-menu-btn .close-icon {
+                display: none;
+            }
+            
+            .mobile-menu-btn.active .close-icon {
+                display: block;
+            }
+            
+            .mobile-menu-btn.active .menu-icon {
+                display: none;
+            }
+            
+            /* Overlay when menu is open */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            }
+            
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .logo-img {
+                width: 35px;
+                height: 35px;
+            }
+        }
         /* Buttons */
         .btn {
             display: inline-flex;
@@ -1372,8 +1507,7 @@
                 <a href="#join" class="btn btn-primary">Join Us</a>
                 <a href="https://kiit.ac.in/" >
     <img src="kiit-logo.png" alt="KIIT" 
-     style="width: 80px; height: 60px;  ">
-</a>
+     style="width: 70px; height: 60px;  "></a>
             </div>
             
             <button class="mobile-menu-btn">
@@ -1431,7 +1565,9 @@
             <div class="vision-mission">
                 <div class="vision-card">
                     <h3><i class="fas fa-eye"></i> Our Vision</h3>
-                    <p>To create a community of technologically proficient and ethically grounded professionals who drive innovation and excel in the field of computer science and engineering.</p>
+                    <p> To foster a vibrant community of innovators, researchers, and responsible leaders in computer science, engineering, and related fields.
+To provide a dedicated platform for research, innovation, professional development, and global networking.
+To advance science and technology for the benefit of humanity and a sustainable future</p>
                 </div>
                 
                 <div class="mission-card">
@@ -1453,7 +1589,8 @@
                         <i class="fas fa-medal"></i>
                     </div>
                     <h3>Technical Excellence</h3>
-                    <p>Equip students with advanced knowledge in AI, ML, Cybersecurity, Cloud, IoT, and other emerging technologies through workshops, hackathons, and projects.</p>
+                    <p>To organize workshops, hackathons, coding competitions, and technical talks to strengthen members’ knowledge in emerging areas of computer science and engineering.
+</p>
                 </div>
                 
                 <div class="objective-card fade-in">
@@ -1461,7 +1598,8 @@
                         <i class="fas fa-flask"></i>
                     </div>
                     <h3>Research & Innovation</h3>
-                    <p>Encourage research-based learning, paper writing, and real-world problem solving in collaboration with industry and global organizations.</p>
+                    <p>To promote student-led research projects, paper publications, and participation in reputed conferences, journals, and technical competitions.
+</p>
                 </div>
                 
                 <div class="objective-card fade-in">
@@ -1477,7 +1615,8 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>Professional Development</h3>
-                    <p>Enhance members' leadership, teamwork, and communication skills through volunteering and executive roles.</p>
+                    <p>To provide mentorship, career guidance, certification opportunities, and exposure to industry trends, preparing students for successful global careers.
+</p>
                 </div>
                 
                 <div class="objective-card fade-in">
@@ -1485,7 +1624,8 @@
                         <i class="fas fa-scale-balanced"></i>
                     </div>
                     <h3>Ethics & Responsibility</h3>
-                    <p>Promote ethical technology development, responsible AI, and awareness of societal impact.</p>
+                    <p>To promote the ethical use of computing technologies, uphold integrity in research and publications, and create awareness of the societal and environmental impacts of technological development.
+</p>
                 </div>
                 
                 <div class="objective-card fade-in">
@@ -1493,7 +1633,8 @@
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3>Global Networking</h3>
-                    <p>Connect KIIT students with global IEEE Computer Society communities, conferences, and competitions.</p>
+                    <p>To facilitate collaboration with industry experts, academia, interdisciplinary domains, and global IEEE Computer Society members to broaden opportunities and exposure.
+</p>
                 </div>
             </div>
         </div>
