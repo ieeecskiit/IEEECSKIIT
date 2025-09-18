@@ -377,6 +377,17 @@
             background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
         }
         
+        /* Floating Volunteer Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 12px 24px;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(76, 201, 240, 0.4);
+        }
+        
         /* Hero Section */
         #hero {
             min-height: 100vh;
@@ -402,6 +413,7 @@
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
+            padding: 20px;
         }
         
         .hero-title {
@@ -1172,6 +1184,7 @@
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s ease;
+            display: inline-block;
         }
         
         .footer-links a:hover {
@@ -1259,6 +1272,13 @@
             
             .partners-container {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .floating-btn {
+                bottom: 70px;
+                right: 15px;
+                font-size: 12px;
+                padding: 10px 15px;
             }
         }
 
@@ -1471,6 +1491,11 @@
             <div class="nav-overlay"></div>
         </div>
     </nav>
+
+    <!-- Floating Volunteer Button -->
+    <a href="volunteer_hiring.html" class="btn btn-primary floating-btn volunteer-btn">
+        <i class="fas fa-hands-helping"></i>Apply as Volunteer
+    </a>
 
     <!-- Hero Section -->
     <section id="hero">
@@ -2148,7 +2173,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                     
                     <div class="contact-card">
                         <h3><i class="fas fa-envelope"></i> Email</h3>
-                        <p>ieeecskiit@gmail.com</p>
+                    <p>ieeecskiit@gmail.com</p>
                     </div>
                     
                     <div class="contact-card">
@@ -2304,19 +2329,49 @@ To advance science and technology for the benefit of humanity and a sustainable 
             const meetTeamBtn = document.getElementById('meet-team-btn');
             const additionalMembers = document.getElementById('additional-members');
             
-            meetTeamBtn.addEventListener('click', function() {
-                additionalMembers.classList.toggle('active');
-                
-                if (additionalMembers.classList.contains('active')) {
-                    meetTeamBtn.innerHTML = '<i class="fas fa-times"></i>Show Less';
-                } else {
-                    meetTeamBtn.innerHTML = '<i class="fas fa-users"></i>Meet the Entire Team';
-                }
-            });
+            if (meetTeamBtn && additionalMembers) {
+                meetTeamBtn.addEventListener('click', function() {
+                    additionalMembers.classList.toggle('active');
+                    
+                    if (additionalMembers.classList.contains('active')) {
+                        meetTeamBtn.innerHTML = '<i class="fas fa-times"></i>Show Less';
+                    } else {
+                        meetTeamBtn.innerHTML = '<i class="fas fa-users"></i>Meet the Entire Team';
+                    }
+                });
+            }
             
-            // Event filtering
+            // Event filtering functionality
             const eventFilters = document.querySelectorAll('.event-filter');
+            const eventCards = document.querySelectorAll('.event-card');
+            const allEventsSection = document.getElementById('all-events');
+            const seeAllBtn = document.getElementById('see-all-btn');
             
+            // Function to filter events
+            function filterEvents(category) {
+                // Filter initial events
+                eventCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Also filter events in the "all events" section if it's visible
+                if (allEventsSection && allEventsSection.classList.contains('active')) {
+                    const allEventCards = allEventsSection.querySelectorAll('.event-card');
+                    allEventCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            }
+            
+            // Add click event to filters
             eventFilters.forEach(filter => {
                 filter.addEventListener('click', () => {
                     // Remove active class from all filters
@@ -2325,11 +2380,27 @@ To advance science and technology for the benefit of humanity and a sustainable 
                     // Add active class to clicked filter
                     filter.classList.add('active');
                     
-                    // In a real implementation, you would filter events here
-                    // For this example, we'll just simulate filtering
-                    console.log(`Filtering events by: ${filter.textContent}`);
+                    // Filter events
+                    const filterValue = filter.dataset.filter;
+                    filterEvents(filterValue);
                 });
             });
+            
+            // See All Events button functionality
+            if (seeAllBtn && allEventsSection) {
+                seeAllBtn.addEventListener('click', function() {
+                    allEventsSection.classList.toggle('active');
+                    
+                    if (allEventsSection.classList.contains('active')) {
+                        seeAllBtn.innerHTML = '<i class="fas fa-chevron-up"></i>Show Less Events';
+                        // Apply current filter to the expanded events too
+                        const activeFilter = document.querySelector('.event-filter.active').dataset.filter;
+                        filterEvents(activeFilter);
+                    } else {
+                        seeAllBtn.innerHTML = '<i class="fas fa-chevron-down"></i>See All Events';
+                    }
+                });
+            }
             
             // Fade-in animation on scroll
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -2363,25 +2434,27 @@ To advance science and technology for the benefit of humanity and a sustainable 
                 body.style.overflow = body.style.overflow === 'hidden' ? '' : 'hidden';
             }
 
-            mobileMenuBtn.addEventListener('click', toggleMenu);
-            
-            navOverlay.addEventListener('click', toggleMenu);
+            if (mobileMenuBtn && navLinks && navOverlay) {
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+                
+                navOverlay.addEventListener('click', toggleMenu);
 
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            toggleMenu();
+                        }
+                    });
+                });
+
+                // Close menu when pressing Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && navLinks.classList.contains('active')) {
                         toggleMenu();
                     }
                 });
-            });
-
-            // Close menu when pressing Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
+            }
             
             // Form submission
             const contactForm = document.querySelector('.contact-form form');
