@@ -86,8 +86,27 @@
             border-radius: 3px;
         }
         
-        /* Navigation */
-       .nav-container {
+        /* ========== NAVIGATION FIXES ========== */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        #navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(10, 14, 23, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -172,11 +191,6 @@
         
         .kiit-logo:hover {
             transform: scale(1.05);
-        }
-        #navbar.scrolled {
-            padding: 10px 0;
-            background: rgba(10, 14, 23, 0.98);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
         
         .kiit-logo img {
@@ -309,6 +323,8 @@
                 height: 35px;
             }
         }
+        /* ========== END NAVIGATION FIXES ========== */
+        
         /* Buttons */
         .btn {
             display: inline-flex;
@@ -449,37 +465,35 @@
         }
         
         .about-text {
-  padding: 0 40px;   /* adds 40px left + right spacing */
-  line-height: 1.8;  /* improves readability */
-  flex: 2;
-}
+            padding: 0 40px;
+            line-height: 1.8;
+            flex: 2;
+        }
 
-.about-text p {
-  margin-bottom: 15px; /* space between paragraphs */
-  line-height: 1.7;    /* slightly more space between lines */
-}
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
 
-.about-content h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
 
-@media (max-width: 768px) {
-  .about-section {
-    flex-direction: column;
-    text-align: center;
-  }
-  .about-text {
-    padding: 20px;
-  }
-}
+        @media (max-width: 768px) {
+            .about-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-text {
+                padding: 20px;
+            }
+        }
 
-.about-content p {
-  font-size: 1.1rem;
-  color: #ddd; /* softer than pure white */
-}
-
-
+        .about-content p {
+            font-size: 1.1rem;
+            color: #ddd;
+        }
         
         .about-image {
             position: relative;
@@ -491,7 +505,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            
         }
         
         .about-image i {
@@ -1215,14 +1228,6 @@
         }
         
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
             .hero-title {
                 font-size: 2.5rem;
             }
@@ -1256,7 +1261,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
 
         .leader-card {
             background: var(--card-bg);
@@ -1297,8 +1301,6 @@
             font-weight: 500;
             margin-bottom: 15px;
         }
-        
-        /* Previous CSS code remains the same, adding only new styles */
         
         /* Modal/Popup Styles */
         .modal {
@@ -1434,56 +1436,6 @@
                 gap: 0;
             }
         }
-
-        /* Mobile Navigation Styles */
-@media (max-width: 768px) {
-    .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 14, 23, 0.98);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        border-top: 1px solid rgba(76, 201, 240, 0.2);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        height: 0;
-        overflow: hidden;
-        transition: height 0.4s ease;
-        display: flex !important; /* Force display flex when active */
-    }
-    
-    .nav-links.active {
-        height: calc(100vh - 70px);
-        overflow-y: auto;
-    }
-    
-    .nav-links a {
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(76, 201, 240, 0.1);
-        width: 100%;
-        text-align: center;
-    }
-    
-    .nav-links a:last-child {
-        border-bottom: none;
-    }
-    
-    /* Close button style */
-    .mobile-menu-btn .close-icon {
-        display: none;
-    }
-    
-    .mobile-menu-btn.active .close-icon {
-        display: block;
-    }
-    
-    .mobile-menu-btn.active .menu-icon {
-        display: none;
-    }
-}
     </style>
 </head>
 <body>
@@ -1492,7 +1444,7 @@
         <div class="container nav-container">
             <a href="#" class="logo">
                 <div class="logo-img">
-                    <img src="ieeecs.png" alt=" IEEE logo" style="width: 100px; height: 40px;  ">
+                    <img src="ieeecs.png" alt="IEEE CS KIIT Logo">
                 </div>
                 IEEE CS KIIT
             </a>
@@ -1505,15 +1457,18 @@
                 <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
                 <a href="#join" class="btn btn-primary">Join Us</a>
-                <a href="https://kiit.ac.in/" >
-    <img src="kiit-logo.png" alt="KIIT" 
-     style="width: 70px; height: 60px;  "></a>
+                <a href="https://kiit.ac.in/" class="kiit-logo">
+                    <img src="kiit-logo.png" alt="KIIT University">
+                </a>
             </div>
             
             <button class="mobile-menu-btn">
-    <i class="fas fa-bars menu-icon"></i>
-    <i class="fas fa-times close-icon"></i>
-</button>
+                <i class="fas fa-bars menu-icon"></i>
+                <i class="fas fa-times close-icon"></i>
+            </button>
+            
+            <!-- Overlay for mobile menu -->
+            <div class="nav-overlay"></div>
         </div>
     </nav>
 
@@ -1798,7 +1753,6 @@ To advance science and technology for the benefit of humanity and a sustainable 
     </section>
 
     <!-- Events Section -->
-      <!-- Events Section -->
     <section id="events">
         <div class="container">
             <h2 class="section-title">Our Events</h2>
@@ -2295,16 +2249,6 @@ To advance science and technology for the benefit of humanity and a sustainable 
                 <p>&copy; 2025 IEEE Computer Society KIIT Student Branch Chapter. All rights reserved.</p>
             </div>
         </div>
-
-        <!-- Other sections remain the same -->
-    
-    <!-- Volunteer Application Modal -->
-    <div id="volunteer-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title">Apply as a Volunteer</h2>
-        </div>
-    </div>
     </footer>
 
     <!-- JavaScript -->
@@ -2406,12 +2350,37 @@ To advance science and technology for the benefit of humanity and a sustainable 
             window.addEventListener('load', checkFade);
             checkFade();
             
-            // Mobile menu toggle
+            // Mobile menu functionality
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinks = document.querySelector('.nav-links');
+            const navOverlay = document.querySelector('.nav-overlay');
+            const body = document.body;
+
+            function toggleMenu() {
+                mobileMenuBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                body.style.overflow = body.style.overflow === 'hidden' ? '' : 'hidden';
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleMenu);
             
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navOverlay.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Close menu when pressing Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
             });
             
             // Form submission
@@ -2433,152 +2402,28 @@ To advance science and technology for the benefit of humanity and a sustainable 
                     this.reset();
                 });
             }
-        });
-    </script>
-
-     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Previous JavaScript code remains the same
             
-            // Event filtering functionality
-            const eventFilters = document.querySelectorAll('.event-filter');
-            const eventCards = document.querySelectorAll('.event-card');
-            const allEventsSection = document.getElementById('all-events');
-            const seeAllBtn = document.getElementById('see-all-btn');
-            
-            // Function to filter events
-            function filterEvents(category) {
-                eventCards.forEach(card => {
-                    if (category === 'all' || card.dataset.category === category) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = document.getElementById('navbar').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
                     }
                 });
-                
-                // Also filter events in the "all events" section if it's visible
-                if (allEventsSection.classList.contains('active')) {
-                    const allEventCards = allEventsSection.querySelectorAll('.event-card');
-                    allEventCards.forEach(card => {
-                        if (category === 'all' || card.dataset.category === category) {
-                            card.classList.remove('hidden');
-                        } else {
-                            card.classList.add('hidden');
-                        }
-                    });
-                }
-            }
-            
-            // Add click event to filters
-            eventFilters.forEach(filter => {
-                filter.addEventListener('click', () => {
-                    // Remove active class from all filters
-                    eventFilters.forEach(f => f.classList.remove('active'));
-                    
-                    // Add active class to clicked filter
-                    filter.classList.add('active');
-                    
-                    // Filter events
-                    const filterValue = filter.dataset.filter;
-                    filterEvents(filterValue);
-                });
             });
-            
-            // See All Events button functionality
-            seeAllBtn.addEventListener('click', function() {
-                allEventsSection.classList.toggle('active');
-                
-                if (allEventsSection.classList.contains('active')) {
-                    seeAllBtn.innerHTML = '<i class="fas fa-chevron-up"></i>Show Less Events';
-                    // Apply current filter to the expanded events too
-                    const activeFilter = document.querySelector('.event-filter.active').dataset.filter;
-                    filterEvents(activeFilter);
-                } else {
-                    seeAllBtn.innerHTML = '<i class="fas fa-chevron-down"></i>See All Events';
-                }
-            });
-            
-            // Volunteer Modal functionality
-            const volunteerModal = document.getElementById('volunteer-modal');
-            const volunteerBtns = document.querySelectorAll('.volunteer-btn'); // You'll need to add this class to buttons that should open the modal
-            const closeModal = document.querySelector('.close-modal');
-            
-            // Function to open modal
-            function openVolunteerModal() {
-                volunteerModal.style.display = 'block';
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
-            
-            // Function to close modal
-            function closeVolunteerModal() {
-                volunteerModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Re-enable scrolling
-            }
-            
-            // Add click event to volunteer buttons (you need to add .volunteer-btn class to these)
-            if (volunteerBtns.length > 0) {
-                volunteerBtns.forEach(btn => {
-                    btn.addEventListener('click', openVolunteerModal);
-                });
-            }
-            
-            // Close modal when clicking on X
-            closeModal.addEventListener('click', closeVolunteerModal);
-            
-            // Close modal when clicking outside of it
-            window.addEventListener('click', function(event) {
-                if (event.target === volunteerModal) {
-                    closeVolunteerModal();
-                }
-            });
-            
-            // Volunteer form submission
-            const volunteerForm = document.querySelector('.volunteer-form');
-            if (volunteerForm) {
-                volunteerForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Thank you for your volunteer application! We will review it and get back to you soon.');
-                    this.reset();
-                    closeVolunteerModal();
-                });
-            }
-            
-            // Add volunteer button to the page (example placement - you can position it wherever you want)
-            const volunteerButton = document.createElement('a');
-            volunteerButton.href = 'volunteer_hiring.html';
-            volunteerButton.className = 'btn btn-primary volunteer-btn floating-btn';
-            volunteerButton.innerHTML = '<i class="fas fa-hands-helping"></i>Apply as Volunteer';
-            volunteerButton.style.position = 'fixed';
-            volunteerButton.style.bottom = '20px';
-            volunteerButton.style.right = '20px';
-            volunteerButton.style.zIndex = '1000';
-            document.body.appendChild(volunteerButton);
         });
-
-        // Mobile menu toggle
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navLinks = document.querySelector('.nav-links');
-
-mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    mobileMenuBtn.classList.toggle('active');
-});
-
-// Close menu when clicking on a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-    });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-    }
-});
     </script>
 </body>
 </html>
