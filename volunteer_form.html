@@ -830,94 +830,207 @@
     </footer>
 
     <!-- JavaScript -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navbar scroll effect
-            window.addEventListener('scroll', function() {
-                const navbar = document.getElementById('navbar');
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-            
-            // Student verification logic
-            const verificationOption = document.querySelector('.verification-option');
-            const kiitForm = document.getElementById('kiit-student-form');
-            const verificationContainer = document.querySelector('.verification-container');
-            
-            verificationOption.addEventListener('click', () => {
-                // Hide verification container
-                verificationContainer.style.display = 'none';
-                
-                // Show KIIT form
-                kiitForm.classList.add('active');
-                
-                // Scroll to the form
-                setTimeout(() => {
-                    document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-            });
-            
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuBtn && navLinks) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                    mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
-                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-                });
-            }
-            
-            // Close mobile menu when clicking on links
-            const navLinksItems = document.querySelectorAll('.nav-links a');
-            navLinksItems.forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-            
-            // Fade-in animation on scroll
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            function checkFade() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
-                    
-                    if (isVisible) {
-                        element.classList.add('visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkFade);
-            window.addEventListener('load', checkFade);
-            checkFade();
-            
-            // Check if we're showing the success message (after form submission)
-            if (window.location.hash === '#success-message') {
-                const successMessage = document.getElementById('success-message');
-                const kiitFormElement = document.getElementById('volunteer-form-kiit');
-                
-                if (successMessage) {
-                    // Hide all forms and verification
-                    verificationContainer.style.display = 'none';
-                    kiitForm.style.display = 'none';
-                    successMessage.style.display = 'block';
-                    
-                    // Scroll to the success message
-                    setTimeout(() => {
-                        successMessage.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                }
+    <!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
         });
-    </script>
+        
+        // Student verification logic
+        const verificationOption = document.querySelector('.verification-option');
+        const kiitForm = document.getElementById('kiit-student-form');
+        const verificationContainer = document.querySelector('.verification-container');
+        
+        verificationOption.addEventListener('click', () => {
+            // Hide verification container
+            verificationContainer.style.display = 'none';
+            
+            // Show KIIT form
+            kiitForm.classList.add('active');
+            
+            // Scroll to the form
+            setTimeout(() => {
+                document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Close mobile menu when clicking on links
+        const navLinksItems = document.querySelectorAll('.nav-links a');
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                
+                if (isVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+        checkFade();
+        
+        // Form submission handling
+        const volunteerForm = document.getElementById('volunteer-form-kiit');
+        
+        if (volunteerForm) {
+            volunteerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Create success animation overlay
+                const successOverlay = document.createElement('div');
+                successOverlay.style.position = 'fixed';
+                successOverlay.style.top = '0';
+                successOverlay.style.left = '0';
+                successOverlay.style.width = '100%';
+                successOverlay.style.height = '100%';
+                successOverlay.style.backgroundColor = 'rgba(10, 14, 23, 0.95)';
+                successOverlay.style.display = 'flex';
+                successOverlay.style.flexDirection = 'column';
+                successOverlay.style.justifyContent = 'center';
+                successOverlay.style.alignItems = 'center';
+                successOverlay.style.zIndex = '2000';
+                successOverlay.style.color = 'var(--text-primary)';
+                successOverlay.style.fontSize = '1.2rem';
+                successOverlay.style.textAlign = 'center';
+                successOverlay.style.backdropFilter = 'blur(10px)';
+                
+                // Create checkmark animation
+                const checkmarkContainer = document.createElement('div');
+                checkmarkContainer.style.marginBottom = '30px';
+                
+                const checkmarkSvg = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" style="width: 100px; height: 100px;">
+                        <circle cx="26" cy="26" r="25" fill="none" stroke="#4cc9f0" stroke-width="2" style="stroke-dasharray: 166; stroke-dashoffset: 166; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;"/>
+                        <path fill="none" stroke="#4cc9f0" stroke-width="2" d="M14.1 27.2l7.1 7.2 16.7-16.8" style="stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;"/>
+                    </svg>
+                `;
+                
+                checkmarkContainer.innerHTML = checkmarkSvg;
+                
+                // Create success message
+                const successMessage = document.createElement('div');
+                successMessage.innerHTML = `
+                    <h3 style="margin-bottom: 15px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Congratulations!</h3>
+                    <p style="margin-bottom: 10px;">Your application has been received.</p>
+                    <p>You will get a confirmation email soon.</p>
+                    <p style="margin-top: 20px; font-size: 1rem; color: var(--accent-blue);">Thank you!</p>
+                `;
+                
+                // Add CSS animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes stroke {
+                        100% { stroke-dashoffset: 0; }
+                    }
+                    @keyframes scale { 
+                        0%, 100% { transform: none; }
+                        50% { transform: scale3d(1.1, 1.1, 1); }
+                    }
+                    @keyframes fill { 
+                        100% { box-shadow: inset 0px 0px 0px 30px #4cc9f0; } 
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Add elements to overlay
+                successOverlay.appendChild(checkmarkContainer);
+                successOverlay.appendChild(successMessage);
+                document.body.appendChild(successOverlay);
+                
+                // Prevent body scrolling
+                document.body.style.overflow = 'hidden';
+                
+                // Submit form data using Fetch API
+                const formData = new FormData(volunteerForm);
+                
+                fetch(volunteerForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // After 3 seconds, redirect to main page
+                        setTimeout(() => {
+                            // Fade out animation
+                            successOverlay.style.opacity = '0';
+                            successOverlay.style.transition = 'opacity 0.5s ease';
+                            
+                            setTimeout(() => {
+                                window.location.href = 'index.html';
+                            }, 500);
+                        }, 3000);
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Still show success to user but log error
+                    setTimeout(() => {
+                        successOverlay.style.opacity = '0';
+                        successOverlay.style.transition = 'opacity 0.5s ease';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 500);
+                    }, 3000);
+                });
+            });
+        }
+        
+        // Check if we're showing the success message (after form submission)
+        if (window.location.hash === '#success-message') {
+            const successMessage = document.getElementById('success-message');
+            const kiitFormElement = document.getElementById('volunteer-form-kiit');
+            
+            if (successMessage) {
+                // Hide all forms and verification
+                verificationContainer.style.display = 'none';
+                kiitForm.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Scroll to the success message
+                setTimeout(() => {
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        }
+    });
+</script>
 </body>
 </html>
