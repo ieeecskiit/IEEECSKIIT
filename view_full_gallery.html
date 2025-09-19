@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Gallery - IEEE CS KIIT</title>
+    <link rel="icon" type="image/png" href="ieeecs.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a0e17;
+            --secondary: #131a2c;
+            --accent-blue: #4cc9f0;
+            --accent-purple: #9d4edd;
+            --accent-pink: #f72585;
+            --text-primary: #e6f1ff;
+            --text-secondary: #a8b2d1;
+            --card-bg: rgba(25, 30, 47, 0.8);
+            --gradient: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            --neon-glow: 0 0 10px rgba(76, 201, 240, 0.7), 0 0 20px rgba(76, 201, 240, 0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(29, 78, 216, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.1) 0%, transparent 25%);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        /* Navigation */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        #navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(10, 14, 23, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            z-index: 1001;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:not(.btn):hover {
+            color: var(--accent-blue);
+        }
+        
+        .nav-links a:not(.btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:not(.btn):hover::after {
+            width: 100%;
+        }
+        
+        .nav-links .btn {
+            margin: 0;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .kiit-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .kiit-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .kiit-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        /* Mobile Navigation */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .nav-links .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .nav-links a:not(.btn, .kiit-logo) {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 14, 23, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                padding: 80px 30px 30px;
+                gap: 20px;
+                transition: right 0.4s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links a:not(.btn, .kiit-logo) {
+                display: block;
+                width: 100%;
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(76, 201, 240, 0.1);
+                text-align: left;
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-links .btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            .kiit-logo {
+                display: none;
+            }
+            
+            .mobile-menu-btn .close-icon {
+                display: none;
+            }
+            
+            .mobile-menu-btn.active .close-icon {
+                display: block;
+            }
+            
+            .mobile-menu-btn.active .menu-icon {
+                display: none;
+            }
+            
+            /* Overlay when menu is open */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+            }
+            
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .logo-img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--gradient);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        .btn:hover {
+            color: var(--text-primary);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--text-primary);
+            border: none;
+        }
+        
+        .btn-primary::before {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+        }
+        
+        /* Event Cards */
+        .events-container {
+            margin-top: 50px;
+        }
+        
+        .event-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .event-filter {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(76, 201, 240, 0.1);
+        }
+        
+        .event-filter.active, .event-filter:hover {
+            background: var(--gradient);
+            color: var(--text-primary);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-blue);
+        }
+        
+        .event-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .event-card:hover .event-image img {
+            transform: scale(1.05);
+        }
+        
+        .event-capture-count {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(10, 14, 23, 0.8);
+            color: var(--accent-blue);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .event-capture-count:hover {
+            background: var(--accent-blue);
+            color: var(--text-primary);
+        }
+        
+        .event-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-date {
+            color: var(--accent-blue);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .event-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .event-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .event-tag {
+            padding: 5px 12px;
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--accent-blue);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Modal/Popup Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 14, 23, 0.98);
+            z-index: 2000;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            position: relative;
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 30px rgba(76, 201, 240, 0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-blue);
+        }
+        
+        .modal-title {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Media Gallery Styles */
+        .media-gallery {
+            margin-top: 30px;
+        }
+        
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.2);
+        }
+        
+        .gallery-tabs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .gallery-tab {
+            padding: 8px 16px;
+            background: rgba(10, 14, 23, 0.6);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-tab.active {
+            background: var(--gradient);
+            color: var(--text-primary);
+        }
+        
+        .media-counter {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .media-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .media-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .media-item-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(10, 14, 23, 0.8);
+            color: var(--text-primary);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .media-item-type {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(10, 14, 23, 0.8);
+            color: var(--text-primary);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Fullscreen Media Viewer */
+        .media-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 14, 23, 0.98);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .media-viewer.active {
+            display: flex;
+        }
+        
+        .viewer-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+        }
+        
+        .viewer-content img, .viewer-content video {
+            width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        
+        .viewer-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(10, 14, 23, 0.8);
+            padding: 10px 15px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .viewer-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .viewer-btn:hover {
+            background: var(--accent-blue);
+        }
+        
+        .viewer-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            background: rgba(10, 14, 23, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .viewer-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--text-primary);
+            background: rgba(10, 14, 23, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Animation utilities */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .modal-content {
+                padding: 30px;
+            }
+            
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                margin: 10% auto;
+                width: 95%;
+            }
+            
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .gallery-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .viewer-content {
+                width: 95%;
+            }
+            
+            .viewer-controls {
+                bottom: 10px;
+            }
+            
+            .viewer-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .event-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .event-filter {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <img src="ieeecs.png" alt="IEEE CS KIIT Logo">
+                </div>
+                IEEE CS KIIT
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#objectives">Objectives</a>
+                <a href="index.html#leadership">Leadership</a>
+                <a href="index.html#events">Events</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="index.html#join" class="btn btn-primary">Join Us</a>
+                <a href="https://kiit.ac.in/" class="kiit-logo">
+                    <img src="kiit-logo.png" alt="KIIT University">
+                </a>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars menu-icon"></i>
+                <i class="fas fa-times close-icon"></i>
+            </button>
+            
+            <!-- Overlay for mobile menu -->
+            <div class="nav-overlay"></div>
+        </div>
+    </nav>
+
+    <!-- Gallery Section -->
+    <section id="gallery" style="padding-top: 150px;">
+        <div class="container">
+            <h2 class="section-title">Event Gallery</h2>
+            
+            <div class="events-container">
+                <div class="event-filters">
+                    <div class="event-filter active" data-filter="all">All Events</div>
+                    <div class="event-filter" data-filter="hackathon">Hackathons</div>
+                    <div class="event-filter" data-filter="workshop">Workshops</div>
+                    <div class="event-filter" data-filter="seminar">Seminars</div>
+                    <div class="event-filter" data-filter="competition">Competitions</div>
+                </div>
+                
+                <div class="events-grid">
+                    <!-- Event 1 -->
+                    <div class="event-card fade-in" data-category="seminar">
+                        <div class="event-image">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Inauguration Event">
+                            <div class="event-capture-count" data-event="inauguration">
+                                <i class="fas fa-camera"></i> 12 Photos
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">October 12, 2025</div>
+                            <h3>Inauguration Ceremony</h3>
+                            <p class="event-description">The official launch of the IEEE Computer Society KIIT Student Branch Chapter with dignitaries and expert talks on cybersecurity.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Ceremony</span>
+                                <span class="event-tag">Leadership</span>
+                                <span class="event-tag">Security</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="event-card fade-in" data-category="competition">
+                        <div class="event-image">
+                            <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Research Poster Exhibition">
+                            <div class="event-capture-count" data-event="poster-exhibition">
+                                <i class="fas fa-camera"></i> 8 Photos
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">October 15, 2025</div>
+                            <h3>Research Poster Exhibition</h3>
+                            <p class="event-description">An exhibition of innovative research posters by students with awards for the best entries.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Research</span>
+                                <span class="event-tag">Innovation</span>
+                                <span class="event-tag">Competition</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="event-card fade-in" data-category="hackathon">
+                        <div class="event-image">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="KalpanaX Hackathon">
+                            <div class="event-capture-count" data-event="kalpanax-hackathon">
+                                <i class="fas fa-camera"></i> 24 Photos
+                                <i class="fas fa-video" style="margin-left: 8px;"></i> 3 Videos
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">October 25-27, 2025</div>
+                            <h3>KalpanaX Hackathon</h3>
+                            <p class="event-description">A 48-hour research-driven hackathon inspired by NASA International Space Apps Challenges.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Hackathon</span>
+                                <span class="event-tag">NASA</span>
+                                <span class="event-tag">Physics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 4 -->
+                    <div class="event-card fade-in" data-category="workshop">
+                        <div class="event-image">
+                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Web Development Workshop">
+                            <div class="event-capture-count" data-event="webdev-workshop">
+                                <i class="fas fa-camera"></i> 15 Photos
+                                <i class="fas fa-video" style="margin-left: 8px;"></i> 2 Videos
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">November 5, 2025</div>
+                            <h3>Web Development Workshop</h3>
+                            <p class="event-description">Hands-on workshop covering modern web development techniques and frameworks.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Web Dev</span>
+                                <span class="event-tag">Workshop</span>
+                                <span class="event-tag">Beginner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 5 -->
+                    <div class="event-card fade-in" data-category="seminar">
+                        <div class="event-image">
+                            <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI & ML Seminar">
+                            <div class="event-capture-count" data-event="ai-seminar">
+                                <i class="fas fa-camera"></i> 10 Photos
+                                <i class="fas fa-video" style="margin-left: 8px;"></i> 1 Video
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">November 15, 2025</div>
+                            <h3>AI & Machine Learning Seminar</h3>
+                            <p class="event-description">Exploring the latest advancements in AI and ML with industry experts and researchers.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">AI/ML</span>
+                                <span class="event-tag">Seminar</span>
+                                <span class="event-tag">Research</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 6 -->
+                    <div class="event-card fade-in" data-category="competition">
+                        <div class="event-image">
+                            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Code Sprint Competition">
+                            <div class="event-capture-count" data-event="code-sprint">
+                                <i class="fas fa-camera"></i> 18 Photos
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-date">December 1, 2025</div>
+                            <h3>Code Sprint Competition</h3>
+                            <p class="event-description">Competitive programming event with multiple difficulty levels and exciting prizes.</p>
+                            <div class="event-tags">
+                                <span class="event-tag">Coding</span>
+                                <span class="event-tag">Competition</span>
+                                <span class="event-tag">Programming</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Gallery Modal -->
+    <div class="modal" id="gallery-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title" id="modal-event-title">Event Gallery</h2>
+            
+            <div class="media-gallery">
+                <div class="gallery-header">
+                    <div class="gallery-tabs">
+                        <div class="gallery-tab active" data-media-type="all">All Media</div>
+                        <div class="gallery-tab" data-media-type="photos">Photos</div>
+                        <div class="gallery-tab" data-media-type="videos">Videos</div>
+                    </div>
+                    <div class="media-counter">Showing <span id="media-count">0</span> items</div>
+                </div>
+                
+                <div class="media-grid" id="media-container">
+                    <!-- Media items will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Media Viewer -->
+    <div class="media-viewer" id="media-viewer">
+        <div class="viewer-content">
+            <span class="viewer-close">&times;</span>
+            <div id="viewer-media"></div>
+            <div class="viewer-counter" id="viewer-counter">1/12</div>
+            <div class="viewer-controls">
+                <button class="viewer-btn" id="viewer-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="viewer-btn" id="viewer-play-pause" style="display: none;"><i class="fas fa-pause"></i></button>
+                <button class="viewer-btn" id="viewer-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">IEEE CS KIIT</a>
+                    <p class="footer-description">Advancing technical excellence, collaborative learning, research-driven innovation, and ethical growth.</p>
+                    
+                    <div class="footer-social-links">
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/ieee-cs-kiit" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="https://github.com/ieeecskiit" class="footer-social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#objectives">Objectives</a></li>
+                        <li><a href="index.html#leadership">Leadership</a></li>
+                        <li><a href="index.html#events">Events</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
