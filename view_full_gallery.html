@@ -802,6 +802,90 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 80px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .footer-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .footer-social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .footer-social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .footer-social-link:hover {
+            background: var(--gradient);
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(76, 201, 240, 0.2);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -810,7 +894,7 @@
         <div class="container nav-container">
             <a href="index.html" class="logo">
                 <div class="logo-img">
-                    <img src="ieeecs.png" alt="IEEE CS KIIT Logo">
+                    <img src="pictures/ieeecs.png" alt="IEEE CS KIIT Logo">
                 </div>
                 IEEE CS KIIT
             </a>
@@ -824,7 +908,7 @@
                 <a href="index.html#contact">Contact</a>
                 <a href="index.html#join" class="btn btn-primary">Join Us</a>
                 <a href="https://kiit.ac.in/" class="kiit-logo">
-                    <img src="kiit-logo.png" alt="KIIT University">
+                    <img src="pictures/kiit-logo.png" alt="KIIT University">
                 </a>
             </div>
             
@@ -1022,7 +1106,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-info">
-                    <a href="index.html" class="footer-logo">IEEE CS KIIT</a>
+                    <a href="#" class="footer-logo">IEEE CS KIIT</a>
                     <p class="footer-description">Advancing technical excellence, collaborative learning, research-driven innovation, and ethical growth.</p>
                     
                     <div class="footer-social-links">
@@ -1037,11 +1121,502 @@
                 <div class="footer-links-container">
                     <h4 class="footer-heading">Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="index.html#about">About Us</a></li>
-                        <li><a href="index.html#objectives">Objectives</a></li>
-                        <li><a href="index.html#leadership">Leadership</a></li>
-                        <li><a href="index.html#events">Events</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#objectives">Objectives</a></li>
+                        <li><a href="#leadership">Leadership</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Events Calendar</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Contact Info</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> ieeecskiit@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> KIIT University, Bhubaneswar</li>
+                        <li><i class="fas fa-clock"></i> Office Hours: 10AM - 4PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 IEEE Computer Society KIIT Student Branch Chapter. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample media data for each event
+            const eventMedia = {
+                'inauguration': {
+                    title: 'Inauguration Ceremony',
+                    photos: [
+                        'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ],
+                    videos: []
+                },
+                'poster-exhibition': {
+                    title: 'Research Poster Exhibition',
+                    photos: [
+                        'https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ],
+                    videos: []
+                },
+                'kalpanax-hackathon': {
+                    title: 'KalpanaX Hackathon',
+                    photos: [
+                        'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ],
+                    videos: [
+                        'https://player.vimeo.com/video/370756449',
+                        'https://player.vimeo.com/video/371591759',
+                        'https://player.vimeo.com/video/370756449'
+                    ]
+                },
+                'webdev-workshop': {
+                    title: 'Web Development Workshop',
+                    photos: [
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ],
+                    videos: [
+                        'https://player.vimeo.com/video/371591759',
+                        'https://player.vimeo.com/video/370756449'
+                    ]
+                },
+                'ai-seminar': {
+                    title: 'AI & Machine Learning Seminar',
+                    photos: [
+                        'https://images.unsplash.com/photo-1581092921461-eab62e97a780?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ],
+                    videos: [
+                        'https://player.vimeo.com/video/370756449'
+                    ]
+                },
+                'code-sprint': {
+                    title: 'Code Sprint Competition',
+                    photos: [
+                        'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    ],
+                    videos: []
+                }
+            };
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Event filtering functionality
+            const eventFilters = document.querySelectorAll('.event-filter');
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            function filterEvents(category) {
+                eventCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Add click event to filters
+            eventFilters.forEach(filter => {
+                filter.addEventListener('click', () => {
+                    // Remove active class from all filters
+                    eventFilters.forEach(f => f.classList.remove('active'));
+                    
+                    // Add active class to clicked filter
+                    filter.classList.add('active');
+                    
+                    // Filter events
+                    const filterValue = filter.dataset.filter;
+                    filterEvents(filterValue);
+                });
+            });
+            
+            // Fade-in animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                    
+                    if (isVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkFade);
+            window.addEventListener('load', checkFade);
+            checkFade();
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            const navOverlay = document.querySelector('.nav-overlay');
+            const body = document.body;
+
+            function toggleMenu() {
+                mobileMenuBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+                body.style.overflow = body.style.overflow === 'hidden' ? '' : 'hidden';
+            }
+
+            if (mobileMenuBtn && navLinks && navOverlay) {
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+                
+                navOverlay.addEventListener('click', toggleMenu);
+
+                // Close menu when clicking on a link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            toggleMenu();
+                        }
+                    });
+                });
+
+                // Close menu when pressing Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            }
+            
+            // Gallery modal functionality
+            const galleryModal = document.getElementById('gallery-modal');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const modalEventTitle = document.getElementById('modal-event-title');
+            const mediaContainer = document.getElementById('media-container');
+            const mediaCount = document.getElementById('media-count');
+            const galleryTabs = document.querySelectorAll('.gallery-tab');
+            
+            // Event capture buttons
+            const eventCaptureButtons = document.querySelectorAll('.event-capture-count');
+            
+            eventCaptureButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const eventId = button.dataset.event;
+                    openGalleryModal(eventId);
+                });
+            });
+            
+            function openGalleryModal(eventId) {
+                if (!eventMedia[eventId]) return;
+                
+                const event = eventMedia[eventId];
+                modalEventTitle.textContent = event.title;
+                
+                // Show all media by default
+                renderMedia(event.photos, event.videos, 'all');
+                
+                // Update media count
+                mediaCount.textContent = event.photos.length + event.videos.length;
+                
+                // Show modal
+                galleryModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Add event listeners to tabs
+                galleryTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Remove active class from all tabs
+                        galleryTabs.forEach(t => t.classList.remove('active'));
+                        
+                        // Add active class to clicked tab
+                        tab.classList.add('active');
+                        
+                        // Filter media
+                        const mediaType = tab.dataset.mediaType;
+                        renderMedia(event.photos, event.videos, mediaType);
+                        
+                        // Update media count
+                        if (mediaType === 'all') {
+                            mediaCount.textContent = event.photos.length + event.videos.length;
+                        } else if (mediaType === 'photos') {
+                            mediaCount.textContent = event.photos.length;
+                        } else if (mediaType === 'videos') {
+                            mediaCount.textContent = event.videos.length;
+                        }
+                    });
+                });
+            }
+            
+            function renderMedia(photos, videos, mediaType) {
+                mediaContainer.innerHTML = '';
+                let allMedia = [];
+                let count = 1;
+                
+                if (mediaType === 'all' || mediaType === 'photos') {
+                    photos.forEach(photo => {
+                        allMedia.push({
+                            type: 'photo',
+                            src: photo,
+                            number: count++
+                        });
+                    });
+                }
+                
+                if (mediaType === 'all' || mediaType === 'videos') {
+                    videos.forEach(video => {
+                        allMedia.push({
+                            type: 'video',
+                            src: video,
+                            number: count++
+                        });
+                    });
+                }
+                
+                allMedia.forEach(media => {
+                    const mediaItem = document.createElement('div');
+                    mediaItem.className = 'media-item';
+                    mediaItem.dataset.type = media.type;
+                    mediaItem.dataset.src = media.src;
+                    mediaItem.dataset.index = media.number - 1;
+                    
+                    if (media.type === 'photo') {
+                        mediaItem.innerHTML = `
+                            <img src="${media.src}" alt="Event photo ${media.number}">
+                            <div class="media-item-number">${media.number}</div>
+                            <div class="media-item-type"><i class="fas fa-image"></i></div>
+                        `;
+                    } else {
+                        mediaItem.innerHTML = `
+                            <video>
+                                <source src="${media.src}" type="video/mp4">
+                            </video>
+                            <div class="media-item-number">${media.number}</div>
+                            <div class="media-item-type"><i class="fas fa-video"></i></div>
+                            <div class="play-button"><i class="fas fa-play"></i></div>
+                        `;
+                    }
+                    
+                    mediaItem.addEventListener('click', () => {
+                        openMediaViewer(allMedia, media.number - 1);
+                    });
+                    
+                    mediaContainer.appendChild(mediaItem);
+                });
+            }
+            
+            // Close modal
+            closeModalBtn.addEventListener('click', () => {
+                galleryModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === galleryModal) {
+                    galleryModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Media viewer functionality
+            const mediaViewer = document.getElementById('media-viewer');
+            const viewerClose = document.querySelector('.viewer-close');
+            const viewerMedia = document.getElementById('viewer-media');
+            const viewerCounter = document.getElementById('viewer-counter');
+            const viewerPrev = document.getElementById('viewer-prev');
+            const viewerNext = document.getElementById('viewer-next');
+            const viewerPlayPause = document.getElementById('viewer-play-pause');
+            
+            let currentMediaList = [];
+            let currentIndex = 0;
+            let currentVideo = null;
+            
+            function openMediaViewer(mediaList, index) {
+                currentMediaList = mediaList;
+                currentIndex = index;
+                
+                updateMediaViewer();
+                
+                mediaViewer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function updateMediaViewer() {
+                const media = currentMediaList[currentIndex];
+                viewerCounter.textContent = `${currentIndex + 1}/${currentMediaList.length}`;
+                
+                if (media.type === 'photo') {
+                    viewerMedia.innerHTML = `<img src="${media.src}" alt="Event media ${currentIndex + 1}">`;
+                    viewerPlayPause.style.display = 'none';
+                    
+                    if (currentVideo) {
+                        currentVideo.pause();
+                        currentVideo = null;
+                    }
+                } else {
+                    viewerMedia.innerHTML = `
+                        <iframe src="${media.src}" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    `;
+                    viewerPlayPause.style.display = 'none'; // Hide for iframes
+                }
+            }
+            
+            viewerClose.addEventListener('click', () => {
+                mediaViewer.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                if (currentVideo) {
+                    currentVideo.pause();
+                    currentVideo = null;
+                }
+            });
+            
+            viewerPrev.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateMediaViewer();
+                }
+            });
+            
+            viewerNext.addEventListener('click', () => {
+                if (currentIndex < currentMediaList.length - 1) {
+                    currentIndex++;
+                    updateMediaViewer();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (mediaViewer.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        mediaViewer.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    } else if (e.key === 'ArrowLeft') {
+                        viewerPrev.click();
+                    } else if (e.key === 'ArrowRight') {
+                        viewerNext.click();
+                    }
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = document.getElementById('navbar').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
