@@ -6,6 +6,12 @@
     <title>Membership Application - IEEE CS KIIT</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
     <style>
         :root {
             --primary: #0a0e17;
@@ -398,6 +404,34 @@
             margin-bottom: 15px;
         }
         
+        /* Email Verification */
+        .email-verification {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+            margin: 30px auto;
+            text-align: center;
+            display: none;
+        }
+        
+        .email-verification.active {
+            display: block;
+        }
+        
+        .user-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(10, 14, 23, 0.6);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .user-info.active {
+            display: block;
+        }
+        
         /* Conditional Form Sections */
         .conditional-section {
             display: none;
@@ -417,6 +451,17 @@
             margin-top: 20px;
             text-align: center;
             color: #2ecc71;
+        }
+        
+        .error-message {
+            display: none;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            color: #e74c3c;
         }
         
         /* Footer */
@@ -652,11 +697,33 @@
                 <p>This application is exclusively for KIIT University students.</p>
                 
                 <div class="verification-options">
-                    <div class="verification-option" data-kiit="yes">
+                    <div class="verification-option" id="kiit-student-btn">
                         <i class="fas fa-graduation-cap"></i>
                         <h4>I am a KIIT University student</h4>
                         <p>Proceed to application</p>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Email Verification Section -->
+            <div id="email-verification" class="email-verification">
+                <h3>Verify Your KIIT Email</h3>
+                <p>Please sign in with your official KIIT email address (@kiit.ac.in) to continue with your application.</p>
+                
+                <button id="google-signin-btn" class="btn btn-primary" style="margin-top: 20px;">
+                    <i class="fab fa-google"></i> Sign in with KIIT Email
+                </button>
+                
+                <div id="user-info" class="user-info">
+                    <p>Signed in as: <span id="user-email"></span></p>
+                    <button id="sign-out-btn" class="btn" style="margin-top: 10px;">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                </div>
+                
+                <div id="verification-error" class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p id="error-text"></p>
                 </div>
             </div>
             
@@ -665,13 +732,14 @@
                 <h3 style="text-align: center; margin-bottom: 30px;">KIIT Student Application</h3>
                 
                 <!-- Using FormSubmit.co to send emails to ieeecskiit@gmail.com -->
-                <form id="volunteer-form-kiit" action="https://formsubmit.co/sah61509@gmail.com" method="POST">
+                <form id="volunteer-form-kiit" action="https://formsubmit.co/ieeecskiit@gmail.com" method="POST">
                     <!-- FormSubmit.co configuration -->
                     <input type="hidden" name="_subject" value="New KIIT Student Volunteer Application - IEEE CS KIIT">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_next" value="#success-message">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="Student Type" value="KIIT Student">
+                    <input type="hidden" id="verified-email" name="verified-email" value="">
                     
                     <div class="form-row">
                         <div class="form-group">
@@ -681,7 +749,7 @@
                         
                         <div class="form-group">
                             <label for="email" class="form-label required">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@kiit.ac.in" required>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@kiit.ac.in" required readonly>
                         </div>
                     </div>
                     
@@ -790,6 +858,17 @@
                     <i class="fas fa-home"></i>Return to Home
                 </a>
             </div>
+            
+            <!-- Already Applied Message -->
+            <div id="already-applied-message" class="error-message">
+                <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                <h3>Application Already Submitted</h3>
+                <p>You have already submitted an application. Thank you!</p>
+                <p>Redirecting you to the homepage...</p>
+                <a href="index.html" class="btn btn-primary" style="margin-top: 20px;">
+                    <i class="fas fa-home"></i>Return to Home Now
+                </a>
+            </div>
         </div>
     </section>
 
@@ -806,7 +885,7 @@
                         <a href="https://www.linkedin.com/in/ieee-cs-kiit" class="footer-social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="https://github.com/ieeecskiit" class="footer-social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 
@@ -828,84 +907,281 @@
     </footer>
 
     <!-- JavaScript -->
-    <!-- JavaScript -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+    <script>
+        // Firebase configuration - Replace with your actual Firebase config
+        const firebaseConfig = {
+    apiKey: "AIzaSyAdWE-NMm5NJHID1DyM1GhO21RM25Dr_Bw",
+    authDomain: "ieeecskiit-8d70d.firebaseapp.com",
+    databaseURL: "https://ieeecskiit-8d70d-default-rtdb.firebaseio.com",
+    projectId: "ieeecskiit-8d70d",
+    storageBucket: "ieeecskiit-8d70d.firebasestorage.app",
+    messagingSenderId: "229724806051",
+    appId: "1:229724806051:web:916351fc25b0daba765816",
+    measurementId: "G-7BS368SJWT"
+  };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Google Auth Provider
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({
+            hd: "kiit.ac.in" // Restrict to kiit.ac.in domain
         });
         
-        // Student verification logic
-        const verificationOption = document.querySelector('.verification-option');
-        const kiitForm = document.getElementById('kiit-student-form');
-        const verificationContainer = document.querySelector('.verification-container');
-        
-        verificationOption.addEventListener('click', () => {
-            // Hide verification container
-            verificationContainer.style.display = 'none';
-            
-            // Show KIIT form
-            kiitForm.classList.add('active');
-            
-            // Scroll to the form
-            setTimeout(() => {
-                document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        });
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (mobileMenuBtn && navLinks) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
-                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-            });
-        }
-        
-        // Close mobile menu when clicking on links
-        const navLinksItems = document.querySelectorAll('.nav-links a');
-        navLinksItems.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-        
-        // Fade-in animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        function checkFade() {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementBottom = element.getBoundingClientRect().bottom;
-                const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
-                
-                if (isVisible) {
-                    element.classList.add('visible');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
                 }
             });
-        }
-        
-        window.addEventListener('scroll', checkFade);
-        window.addEventListener('load', checkFade);
-        checkFade();
-        
-        // Form submission handling
-        const volunteerForm = document.getElementById('volunteer-form-kiit');
-        
-        if (volunteerForm) {
-            volunteerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+            
+            // Student verification logic
+            const kiitStudentBtn = document.getElementById('kiit-student-btn');
+            const emailVerification = document.getElementById('email-verification');
+            const verificationContainer = document.querySelector('.verification-container');
+            
+            kiitStudentBtn.addEventListener('click', () => {
+                // Hide verification container
+                verificationContainer.style.display = 'none';
                 
+                // Show email verification
+                emailVerification.classList.add('active');
+                
+                // Scroll to the email verification
+                setTimeout(() => {
+                    document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            });
+            
+            // Google Sign In
+            const googleSignInBtn = document.getElementById('google-signin-btn');
+            const userInfo = document.getElementById('user-info');
+            const userEmail = document.getElementById('user-email');
+            const signOutBtn = document.getElementById('sign-out-btn');
+            const verificationError = document.getElementById('verification-error');
+            const errorText = document.getElementById('error-text');
+            
+            googleSignInBtn.addEventListener('click', () => {
+                auth.signInWithPopup(provider)
+                    .then((result) => {
+                        // Check if the email is from kiit.ac.in
+                        const email = result.user.email;
+                        if (email.endsWith('@kiit.ac.in')) {
+                            userEmail.textContent = email;
+                            userInfo.classList.add('active');
+                            googleSignInBtn.style.display = 'none';
+                            
+                            // Check if this email already exists in applications
+                            checkExistingApplication(email);
+                        } else {
+                            // Not a KIIT email
+                            showError("Please use your official KIIT email address (@kiit.ac.in)");
+                            auth.signOut();
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Sign in error:", error);
+                        showError("Authentication failed. Please try again.");
+                    });
+            });
+            
+            // Sign out
+            signOutBtn.addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    userInfo.classList.remove('active');
+                    googleSignInBtn.style.display = 'block';
+                    hideError();
+                });
+            });
+            
+            // Check if user is already signed in on page load
+            auth.onAuthStateChanged((user) => {
+                if (user && user.email.endsWith('@kiit.ac.in')) {
+                    userEmail.textContent = user.email;
+                    userInfo.classList.add('active');
+                    googleSignInBtn.style.display = 'none';
+                    
+                    // Check if this email already exists in applications
+                    checkExistingApplication(user.email);
+                }
+            });
+            
+            // Check for existing application
+            function checkExistingApplication(email) {
+                db.collection("applications").where("email", "==", email).get()
+                    .then((querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            // User has already applied
+                            showAlreadyApplied();
+                        } else {
+                            // User hasn't applied yet, show the form
+                            showApplicationForm(email);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error checking application:", error);
+                        showError("Error verifying application status. Please try again.");
+                    });
+            }
+            
+            // Show application form
+            function showApplicationForm(email) {
+                const kiitForm = document.getElementById('kiit-student-form');
+                const emailInput = document.getElementById('email');
+                const verifiedEmailInput = document.getElementById('verified-email');
+                
+                // Set the email value in the form
+                emailInput.value = email;
+                verifiedEmailInput.value = email;
+                
+                // Show the form
+                kiitForm.classList.add('active');
+                
+                // Scroll to the form
+                setTimeout(() => {
+                    document.getElementById('verification').scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+            
+            // Show already applied message
+            function showAlreadyApplied() {
+                const alreadyAppliedMessage = document.getElementById('already-applied-message');
+                emailVerification.style.display = 'none';
+                alreadyAppliedMessage.style.display = 'block';
+                
+                // Redirect to homepage after 5 seconds
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 5000);
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorText.textContent = message;
+                verificationError.style.display = 'block';
+            }
+            
+            // Hide error message
+            function hideError() {
+                verificationError.style.display = 'none';
+            }
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+            }
+            
+            // Close mobile menu when clicking on links
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Fade-in animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                    
+                    if (isVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkFade);
+            window.addEventListener('load', checkFade);
+            checkFade();
+            
+            // Form submission handling
+            const volunteerForm = document.getElementById('volunteer-form-kiit');
+            
+            if (volunteerForm) {
+                volunteerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the current user
+                    const user = auth.currentUser;
+                    if (!user || !user.email.endsWith('@kiit.ac.in')) {
+                        showError("Please verify your KIIT email before submitting the form.");
+                        return;
+                    }
+                    
+                    // Get form data
+                    const formData = new FormData(volunteerForm);
+                    const applicationData = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        phone: formData.get('phone'),
+                        gender: formData.get('gender'),
+                        year: formData.get('year'),
+                        department: formData.get('department'),
+                        studentId: formData.get('student-id'),
+                        interests: formData.get('interests'),
+                        skills: formData.get('skills'),
+                        motivation: formData.get('motivation'),
+                        availability: formData.get('availability'),
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    
+                    // Save to Firestore
+                    db.collection("applications").add(applicationData)
+                        .then((docRef) => {
+                            console.log("Application saved with ID: ", docRef.id);
+                            
+                            // Now submit to FormSubmit
+                            const formSubmitData = new FormData(volunteerForm);
+                            
+                            fetch(volunteerForm.action, {
+                                method: 'POST',
+                                body: formSubmitData,
+                                headers: {
+                                    'Accept': 'application/json'
+                                }
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Show success animation
+                                    showSuccessAnimation();
+                                } else {
+                                    throw new Error('Form submission failed');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                // Still show success to user but log error
+                                showSuccessAnimation();
+                            });
+                        })
+                        .catch((error) => {
+                            console.error("Error saving application: ", error);
+                            showError("Error submitting application. Please try again.");
+                        });
+                });
+            }
+            
+            // Success animation function
+            function showSuccessAnimation() {
                 // Create success animation overlay
                 const successOverlay = document.createElement('div');
                 successOverlay.style.position = 'fixed';
@@ -970,66 +1246,36 @@
                 // Prevent body scrolling
                 document.body.style.overflow = 'hidden';
                 
-                // Submit form data using Fetch API
-                const formData = new FormData(volunteerForm);
-                
-                fetch(volunteerForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // After 3 seconds, redirect to main page
-                        setTimeout(() => {
-                            // Fade out animation
-                            successOverlay.style.opacity = '0';
-                            successOverlay.style.transition = 'opacity 0.5s ease';
-                            
-                            setTimeout(() => {
-                                window.location.href = 'index.html';
-                            }, 500);
-                        }, 3000);
-                    } else {
-                        throw new Error('Form submission failed');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Still show success to user but log error
-                    setTimeout(() => {
-                        successOverlay.style.opacity = '0';
-                        successOverlay.style.transition = 'opacity 0.5s ease';
-                        
-                        setTimeout(() => {
-                            window.location.href = 'index.html';
-                        }, 500);
-                    }, 3000);
-                });
-            });
-        }
-        
-        // Check if we're showing the success message (after form submission)
-        if (window.location.hash === '#success-message') {
-            const successMessage = document.getElementById('success-message');
-            const kiitFormElement = document.getElementById('volunteer-form-kiit');
-            
-            if (successMessage) {
-                // Hide all forms and verification
-                verificationContainer.style.display = 'none';
-                kiitForm.style.display = 'none';
-                successMessage.style.display = 'block';
-                
-                // Scroll to the success message
+                // After 3 seconds, redirect to main page
                 setTimeout(() => {
-                    successMessage.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
+                    // Fade out animation
+                    successOverlay.style.opacity = '0';
+                    successOverlay.style.transition = 'opacity 0.5s ease';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 500);
+                }, 3000);
             }
-        }
-    });
-</script>
+            
+            // Check if we're showing the success message (after form submission)
+            if (window.location.hash === '#success-message') {
+                const successMessage = document.getElementById('success-message');
+                const kiitFormElement = document.getElementById('volunteer-form-kiit');
+                
+                if (successMessage) {
+                    // Hide all forms and verification
+                    verificationContainer.style.display = 'none';
+                    kiitForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Scroll to the success message
+                    setTimeout(() => {
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
-
