@@ -891,9 +891,225 @@
                 padding: 15px;
             }
         }
+
+
+
+        /* Countdown Banner Styles */
+.countdown-banner {
+    position: fixed;
+    top: -120px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+    color: white;
+    padding: 18px 0;
+    text-align: center;
+    z-index: 2000;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    transition: top 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.countdown-banner.visible {
+    top: 0;
+}
+
+.countdown-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.countdown-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    justify-content: center;
+}
+
+.countdown-text i {
+    color: #ffdd00;
+    font-size: 1.3rem;
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.time-unit {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 10px 12px;
+    border-radius: 10px;
+    min-width: 70px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.time-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.time-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.hurry-text {
+    font-weight: 700;
+    color: #ffdd00;
+    animation: pulse 2s infinite;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+}
+
+.close-banner {
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.close-banner:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: rotate(90deg);
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .countdown-content {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .countdown-text, .countdown-timer, .hurry-text {
+        flex: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .countdown-text {
+        font-size: 1rem;
+    }
+    
+    .time-unit {
+        min-width: 60px;
+        padding: 8px 10px;
+    }
+    
+    .time-value {
+        font-size: 1.3rem;
+    }
+    
+    .hurry-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .countdown-banner {
+        padding: 15px 0;
+    }
+    
+    .countdown-timer {
+        gap: 8px;
+    }
+    
+    .time-unit {
+        min-width: 50px;
+        padding: 6px 8px;
+    }
+    
+    .time-value {
+        font-size: 1.1rem;
+    }
+    
+    .time-label {
+        font-size: 0.65rem;
+    }
+    
+    .countdown-text {
+        font-size: 0.9rem;
+    }
+    
+    .hurry-text {
+        font-size: 0.85rem;
+    }
+}
     </style>
 </head>
 <body>
+    <!-- Countdown Banner -->
+<div class="countdown-banner" id="countdownBanner" style="display: none;">
+    <div class="countdown-content">
+        <div class="countdown-text">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Registration: <strong>Sep 20 - 27, 2025</strong></span>
+        </div>
+        
+        <div class="countdown-timer">
+            <div class="time-unit">
+                <div class="time-value" id="days">00</div>
+                <div class="time-label">Days</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="hours">00</div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+        
+        <div class="hurry-text">
+            <i class="fas fa-exclamation-circle"></i> Hurry! Limited spots available!
+        </div>
+        
+        <button class="close-banner" id="closeBanner">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
     <!-- Navigation -->
     <nav id="navbar">
         <div class="container nav-container">
@@ -1332,5 +1548,76 @@
             });
         });
     </script>
+
+    <script>
+    // Countdown Banner functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const countdownBanner = document.getElementById('countdownBanner');
+        const closeBanner = document.getElementById('closeBanner');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        // Set the registration end date (September 27, 2025 at 11:59:59 PM)
+        const registrationEndDate = new Date('September 27, 2025 23:59:59').getTime();
+        
+        // Check if user has previously closed the banner
+        const bannerClosed = localStorage.getItem('countdownBannerClosed');
+        
+        // Show banner after 5 seconds if not previously closed
+        if (!bannerClosed) {
+            setTimeout(() => {
+                countdownBanner.style.display = 'flex';
+                setTimeout(() => {
+                    countdownBanner.classList.add('visible');
+                }, 10);
+            }, 5000);
+        }
+        
+        // Close banner functionality
+        closeBanner.addEventListener('click', () => {
+            countdownBanner.classList.remove('visible');
+            setTimeout(() => {
+                countdownBanner.style.display = 'none';
+            }, 800);
+            // Remember that user closed the banner
+            localStorage.setItem('countdownBannerClosed', 'true');
+        });
+        
+        // Update countdown every second
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = registrationEndDate - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Display the results
+            daysEl.textContent = days.toString().padStart(2, '0');
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
+            
+            // If the countdown is over
+            if (distance < 0) {
+                clearInterval(countdown);
+                daysEl.textContent = '00';
+                hoursEl.textContent = '00';
+                minutesEl.textContent = '00';
+                secondsEl.textContent = '00';
+                
+                // Update banner text when registration is closed
+                const hurryText = document.querySelector('.hurry-text');
+                if (hurryText) {
+                    hurryText.innerHTML = '<i class="fas fa-times-circle"></i> Registration closed!';
+                }
+            }
+        }, 1000);
+    });
+</script>
 </body>
 </html>
