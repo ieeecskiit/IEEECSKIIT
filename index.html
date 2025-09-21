@@ -3030,7 +3030,61 @@ To advance science and technology for the benefit of humanity and a sustainable 
     // Member data
     const memberData = {
         "prajwal": {
-            "bio": "Prajwal Panth is a final-year B.Tech. (Honours with Research) student in Computer Science and Engineering, with a minor in Applied Machine Learning, at KIIT Deemed to be University, India. His research interests include machine learning, secure computation, secure outsourced computation, and Large Language Models.\n\nHe has co-authored multiple research papers in privacy-preserving computation, secure data distribution, and deep learning, published in international journals and presented at IEEE conferences.\n\n**Patents:**\n• 1 kN-Class Hybrid Rocket Engine (UK Registered Design No. 6459198, granted 28 July 2025)\n• Handheld Multimodal Braille Reading and Writing Device (UK Registered Design No. 6437234, granted 22 April 2025)\n• 6+ additional patents filed in aerospace engineering and assistive technologies for visually impaired users.\n\n**Professional Experience:**\n• Chief Research Officer at BioFolk – led AI and biosciences research projects.\n• R&D Mentor at UiPath Student Community, KIIT – guided research writing and publications.\n• R&D Member at KIIT International Student Society – supported cross-disciplinary initiatives.\n• Research Intern at Nepal Academy of Science and Technology (NAST) – worked on Earthquake Early Warning Systems and Trajectory Optimization for Sounding Rockets.\n• Developer at Nepathya College – facial recognition-based attendance monitoring system.\n\n**Citizen Science & Outreach:**\n• Discovered three provisional asteroids (2020 RQ82, 2021 RD89, 2021 RD158) verified by the Minor Planet Center via NASA IASC.\n• Executive Member, Young Scientists Community (YSC – RECAST).\n• Founder & President, Kanti Science Club – organized science competitions, workshops, and an international space art competition.\n• NASA Cubes in Space (2021) – designed and launched physics experiment “Effect of Outer Space Environment on Human Hair”.\n• Recognized twice as Galactic Problem Solver in NASA International Space Apps Challenge (2020, 2021).\n\n**Awards & Academic Distinctions:**\n• Scientific Innovation Award, Government of Nepal (2019) – youngest recipient.\n• Student of the Year, Kanti Secondary School (2021) & Shree Shanti Namuna Secondary School (2019).\n• 1st place in Regional, District, and Municipality Level Science Competitions organized by Ministry of Education, Nepal.\n\nPrajwal combines academic excellence, innovative research, and hands-on experience, making him a leading young researcher in AI, aerospace, and assistive technology.",
+            "bio": `
+Prajwal Panth is a final-year B.Tech. (Honours with Research) student in Computer Science and
+Engineering, with a minor in Applied Machine Learning, at the KIIT Deemed to be University, India.
+His research interests include machine learning, secure computation, secure outsourced computation,
+and Large Language Model.
+
+He has co-authored multiple research papers in the domains of privacy-preserving computation, secure 
+data distribution, and deep learning, which have been published in international journals and presented 
+at IEEE conferences. In recognition of his innovative contributions, he holds two granted patents from
+the UK Intellectual Property Office:
+• 1 kN-Class Hybrid Rocket Engine (Registered Design No. 6459198, granted 28 July 2025)
+• Handheld Multimodal Braille Reading and Writing Device (Registered Design No. 6437234, granted 22 
+  April 2025)
+
+In addition to his granted patents, he has also filed 6+ patents spanning aerospace engineering 
+(recovery systems and high-thrust rocket engines) and assistive technologies for visually impaired 
+users, including innovations in smartwatch-based accessibility and wearable modules.
+
+Previously, he served as Chief Research Officer at BioFolk, where he led research combining deep
+learning and biosciences, and organized scientific events that fostered collaboration among researchers 
+and students in AI-driven life sciences. At KIIT, he served as an R&D Mentor for research writing and
+publications within the UiPath Student Community, while also contributing to projects in Agentic AI and
+Robotic Process Automation (RPA). Additionally, he was an R&D Member of the KIIT International Student
+Society, supporting cross-disciplinary initiatives.
+
+Beyond his university research, Prajwal has gained hands-on experience as a Research Intern at the
+Nepal Academy of Science and Technology (NAST), contributing to a national research project on 
+Earthquake Early Warning Systems (EEWS) and a separate project on Trajectory Optimization for 
+Sounding Rockets. He also worked at Nepathya College (Affiliated to Tribhuvan University), where
+he developed a facial recognition-based attendance monitoring system. 
+
+He is also a citizen scientist and researcher recognized for his contributions to science outreach 
+and innovation. Through NASA’s International Astronomical Search Collaboration (IASC), he discovered
+three provisional asteroids—2020 RQ82, 2021 RD89, and 2021 RD158—officially verified by the Minor 
+Planet Center. He has also led various science and technology communities, most notably as an 
+Executive Member of the Young Scientists Community (YSC – RECAST) and Founder & President of the 
+Kanti Science Club, where he organized various science competitions, workshops, and an international
+space art competition.
+
+In 2021, under the Cubes in Space program (in collaboration with NASA and NASO), he designed and 
+launched a physics experiment titled “Effect of Outer Space Environment on Human Hair”, studying 
+keratin molecular changes under ionizing radiation. He also contributed as a core member of the 
+Physics Panel Discussions in Ecstatic Paradox for a year.
+
+
+He has also been recognized twice as a Galactic Problem Solver in the NASA International Space 
+Apps Challenge (2020, 2021). Earlier, in 2019, he became the youngest recipient of the Scientific
+Innovation Award from the Government of Nepal in recognition of his contributions to research and
+science outreach. His academic distinctions include being named Student of the Year at Kanti 
+Secondary School (2021) and Shree Shanti Namuna Secondary School (2019), along with securing 1st 
+place in the Regional Level Science Competition (2018, Western Development Region), District Level
+Science Competition (2018, Rupandehi), and Municipality Level Science Competition (2018, Tilottama),
+organized by the Ministry of Education, Science and Technology, Nepal.
+
+`,
             "name": "Prajwal Panth",
             "role": "Founder & Chairperson",
             "image": "pictures/prajwal.jpg",
@@ -3127,7 +3181,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
 
             <div class="member-modal-bio">
                 <h4 class="member-modal-section-title">About</h4>
-                <p class="member-detail-text">${formatBioText(member.bio)}</p>
+                <pre class="member-detail-text">${member.bio}</pre>
             </div>
             
             <div class="member-modal-social">
