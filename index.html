@@ -5,9 +5,240 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEEE CS KIIT - Advancing Technology Together</title>
     <link rel="icon" type="image/png" href="ieeecs.png">
+
+    <!-- Add these Firebase scripts to your head section -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<style>
+    /* Login Modal Styles */
+    #login-modal .modal-content {
+        padding: 30px;
+    }
+    
+    /* Dashboard Styles */
+    #dashboard {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 400px;
+        height: 500px;
+        background: var(--card-bg);
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--accent-blue);
+        overflow: hidden;
+    }
+    
+    .dashboard-header {
+        background: var(--gradient);
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+    }
+    
+    .dashboard-tabs {
+        display: flex;
+        background: var(--secondary);
+        padding: 0 10px;
+        border-bottom: 1px solid rgba(76, 201, 240, 0.2);
+    }
+    
+    .dashboard-tab {
+        padding: 10px 15px;
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .dashboard-tab:hover, .dashboard-tab.active {
+        color: var(--accent-blue);
+    }
+    
+    .dashboard-tab.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--accent-blue);
+    }
+    
+    .dashboard-content {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+    }
+    
+    .tab-content {
+        display: none;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    /* Task Styles */
+    .task-item {
+        background: rgba(10, 14, 23, 0.5);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-left: 3px solid var(--accent-blue);
+    }
+    
+    .task-item.completed {
+        border-left-color: #4CAF50;
+    }
+    
+    .task-item.overdue {
+        border-left-color: var(--accent-pink);
+    }
+    
+    .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .task-title {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    
+    .task-status {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        border-radius: 12px;
+        background: var(--secondary);
+    }
+    
+    .task-status.pending {
+        color: #FF9800;
+    }
+    
+    .task-status.completed {
+        color: #4CAF50;
+    }
+    
+    .task-deadline {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+    }
+    
+    .task-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    /* Chat Styles */
+    #chat-messages {
+        height: 300px;
+        overflow-y: auto;
+        margin-bottom: 15px;
+        padding: 10px;
+        background: rgba(10, 14, 23, 0.3);
+        border-radius: 8px;
+    }
+    
+    .chat-message {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: var(--secondary);
+        max-width: 80%;
+    }
+    
+    .chat-message.own {
+        margin-left: auto;
+        background: var(--accent-blue);
+        color: white;
+    }
+    
+    .message-sender {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    
+    .message-time {
+        font-size: 0.7rem;
+        opacity: 0.7;
+        text-align: right;
+        margin-top: 5px;
+    }
+    
+    .chat-input-container {
+        display: flex;
+        gap: 10px;
+    }
+    
+    #chat-input {
+        flex: 1;
+        padding: 10px;
+        background: rgba(10, 14, 23, 0.6);
+        border: 1px solid rgba(76, 201, 240, 0.2);
+        border-radius: 20px;
+        color: var(--text-primary);
+    }
+    
+    /* Admin Panel Styles */
+    .admin-section {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(76, 201, 240, 0.1);
+    }
+    
+    .admin-section:last-child {
+        border-bottom: none;
+    }
+    
+    .member-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background: rgba(10, 14, 23, 0.3);
+        border-radius: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .task-overview-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding: 8px;
+        background: rgba(10, 14, 23, 0.3);
+        border-radius: 8px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 500px) {
+        #dashboard {
+            width: 95%;
+            right: 2.5%;
+            bottom: 10px;
+        }
+    }
+</style>
+
     <style>
         :root {
             --primary: #0a0e17;
@@ -1627,6 +1858,132 @@
     </style>
 </head>
 <body>
+    <div id="login-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <span class="close-modal">&times;</span>
+        <h3 class="modal-title">Login to Dashboard</h3>
+        <form id="login-form" class="volunteer-form">
+            <div class="form-group">
+                <label for="login-email" class="form-label">Email/Username</label>
+                <input type="text" id="login-email" class="form-input" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="login-password" class="form-label">Password</label>
+                <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            
+            <div id="login-error" style="color: var(--accent-pink); margin-top: 15px; display: none;">
+                Invalid credentials. Please try again.
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add this floating dashboard (initially hidden) -->
+<div id="dashboard" style="display: none;">
+    <div class="dashboard-header">
+        <h3>IEEE CS KIIT Dashboard</h3>
+        <button id="close-dashboard" class="btn" style="padding: 5px 10px;">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="dashboard-tabs">
+        <button class="dashboard-tab active" data-tab="tasks">Tasks</button>
+        <button class="dashboard-tab" data-tab="chat">Group Chat</button>
+        <button class="dashboard-tab" data-tab="profile" id="profile-tab">Profile</button>
+        <button class="dashboard-tab admin-only" data-tab="admin" id="admin-tab" style="display: none;">Admin Panel</button>
+        <button id="logout-btn" class="btn" style="padding: 5px 10px; margin-left: auto;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+    
+    <div class="dashboard-content">
+        <!-- Tasks Tab -->
+        <div class="tab-content active" id="tasks-tab">
+            <h4>Your Tasks</h4>
+            <div id="user-tasks-list">
+                <p>Loading your tasks...</p>
+            </div>
+        </div>
+        
+        <!-- Chat Tab -->
+        <div class="tab-content" id="chat-tab">
+            <h4>Group Chat</h4>
+            <div id="chat-messages">
+                <p>Loading messages...</p>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button id="send-message" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Profile Tab -->
+        <div class="tab-content" id="profile-tab-content">
+            <h4>Your Profile</h4>
+            <div id="profile-info">
+                <p>Loading profile information...</p>
+            </div>
+        </div>
+        
+        <!-- Admin Tab (only visible to admins) -->
+        <div class="tab-content" id="admin-tab-content">
+            <h4>Admin Panel</h4>
+            
+            <div class="admin-section">
+                <h5>Assign Task</h5>
+                <form id="assign-task-form">
+                    <div class="form-group">
+                        <label for="task-member" class="form-label">Assign to:</label>
+                        <select id="task-member" class="form-select" required>
+                            <option value="">Select a member</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-title" class="form-label">Task Title:</label>
+                        <input type="text" id="task-title" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-description" class="form-label">Description:</label>
+                        <textarea id="task-description" class="form-textarea" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-deadline" class="form-label">Deadline:</label>
+                        <input type="date" id="task-deadline" class="form-input" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Assign Task</button>
+                </form>
+            </div>
+            
+            <div class="admin-section">
+                <h5>Task Overview</h5>
+                <div id="task-overview">
+                    <p>Loading task overview...</p>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h5>Member Management</h5>
+                <div id="member-list">
+                    <p>Loading members...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="container nav-container">
@@ -1644,7 +2001,7 @@
                 <a href="#events">Events</a>
                 <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
-                <a href="member_hiring.html" class="btn btn-primary">Join Us</a>
+                <a href="#" class="btn btn-primary">Login</a>
                 <a href="https://kiit.ac.in/" class="kiit-logo">
                     <img src="pictures/kiit-logo.png" alt="KIIT University" style="width: 60px; height: 50px;">
                 </a>
@@ -2669,28 +3026,29 @@ To advance science and technology for the benefit of humanity and a sustainable 
 
 
          // Member data - you can expand this for all members
+
+    // Member data
     const memberData = {
         "prajwal": {
-            name: "Prajwal Panth",
-            role: "Founder & Chairperson",
-            image: "pictures/prajwal.jpg",
-            email: "prajwal@example.com",
-            phone: "+91 96533 99472",
-            department: "Computer Science & Engineering",
-            year: "4th Year",
-            bio: "Prajwal is the visionary founder of IEEE Computer Society KIIT SBC. With a passion for technology and leadership, he has successfully established this chapter to foster innovation and technical excellence among students. He has expertise in AI/ML and cybersecurity, and has participated in several national level hackathons.",
-            achievements: [
+            "bio": "Prajwal Panth is a final-year B.Tech. (Honours with Research) student in Computer Science and Engineering, with a minor in Applied Machine Learning, at KIIT Deemed to be University, India. His research interests include machine learning, secure computation, secure outsourced computation, and Large Language Models.\n\nHe has co-authored multiple research papers in privacy-preserving computation, secure data distribution, and deep learning, published in international journals and presented at IEEE conferences.\n\n**Patents:**\n• 1 kN-Class Hybrid Rocket Engine (UK Registered Design No. 6459198, granted 28 July 2025)\n• Handheld Multimodal Braille Reading and Writing Device (UK Registered Design No. 6437234, granted 22 April 2025)\n• 6+ additional patents filed in aerospace engineering and assistive technologies for visually impaired users.\n\n**Professional Experience:**\n• Chief Research Officer at BioFolk – led AI and biosciences research projects.\n• R&D Mentor at UiPath Student Community, KIIT – guided research writing and publications.\n• R&D Member at KIIT International Student Society – supported cross-disciplinary initiatives.\n• Research Intern at Nepal Academy of Science and Technology (NAST) – worked on Earthquake Early Warning Systems and Trajectory Optimization for Sounding Rockets.\n• Developer at Nepathya College – facial recognition-based attendance monitoring system.\n\n**Citizen Science & Outreach:**\n• Discovered three provisional asteroids (2020 RQ82, 2021 RD89, 2021 RD158) verified by the Minor Planet Center via NASA IASC.\n• Executive Member, Young Scientists Community (YSC – RECAST).\n• Founder & President, Kanti Science Club – organized science competitions, workshops, and an international space art competition.\n• NASA Cubes in Space (2021) – designed and launched physics experiment “Effect of Outer Space Environment on Human Hair”.\n• Recognized twice as Galactic Problem Solver in NASA International Space Apps Challenge (2020, 2021).\n\n**Awards & Academic Distinctions:**\n• Scientific Innovation Award, Government of Nepal (2019) – youngest recipient.\n• Student of the Year, Kanti Secondary School (2021) & Shree Shanti Namuna Secondary School (2019).\n• 1st place in Regional, District, and Municipality Level Science Competitions organized by Ministry of Education, Nepal.\n\nPrajwal combines academic excellence, innovative research, and hands-on experience, making him a leading young researcher in AI, aerospace, and assistive technology.",
+            "name": "Prajwal Panth",
+            "role": "Founder & Chairperson",
+            "image": "pictures/prajwal.jpg",
+            "email": "prajwal.panth21@gmail.com",
+            "phone": "+91 96533 99472",
+            "department": "CSE",
+            "year": "4th Year",
+            "achievements": [
                 "Founded IEEE CS KIIT SBC in 2025",
                 "Won Smart India Hackathon 2024",
                 "Published research paper on AI Ethics"
             ],
-            social: {
-                linkedin: "#",
-                github: "#",
-                portfolio: "#"
+            "social": {
+                "linkedin": "https://www.linkedin.com/in/prajwal-panth/",
+                "github": "",
+                "portfolio": "https://www.prajwalpanth.com.np"
             }
         },
-        // Add data for other members following the same structure
         "subhasis": {
             name: "Shuvashish Barman Shuvo",
             role: "Vice-Chair",
@@ -2730,67 +3088,6 @@ To advance science and technology for the benefit of humanity and a sustainable 
                 github: "#",
                 portfolio: "#"
             }
-        },
-
-        "dibyendu": {
-            name: "Shuvashish Barman Shuvo",
-            role: "Vice-Chair",
-            image: "pictures/subhasis.jpg",
-            email: "shuvashish@example.com",
-            phone: "+91 XXXXX XXXXX",
-            department: "Computer Science & Engineering",
-            year: "3rd Year",
-            bio: "Shuvashish brings strong organizational skills and technical expertise to his role as Vice-Chair. He is passionate about creating inclusive tech communities and has experience in full-stack development and cloud computing.",
-            achievements: [
-                "Microsoft Learn Student Ambassador",
-                "AWS Certified Cloud Practitioner",
-                "Organized 10+ tech workshops"
-            ],
-            social: {
-                linkedin: "https://www.linkedin.com/in/shuvashish-barman",
-                github: "#",
-                portfolio: "#"
-            }
-        },
-        "subhasis": {
-            name: "Shuvashish Barman Shuvo",
-            role: "Vice-Chair",
-            image: "pictures/subhasis.jpg",
-            email: "shuvashish@example.com",
-            phone: "+91 XXXXX XXXXX",
-            department: "Computer Science & Engineering",
-            year: "3rd Year",
-            bio: "Shuvashish brings strong organizational skills and technical expertise to his role as Vice-Chair. He is passionate about creating inclusive tech communities and has experience in full-stack development and cloud computing.",
-            achievements: [
-                "Microsoft Learn Student Ambassador",
-                "AWS Certified Cloud Practitioner",
-                "Organized 10+ tech workshops"
-            ],
-            social: {
-                linkedin: "https://www.linkedin.com/in/shuvashish-barman",
-                github: "#",
-                portfolio: "#"
-            }
-        },
-        "subhasis": {
-            name: "Shuvashish Barman Shuvo",
-            role: "Vice-Chair",
-            image: "pictures/subhasis.jpg",
-            email: "shuvashish@example.com",
-            phone: "+91 XXXXX XXXXX",
-            department: "Computer Science & Engineering",
-            year: "3rd Year",
-            bio: "Shuvashish brings strong organizational skills and technical expertise to his role as Vice-Chair. He is passionate about creating inclusive tech communities and has experience in full-stack development and cloud computing.",
-            achievements: [
-                "Microsoft Learn Student Ambassador",
-                "AWS Certified Cloud Practitioner",
-                "Organized 10+ tech workshops"
-            ],
-            social: {
-                linkedin: "https://www.linkedin.com/in/shuvashish-barman",
-                github: "#",
-                portfolio: "#"
-            }
         }
     };
 
@@ -2809,74 +3106,34 @@ To advance science and technology for the benefit of humanity and a sustainable 
                     <img src="${member.image}" alt="${member.name}" class="member-modal-img">
                     <h3 class="member-modal-name">${member.name}</h3>
                     <div class="member-modal-role">${member.role}</div>
+                    <div class="member-detail-item">
+                    <i class="fas fa-envelope"></i>
+                    <span> &nbsp; ${member.email}</span>
+                </div>
+                <div class="member-detail-item">
+                    <i class="fas fa-phone"></i>
+                    <span> &nbsp; ${member.phone}</span>
+                </div>
+                <div class="member-detail-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>&nbsp; ${member.department}, ${member.year}</span>
+                </div>
                 </div>
             </div>
             
-            <div class="member-modal-content-body">
-                <div class="member-modal-info">
-                    <h4 class="member-modal-section-title">Details</h4>
-                    
-                    <div class="member-detail-item">
-                        <div class="member-detail-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="member-detail-text">
-                            <strong>Email</strong>
-                            ${member.email}
-                        </div>
-                    </div>
-                    
-                    <div class="member-detail-item">
-                        <div class="member-detail-icon"><i class="fas fa-phone"></i></div>
-                        <div class="member-detail-text">
-                            <strong>Phone</strong>
-                            ${member.phone}
-                        </div>
-                    </div>
-                    
-                    <div class="member-detail-item">
-                        <div class="member-detail-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="member-detail-text">
-                            <strong>Department</strong>
-                            ${member.department}
-                        </div>
-                    </div>
-                    
-                    <div class="member-detail-item">
-                        <div class="member-detail-icon"><i class="fas fa-calendar"></i></div>
-                        <div class="member-detail-text">
-                            <strong>Year</strong>
-                            ${member.year}
-                        </div>
-                    </div>
-                </div>
+            <div class="member-details">
                 
-                <div class="member-modal-info">
-                    <h4 class="member-modal-section-title">Achievements</h4>
-                    <div class="member-detail-item">
-                        <div class="member-detail-icon"><i class="fas fa-trophy"></i></div>
-                        <div class="member-detail-text">
-                            <ul>
-                                ${member.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="member-modal-bio">
-                    <h4 class="member-modal-section-title">About</h4>
-                    <p class="member-detail-text">${member.bio}</p>
-                </div>
+            </div>
+
+            <div class="member-modal-bio">
+                <h4 class="member-modal-section-title">About</h4>
+                <p class="member-detail-text">${formatBioText(member.bio)}</p>
             </div>
             
             <div class="member-modal-social">
-                <a href="${member.social.linkedin}" class="member-modal-social-link" target="_blank">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="${member.social.github}" class="member-modal-social-link" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="${member.social.portfolio}" class="member-modal-social-link" target="_blank">
-                    <i class="fas fa-globe"></i>
-                </a>
+                ${member.social.linkedin ? `<a href="${member.social.linkedin}" class="member-modal-social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                ${member.social.github ? `<a href="${member.social.github}" class="member-modal-social-link" target="_blank"><i class="fab fa-github"></i></a>` : ''}
+                ${member.social.portfolio ? `<a href="${member.social.portfolio}" class="member-modal-social-link" target="_blank"><i class="fas fa-globe"></i></a>` : ''}
             </div>
         `;
         
@@ -2887,6 +3144,20 @@ To advance science and technology for the benefit of humanity and a sustainable 
         // Add event listener to close button
         const closeBtn = document.querySelector('.member-modal-close');
         closeBtn.addEventListener('click', closeMemberModal);
+    }
+
+    // Function to format bio text with proper spacing and line breaks
+    function formatBioText(bio) {
+        // Convert markdown-style bold to HTML
+        let formattedBio = bio.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // Ensure proper paragraph spacing
+        formattedBio = formattedBio.replace(/\n\n/g, '</p><p class="member-detail-text">');
+        
+        // Convert bullet points to proper list items
+        formattedBio = formattedBio.replace(/\n• /g, '<br>• ');
+        
+        return `<p class="member-detail-text">${formattedBio}</p>`;
     }
 
     // Function to close member modal
@@ -2927,7 +3198,503 @@ To advance science and technology for the benefit of humanity and a sustainable 
             });
         });
     });
-    </script>
+</script>
+
+    <script>
+    // Firebase configuration - Replace with your actual config
+    const firebaseConfig = {
+    apiKey: "AIzaSyAdWE-NMm5NJHID1DyM1GhO21RM25Dr_Bw",
+    authDomain: "ieeecskiit-8d70d.firebaseapp.com",
+    databaseURL: "https://ieeecskiit-8d70d-default-rtdb.firebaseio.com",
+    projectId: "ieeecskiit-8d70d",
+    storageBucket: "ieeecskiit-8d70d.firebasestorage.app",
+    messagingSenderId: "229724806051",
+    appId: "1:229724806051:web:916351fc25b0daba765816",
+    measurementId: "G-7BS368SJWT"
+  };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    // Global variables
+    let currentUser = null;
+    
+    // DOM Elements
+    const loginModal = document.getElementById('login-modal');
+    const dashboard = document.getElementById('dashboard');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+    const closeDashboardBtn = document.getElementById('close-dashboard');
+    const logoutBtn = document.getElementById('logout-btn');
+    const dashboardTabs = document.querySelectorAll('.dashboard-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Open login modal when Login link is clicked
+    document.querySelector('.nav-links a.btn-primary').addEventListener('click', function(e) {
+        e.preventDefault();
+        loginModal.style.display = 'block';
+    });
+    
+    // Close modals
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+    });
+    
+    // Close dashboard
+    closeDashboardBtn.addEventListener('click', function() {
+        dashboard.style.display = 'none';
+        auth.signOut();
+    });
+    
+    // Logout functionality
+    logoutBtn.addEventListener('click', function() {
+        auth.signOut().then(() => {
+            dashboard.style.display = 'none';
+            currentUser = null;
+        });
+    });
+    
+    // Tab switching
+    dashboardTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active class from all tabs
+            dashboardTabs.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            this.classList.add('active');
+            
+            // Show corresponding content
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+    });
+    
+    // Login form submission
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        // Sign in with email and password
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in successfully
+                currentUser = userCredential.user;
+                loginModal.style.display = 'none';
+                loginError.style.display = 'none';
+                
+                // Get user role from Firestore
+                db.collection('users').doc(currentUser.uid).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            const userData = doc.data();
+                            currentUser.role = userData.role;
+                            
+                            // Show admin tab if user is admin
+                            if (currentUser.role === 'admin') {
+                                document.getElementById('admin-tab').style.display = 'block';
+                            }
+                            
+                            // Show dashboard and load data
+                            dashboard.style.display = 'flex';
+                            loadDashboardData();
+                        } else {
+                            console.error("No user data found!");
+                            auth.signOut();
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error getting user document:", error);
+                        auth.signOut();
+                    });
+            })
+            .catch((error) => {
+                // Handle errors
+                loginError.style.display = 'block';
+                console.error("Login error:", error);
+            });
+    });
+    
+    // Load dashboard data based on user role
+    function loadDashboardData() {
+        if (!currentUser) return;
+        
+        // Load user tasks
+        loadUserTasks();
+        
+        // Load chat messages
+        loadChatMessages();
+        
+        // Load profile info
+        loadProfileInfo();
+        
+        // If admin, load admin data
+        if (currentUser.role === 'admin') {
+            loadMembersList();
+            loadTaskOverview();
+            setupTaskAssignment();
+        }
+    }
+    
+    // Load tasks for the current user
+    function loadUserTasks() {
+        const tasksList = document.getElementById('user-tasks-list');
+        
+        db.collection('tasks')
+            .where('assignedTo', '==', currentUser.uid)
+            .orderBy('createdAt', 'desc')
+            .onSnapshot((snapshot) => {
+                tasksList.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    tasksList.innerHTML = '<p>You have no tasks assigned.</p>';
+                    return;
+                }
+                
+                snapshot.forEach((doc) => {
+                    const task = doc.data();
+                    const taskItem = document.createElement('div');
+                    taskItem.className = `task-item ${task.status === 'completed' ? 'completed' : ''}`;
+                    
+                    const today = new Date();
+                    const deadline = task.deadline.toDate();
+                    if (task.status !== 'completed' && deadline < today) {
+                        taskItem.classList.add('overdue');
+                    }
+                    
+                    taskItem.innerHTML = `
+                        <div class="task-header">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-status ${task.status}">${task.status}</div>
+                        </div>
+                        <div class="task-description">${task.description}</div>
+                        <div class="task-deadline">Deadline: ${deadline.toLocaleDateString()}</div>
+                        ${task.status !== 'completed' ? `
+                        <div class="task-actions">
+                            <button class="btn complete-task" data-id="${doc.id}" style="padding: 5px 10px;">
+                                <i class="fas fa-check"></i> Mark Complete
+                            </button>
+                            <button class="btn comment-task" data-id="${doc.id}" style="padding: 5px 10px;">
+                                <i class="fas fa-comment"></i> Add Comment
+                            </button>
+                        </div>
+                        ` : ''}
+                        ${task.comments && task.comments.length > 0 ? `
+                        <div class="task-comments">
+                            <h5>Comments:</h5>
+                            ${task.comments.map(comment => `
+                                <div class="comment">
+                                    <strong>${comment.senderName}:</strong> ${comment.text}
+                                    <div class="comment-time">${comment.timestamp.toDate().toLocaleString()}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    tasksList.appendChild(taskItem);
+                });
+                
+                // Add event listeners for task actions
+                document.querySelectorAll('.complete-task').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const taskId = this.getAttribute('data-id');
+                        completeTask(taskId);
+                    });
+                });
+                
+                document.querySelectorAll('.comment-task').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const taskId = this.getAttribute('data-id');
+                        const commentText = prompt('Enter your comment:');
+                        if (commentText) {
+                            addTaskComment(taskId, commentText);
+                        }
+                    });
+                });
+            });
+    }
+    
+    // Mark task as complete
+    function completeTask(taskId) {
+        db.collection('tasks').doc(taskId).update({
+            status: 'completed',
+            completedAt: new Date()
+        })
+        .then(() => {
+            console.log("Task marked as complete");
+        })
+        .catch((error) => {
+            console.error("Error completing task: ", error);
+        });
+    }
+    
+    // Add comment to a task
+    function addTaskComment(taskId, commentText) {
+        const comment = {
+            text: commentText,
+            senderId: currentUser.uid,
+            senderName: currentUser.displayName || currentUser.email,
+            timestamp: new Date()
+        };
+        
+        db.collection('tasks').doc(taskId).update({
+            comments: firebase.firestore.FieldValue.arrayUnion(comment)
+        })
+        .then(() => {
+            console.log("Comment added");
+        })
+        .catch((error) => {
+            console.error("Error adding comment: ", error);
+        });
+    }
+    
+    // Load chat messages
+    function loadChatMessages() {
+        const chatMessages = document.getElementById('chat-messages');
+        
+        db.collection('chat')
+            .orderBy('timestamp', 'asc')
+            .onSnapshot((snapshot) => {
+                chatMessages.innerHTML = '';
+                
+                snapshot.forEach((doc) => {
+                    const message = doc.data();
+                    const messageElement = document.createElement('div');
+                    messageElement.className = `chat-message ${message.senderId === currentUser.uid ? 'own' : ''}`;
+                    
+                    messageElement.innerHTML = `
+                        <div class="message-sender">${message.senderName}</div>
+                        <div class="message-text">${message.text}</div>
+                        <div class="message-time">${message.timestamp.toDate().toLocaleTimeString()}</div>
+                    `;
+                    
+                    chatMessages.appendChild(messageElement);
+                });
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+    }
+    
+    // Send chat message
+    document.getElementById('send-message').addEventListener('click', function() {
+        const chatInput = document.getElementById('chat-input');
+        const messageText = chatInput.value.trim();
+        
+        if (messageText) {
+            db.collection('chat').add({
+                text: messageText,
+                senderId: currentUser.uid,
+                senderName: currentUser.displayName || currentUser.email,
+                timestamp: new Date()
+            })
+            .then(() => {
+                chatInput.value = '';
+            })
+            .catch((error) => {
+                console.error("Error sending message: ", error);
+            });
+        }
+    });
+    
+    // Load profile information
+    function loadProfileInfo() {
+        const profileInfo = document.getElementById('profile-info');
+        
+        db.collection('users').doc(currentUser.uid).get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    profileInfo.innerHTML = `
+                        <p><strong>Name:</strong> ${userData.name || 'Not set'}</p>
+                        <p><strong>Email:</strong> ${currentUser.email}</p>
+                        <p><strong>Role:</strong> ${userData.role}</p>
+                        <p><strong>Department:</strong> ${userData.department || 'Not set'}</p>
+                        <p><strong>Year:</strong> ${userData.year || 'Not set'}</p>
+                    `;
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting profile: ", error);
+            });
+    }
+    
+    // Load members list (admin only)
+    function loadMembersList() {
+        const memberList = document.getElementById('member-list');
+        
+        db.collection('users').get()
+            .then((snapshot) => {
+                memberList.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    memberList.innerHTML = '<p>No members found.</p>';
+                    return;
+                }
+                
+                snapshot.forEach((doc) => {
+                    const member = doc.data();
+                    const memberItem = document.createElement('div');
+                    memberItem.className = 'member-item';
+                    
+                    memberItem.innerHTML = `
+                        <div>
+                            <strong>${member.name}</strong> (${member.role})
+                            <div>${member.email}</div>
+                        </div>
+                        <div>
+                            <button class="btn view-tasks" data-uid="${doc.id}" style="padding: 3px 8px;">
+                                <i class="fas fa-tasks"></i> View Tasks
+                            </button>
+                        </div>
+                    `;
+                    
+                    memberList.appendChild(memberItem);
+                });
+                
+                // Add event listeners for view tasks buttons
+                document.querySelectorAll('.view-tasks').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const userId = this.getAttribute('data-uid');
+                        viewMemberTasks(userId);
+                    });
+                });
+            })
+            .catch((error) => {
+                console.error("Error loading members: ", error);
+            });
+    }
+    
+    // Load task overview (admin only)
+    function loadTaskOverview() {
+        const taskOverview = document.getElementById('task-overview');
+        
+        // Get all tasks
+        db.collection('tasks').get()
+            .then((snapshot) => {
+                const totalTasks = snapshot.size;
+                let completedTasks = 0;
+                let overdueTasks = 0;
+                
+                const today = new Date();
+                
+                snapshot.forEach((doc) => {
+                    const task = doc.data();
+                    if (task.status === 'completed') {
+                        completedTasks++;
+                    } else if (task.deadline && task.deadline.toDate() < today) {
+                        overdueTasks++;
+                    }
+                });
+                
+                taskOverview.innerHTML = `
+                    <div class="task-overview-item">
+                        <span>Total Tasks:</span>
+                        <span>${totalTasks}</span>
+                    </div>
+                    <div class="task-overview-item">
+                        <span>Completed Tasks:</span>
+                        <span>${completedTasks}</span>
+                    </div>
+                    <div class="task-overview-item">
+                        <span>Overdue Tasks:</span>
+                        <span>${overdueTasks}</span>
+                    </div>
+                    <div class="task-overview-item">
+                        <span>Completion Rate:</span>
+                        <span>${totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0}%</span>
+                    </div>
+                `;
+            })
+            .catch((error) => {
+                console.error("Error loading task overview: ", error);
+            });
+    }
+    
+    // Setup task assignment form (admin only)
+    function setupTaskAssignment() {
+        // Load members for assignment dropdown
+        db.collection('users').where('role', '==', 'member').get()
+            .then((snapshot) => {
+                const memberSelect = document.getElementById('task-member');
+                memberSelect.innerHTML = '<option value="">Select a member</option>';
+                
+                snapshot.forEach((doc) => {
+                    const member = doc.data();
+                    const option = document.createElement('option');
+                    option.value = doc.id;
+                    option.textContent = `${member.name} (${member.email})`;
+                    memberSelect.appendChild(option);
+                });
+            })
+            .catch((error) => {
+                console.error("Error loading members for assignment: ", error);
+            });
+        
+        // Handle task assignment form submission
+        document.getElementById('assign-task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const memberId = document.getElementById('task-member').value;
+            const title = document.getElementById('task-title').value;
+            const description = document.getElementById('task-description').value;
+            const deadline = document.getElementById('task-deadline').value;
+            
+            if (!memberId || !title || !description || !deadline) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            // Add task to Firestore
+            db.collection('tasks').add({
+                title: title,
+                description: description,
+                assignedTo: memberId,
+                assignedBy: currentUser.uid,
+                status: 'pending',
+                deadline: new Date(deadline),
+                createdAt: new Date(),
+                comments: []
+            })
+            .then(() => {
+                alert('Task assigned successfully!');
+                document.getElementById('assign-task-form').reset();
+            })
+            .catch((error) => {
+                console.error("Error assigning task: ", error);
+                alert('Error assigning task. Please try again.');
+            });
+        });
+    }
+    
+    // View tasks of a specific member (admin only)
+    function viewMemberTasks(userId) {
+        // This would typically open a modal showing the member's tasks
+        alert('This would show tasks for the selected member. Implementation would be similar to loadUserTasks() but filtered by the selected user ID.');
+    }
+    
+    // Initialize chat input to send on Enter key
+    document.getElementById('chat-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('send-message').click();
+        }
+    });
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target === loginModal) {
+            loginModal.style.display = 'none';
+        }
+    });
+</script>
+
 
     <!-- Add this modal structure before the closing </body> tag -->
 <div id="member-modal" class="modal">
