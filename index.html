@@ -2148,6 +2148,20 @@ To advance science and technology for the benefit of humanity and a sustainable 
             <h2 class="section-title">Executive Members</h2>
             
             <div class="leadership-grid">
+
+                <div class="leader-card fade-in">
+                    <div class="leader-img">
+                        <img src="pictures/amaiyasir.jpg" alt="amiya">
+                    </div>
+                    <h3>Amiya Ranjan Panda</h3>
+                    <div class="leader-role">Advisor</div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://cse.kiit.ac.in/profiles/amiya-ranjan-panda/" class="social-link"><i class="fas fa-user"></i></a>
+                    </div>
+                </div>
                 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -2217,6 +2231,13 @@ To advance science and technology for the benefit of humanity and a sustainable 
                     </div>
                 </div>
 
+                
+
+            </div>
+            
+            <!-- Additional Team Members (Initially Hidden) -->
+            <div class="additional-members" id="additional-members">
+
                 <div class="leader-card fade-in">
                     <div class="leader-img">
                         <img src="pictures/arnish.jpg" alt="sahil">
@@ -2230,11 +2251,6 @@ To advance science and technology for the benefit of humanity and a sustainable 
                         <a href="#" class="social-link"><i class="fas fa-user"></i></a>
                     </div>
                 </div>
-
-            </div>
-            
-            <!-- Additional Team Members (Initially Hidden) -->
-            <div class="additional-members" id="additional-members">
                 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -2445,7 +2461,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                 </div>
                 
                 <div class="gallery-item fade-in">
-                    <i class="fas fa-image"></i>
+                    <img src="pictures/m3.jpg" alt="m1" style="width: 380px; height: 250px;">
                 </div>
                 
                 <div class="gallery-item fade-in">
@@ -3026,6 +3042,22 @@ To advance science and technology for the benefit of humanity and a sustainable 
 
     // Member data
     const memberData = {
+        "amiya": {
+            name: "Amiya Ranjan Panda",
+            role: "Advisor",
+            image: "pictures/amaiyasir.jpg",
+            email: "amiya.pandafcs@kiit.ac.in",
+            phone: "+91 94397 93168",
+            department: "Assistant Professor",
+            year: "KIIT",
+            bio: "Updating Soon...",
+            social: {
+                linkedin: "https://www.linkedin.com/in/shuvashish-barman",
+                github: "#",
+                portfolio: "amiya.pandafcs@kiit.ac.in"
+            }
+        },
+
         "prajwal": {
             "bio": `
 Prajwal Panth is a final-year B.Tech. (Honours with Research) student in Computer Science and
@@ -3104,16 +3136,12 @@ organized by the Ministry of Education, Science and Technology, Nepal.
             name: "Shuvashish Barman Shuvo",
             role: "Vice-Chair",
             image: "pictures/subhasis.jpg",
-            email: "shuvashish@example.com",
+            email: "shuvashish.official@gmail.com",
             phone: "+91 79803 76007",
             department: "Computer Science & Engineering",
             year: "4th Year",
-            bio: "Shuvashish brings strong organizational skills and technical expertise to his role as Vice-Chair. He is passionate about creating inclusive tech communities and has experience in full-stack development and cloud computing.",
-            achievements: [
-                "Microsoft Learn Student Ambassador",
-                "AWS Certified Cloud Practitioner",
-                "Organized 10+ tech workshops"
-            ],
+            bio: "Updating Soon...",
+            
             social: {
                 linkedin: "https://www.linkedin.com/in/shuvashish-barman",
                 github: "#",
@@ -3128,14 +3156,40 @@ organized by the Ministry of Education, Science and Technology, Nepal.
             phone: "+91 9337804460",
             department: "Computer Science & Engineering",
             year: "4th Year",
-            bio: "I am an aspiring Artificial Intelligence and Machine Learning professional with a strong passion for turning data into impactful solutions. With a deep interest in advanced algorithms, research, and practical applications, I enjoy exploring the possibilities of AI to solve complex real-world problems. My approach combines curiosity, adaptability, and continuous learning, allowing me to stay at the edge of innovation in a rapidly evolving field. Beyond technology, I am motivated by the vision of using AI not only as a tool for discovery but also as a pathway to independence, innovation, and meaningful change. This portfolio reflects my journey of growth, experimentation, and dedication to building a future shaped by intelligence and creativity.",
-            achievements: [
-                "Microsoft Learn Student Ambassador",
-                "AWS Certified Cloud Practitioner",
-                "Organized 10+ tech workshops"
-            ],
+            bio: "Updating Soon...",
             social: {
-                linkedin: "https://www.linkedin.com/in/shuvashish-barman",
+                linkedin: "#",
+                github: "#",
+                portfolio: "#"
+            }
+        },
+
+        "debyandu": {
+            name: "Dibyendu Ganguly",
+            role: "Secretary",
+            image: "pictures/debyandu.jpg",
+            email: "dibyendu@gmail.com",
+            phone: "+91 93xxxxxxxx",
+            department: "Computer Science & Engineering",
+            year: "4th Year",
+            bio: "Updating Soon...",
+            social: {
+                linkedin: "#",
+                github: "#",
+                portfolio: "#"
+            }
+        },
+        "ujjawal": {
+            name: "Ujjawal Anand",
+            role: "Executive coordinator",
+            image: "pictures/ujjwal.jpg",
+            email: "ujjwal@gmail.com",
+            phone: "+91 6207879902",
+            department: "Computer Science & Engineering",
+            year: "3rd Year",
+            bio: "Updating Soon...",
+            social: {
+                linkedin: "#",
                 github: "#",
                 portfolio: "#"
             }
@@ -3253,15 +3307,15 @@ organized by the Ministry of Education, Science and Technology, Nepal.
 
     <script>
     // Firebase configuration - Replace with your actual config
-    const firebaseConfig = {
-    apiKey: "AIzaSyAdWE-NMm5NJHID1DyM1GhO21RM25Dr_Bw",
-    authDomain: "ieeecskiit-8d70d.firebaseapp.com",
-    databaseURL: "https://ieeecskiit-8d70d-default-rtdb.firebaseio.com",
-    projectId: "ieeecskiit-8d70d",
-    storageBucket: "ieeecskiit-8d70d.firebasestorage.app",
-    messagingSenderId: "229724806051",
-    appId: "1:229724806051:web:916351fc25b0daba765816",
-    measurementId: "G-7BS368SJWT"
+     const firebaseConfig = {
+    apiKey: "AIzaSyCxxGbQNYqlboOQO5LAYpNwTS6m6jR1hq8",
+    authDomain: "ieee-a673c.firebaseapp.com",
+    databaseURL: "https://ieee-a673c-default-rtdb.firebaseio.com",
+    projectId: "ieee-a673c",
+    storageBucket: "ieee-a673c.firebasestorage.app",
+    messagingSenderId: "702493509349",
+    appId: "1:702493509349:web:c3fb9880152f69dd56360c",
+    measurementId: "G-YBPS6YV2Z2"
   };
     
     // Initialize Firebase
