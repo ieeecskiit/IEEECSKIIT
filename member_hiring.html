@@ -1071,9 +1071,78 @@
         font-size: 0.85rem;
     }
 }
+
+.registration-closed-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 23, 0.95);
+    backdrop-filter: blur(10px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.registration-closed-message.active {
+    display: flex;
+    opacity: 1;
+}
+
+.registration-closed-message .message-content {
+    background: var(--card-bg);
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    border: 2px solid var(--accent-pink);
+    box-shadow: 0 0 30px rgba(247, 37, 133, 0.3);
+    transform: scale(0.7);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.registration-closed-message.active .message-content {
+    transform: scale(1);
+}
+
+.registration-closed-message .message-content i {
+    font-size: 4rem;
+    color: var(--accent-pink);
+    margin-bottom: 20px;
+}
+
+.registration-closed-message .message-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.registration-closed-message .message-content p {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
     </style>
 </head>
 <body>
+    <!-- Add this HTML for the registration closed message -->
+<div id="registrationClosedMessage" class="registration-closed-message">
+    <div class="message-content">
+        <i class="fas fa-calendar-times"></i>
+        <h2>Registration Closed</h2>
+        <p>We're sorry, but the membership registration period has ended.</p>
+        <p>Stay tuned for future opportunities!</p>
+        <button id="closeMessage" class="btn btn-primary">Close</button>
+    </div>
+</div>
+
     <!-- Countdown Banner -->
 <div class="countdown-banner" id="countdownBanner" style="display: none;">
     <div class="countdown-content">
@@ -1454,6 +1523,8 @@
         </div>
     </footer>
 
+    
+
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1618,6 +1689,50 @@
             }
         }, 1000);
     });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const applyButtons = document.querySelectorAll('a[href="member_form.html"]');
+    const registrationMessage = document.getElementById('registrationClosedMessage');
+    const closeMessageBtn = document.getElementById('closeMessage');
+    
+    // Handle all Apply Now button clicks
+    applyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent navigation to member_form.html
+            
+            // Show the registration closed message
+            registrationMessage.classList.add('active');
+            
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                if (registrationMessage.classList.contains('active')) {
+                    registrationMessage.classList.remove('active');
+                }
+            }, 5000);
+        });
+    });
+    
+    // Close message when close button is clicked
+    closeMessageBtn.addEventListener('click', function() {
+        registrationMessage.classList.remove('active');
+    });
+    
+    // Close message when clicking outside the content
+    registrationMessage.addEventListener('click', function(e) {
+        if (e.target === registrationMessage) {
+            registrationMessage.classList.remove('active');
+        }
+    });
+    
+    // Close message with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && registrationMessage.classList.contains('active')) {
+            registrationMessage.classList.remove('active');
+        }
+    });
+});
 </script>
 </body>
 </html>
