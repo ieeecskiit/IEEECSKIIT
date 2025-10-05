@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroid Search Training Program | IEEE CS KIIT & NASO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a0e17;
+            --secondary: #131a2c;
+            --accent-blue: #4cc9f0;
+            --accent-purple: #9d4edd;
+            --accent-pink: #f72585;
+            --accent-green: #4ade80;
+            --accent-orange: #ff9e00;
+            --text-primary: #e6f1ff;
+            --text-secondary: #a8b2d1;
+            --card-bg: rgba(25, 30, 47, 0.8);
+            --gradient: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            --space-gradient: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            --neon-glow: 0 0 10px rgba(76, 201, 240, 0.7), 0 0 20px rgba(76, 201, 240, 0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(29, 78, 216, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(76, 201, 240, 0.1) 0%, transparent 25%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>');
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--space-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--space-gradient);
+            border-radius: 3px;
+        }
+        
+        /* Navigation */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            background: var(--space-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--space-gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--space-gradient);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        .btn:hover {
+            color: var(--text-primary);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .btn-primary {
+            background: var(--space-gradient);
+            color: var(--text-primary);
+            border: none;
+        }
+        
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+        
+        /* About Section */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .highlight-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .highlight-card i {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+        
+        /* Schedule Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--space-gradient);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 25px;
+            background-color: var(--card-bg);
+            position: relative;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+        }
+        
+        .timeline-time {
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        /* Training Topics Section */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-orange);
+            backdrop-filter: blur(10px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--accent-blue);
+        }
+        
+        .topic-level {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--accent-blue);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        /* Collaboration Banner */
+        .collaboration-banner {
+            background: var(--space-gradient);
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .footer-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--space-gradient);
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(76, 201, 240, 0.2);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Animation utilities */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .countdown-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 100px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--space-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 14, 23, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-top: 1px solid rgba(76, 201, 240, 0.2);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                height: 0;
+                overflow: hidden;
+                transition: height 0.4s ease;
+                display: flex !important;
+            }
+            
+            .nav-links.active {
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+            
+            .nav-links a {
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(76, 201, 240, 0.1);
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            
+            .mobile-menu-btn .close-icon {
+                display: none;
+            }
+            
+            .mobile-menu-btn.active .close-icon {
+                display: block;
+            }
+            
+            .mobile-menu-btn.active .menu-icon {
+                display: none;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Stars Animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Mentor Profile */
+        .mentor-profile {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-top: 40px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+        }
+        
+        .mentor-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 4rem;
+            border: 3px solid var(--accent-blue);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .mentor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .mentor-details {
+            flex: 1;
+        }
+        
+        .mentor-title {
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .mentor-links {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .mentor-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--accent-blue);
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mentor-link:hover {
+            background: rgba(76, 201, 240, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .mentor-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .mentor-image {
+                width: 200px;
+                height: 200px;
+                font-size: 3rem;
+            }
+            
+            .mentor-links {
+                justify-content: center;
+            }
+        }
+
+        /* Registration Form */
+        .registration-form {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(76, 201, 240, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 23, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+        }
+
+        .modal h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        #countdown {
+            font-weight: bold;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(76, 201, 240, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid var(--accent-blue);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-img">
+                    <img src="pictures/ieeecs.png" alt="ieeecskiit logo" style="width: 100px; height: 50px;">
+                </div>
+                IEEE CS KIIT SBC
+            </a>
+            
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#training">Training Details</a>
+                <a href="#mentor">Mentor</a>
+                <a href="#participation">Participation</a>
+                <a href="#organizers">Organizers</a>
+                <a href="#registration">Register</a>
+                <a href="https://kiit.ac.in/" class="kiit-logo">
+                     <img src="pictures/kiit-logo.png" alt="KIIT" 
+     style="width: 60px; height: 40px;  ">
+                </a>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars menu-icon"></i>
+                <i class="fas fa-times close-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="collaboration-banner">
+                    <br>In Collaboration with IEEE CS KIIT & Nepalese Astronomical Society (NASO)
+                </div>
+                
+                <h1 class="hero-title">Asteroid Search Training Program</h1>
+                <p class="hero-subtitle">Join the All-Nepal Asteroid Search Campaign (ANASC) and contribute to space science. October 7-8, 2025</p>
+                
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#training" class="btn btn-primary">
+                        <i class="fas fa-book"></i>Training Details
+                    </a>
+                    <a href="#registration" class="btn">
+                        <i class="fas fa-user-plus"></i>Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About the Program</h2>
+            <div class="about-content">
+                <p>This intensive two-day online training program is designed to prepare students for the All-Nepal Asteroid Search Campaign (ANASC) in collaboration with NASA. Participants will learn to use Astrometrica software to identify and report potential asteroid discoveries.</p>
+                <p><strong>Format:</strong> Online live training sessions | Duration: 2 days (4 hours total) | Certificate provided</p>
+                <p><strong>Objective:</strong> Equip students with practical skills in asteroid detection and data analysis, contributing to real scientific research.</p>
+                <p><strong>Prerequisites:</strong> Basic computer skills. No prior astronomy experience required.</p>
+                
+                <div class="highlights-grid">
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-satellite-dish"></i>
+                        <h3>NASA Collaboration</h3>
+                        <p>Contribute to NASA's asteroid detection efforts</p>
+                    </div>
+                    
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Certificate of Completion</h3>
+                        <p>Receive a certificate after successful training</p>
+                    </div>
+                    
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-user-astronaut"></i>
+                        <h3>Hands-on Training</h3>
+                        <p>Practical sessions with real astronomical data</p>
+                    </div>
+                    
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Pre-Campaign Session</h3>
+                        <p>Special preparation before the official campaign begins</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Details Section -->
+    <section id="training">
+        <div class="container">
+            <h2 class="section-title">Training Details</h2>
+            
+            <div class="topics-grid">
+                <div class="topic-card fade-in">
+                    <span class="topic-level">Day 1</span>
+                    <h3>Introduction & Software Setup</h3>
+                    <ul style="text-align: left; margin-top: 15px; padding-left: 20px;">
+                        <li>Introduction to AstroSource Campaign</li>
+                        <li>NASA collaboration overview</li>
+                        <li>Importance of asteroid search</li>
+                        <li>Introduction to Astrometrica Software</li>
+                        <li>Downloading & Installing Astrometrica</li>
+                        <li>Downloading Practice Image Sets</li>
+                        <li>Setting up Astrometrica</li>
+                        <li>Loading Images into Astrometrica</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card fade-in">
+                    <span class="topic-level">Day 2</span>
+                    <h3>Hands-on Practice & Report Submission</h3>
+                    <ul style="text-align: left; margin-top: 15px; padding-left: 20px;">
+                        <li>Working with Practice Image Sets</li>
+                        <li>Step-by-step asteroid detection workflow</li>
+                        <li>Identifying moving objects</li>
+                        <li>Practice Sessions in Breakout Rooms</li>
+                        <li>Criteria for Asteroid Detection</li>
+                        <li>Submitting Observation Reports</li>
+                        <li>Practice report submission</li>
+                        <li>Final Review & Q/A Session</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule">
+        <div class="container">
+            <h2 class="section-title">Training Schedule</h2>
+            <p class="section-description">2 days of intensive training in asteroid detection. October 7-8, 2025 | Daily 7:00 PM - 9:00 PM IST</p>
+            
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Day 1, October 7</div>
+                        <h3>Introduction & Software Setup</h3>
+                        <p>Introduction to the program, NASA collaboration, and hands-on setup of Astrometrica software with practice image sets.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-time">Day 2, October 8</div>
+                        <h3>Hands-on Practice & Report Submission</h3>
+                        <p>Practical asteroid detection exercises, breakout room sessions, and learning to submit observation reports in the correct format.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-time">October 9-14</div>
+                        <h3>Pre-Campaign Preparation</h3>
+                        <p>Additional practice and preparation sessions with mentor guidance before the official campaign begins on October 15.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-time">October 15</div>
+                        <h3>Campaign Begins</h3>
+                        <p>Official start of the All-Nepal Asteroid Search Campaign where trained participants can contribute to real asteroid discovery efforts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentor Section -->
+    <section id="mentor">
+        <div class="container">
+            <h2 class="section-title">Training Mentor</h2>
+            
+            <div class="mentor-profile fade-in">
+                <div class="mentor-image">
+                    <!-- Placeholder for mentor image - replace with actual image URL -->
+                    <img src="pictures/Deepti_Gautam.webp" alt="Deepti Gautam">
+                </div>
+                <div class="mentor-details">
+                    <h3>Deepti Gautam</h3>
+                    <div class="mentor-title">Mentor, All-Nepal Asteroid Search Campaign (ANASC)</div>
+                    <p><strong>Butwal, Nepal</strong></p>
+                    <p>Deepti Gautam, born in 2004, is a passionate amateur astronomer and educational outreach enthusiast from the scenic region of Rupandehi. Born and raised in a culturally rich region of Nepal, Deepti's venture into the realm of astronomy was a spark that would soon become her life's pursuit.</p>
+                    <p>Education played a pivotal role in shaping Deepti's astronomical aspirations. She embarked on her academic voyage at Gyan Punj Bidhya Mandir Secondary School, where she nurtured her curiosity and laid the foundation for her future endeavors. Moving forward, she pursued higher education at Horizon GBSS, a stepping stone that propelled her towards the limitless expanse of the universe.</p>
+                    <p>The pursuit of knowledge led Deepti to New Horizon College, where she delved into the intricacies of the cosmos, honing her skills and gaining insights into the celestial wonders that captivated her imagination. This educational chapter not only equipped her with the necessary tools for astronomical exploration but also kindled a desire to share her passion with others.</p>
+                    <p>Deepti's commitment to fostering a love for astronomy among her fellow Nepalis became evident through her involvement as a Junior Member at the Nepal Astronomical Society (NASO). Here, she not only expanded her own understanding of the universe but also actively contributed to the astronomical community in Nepal.</p>
+                    <p>Undeterred by the challenges, Deepti took a giant leap in her astronomical journey by founding Astronomy Enthusiasts In Nepal-AEN, an organization that serves as a platform for like-minded individuals to share their passion for the cosmos. As the Founder and Executive Head of AEN, Deepti has played a crucial role in creating a vibrant community of astronomy enthusiasts in Nepal.</p>
+                    <p>In addition to her organizational leadership, Deepti is an avid public speaker and lecturer on astronomy, sharing her knowledge and enthusiasm with audiences eager to explore the wonders of the universe. She is actively involved in showcasing the beauty of the night sky to the public through her telescope, fostering a deeper connection between people and the cosmos.</p>
+                    <p>Deepti's creativity extends beyond scientific exploration; she is also known for her beautiful poetry about the universe, expressing the awe and wonder that celestial phenomena evoke in her.</p>
+                    <p>In her research endeavors, Deepti has found a home at the American Association of Variable Star Observers (AAVSO), where she channels her passion into meaningful contributions to the field. Her work at AAVSO reflects a commitment to advancing scientific knowledge and contributing to the global community of variable star observers.</p>
+                    <p>Beyond her academic and creative pursuits, Deepti calls the picturesque town of Butwal home. Living amidst the natural beauty of West Nepal, she finds inspiration in both the celestial wonders above and the terrestrial wonders below.</p>
+                    <p>Deepti Gautam's story is one of curiosity, passion, and a relentless pursuit of understanding the cosmos. As she continues her journey, she remains a beacon of inspiration for people young and old in Nepal and beyond. Regularly participating in the Explore Alliance's Global Star Party, Deepti continues to share her passion for astronomy on a global scale.</p>
+                    
+                    <div class="mentor-links">
+                        <a href="#" class="mentor-link"><i class="fas fa-globe"></i> The American Association of Variable Star Observers (AAVSO)</a>
+                        <a href="#" class="mentor-link"><i class="fas fa-star"></i> Nepal Astronomical Society</a>
+                        <a href="#" class="mentor-link"><i class="fas fa-users"></i> Astronomy Enthusiasts In Nepal</a>
+                        <a href="#" class="mentor-link"><i class="fas fa-calendar-alt"></i> 136th Global Star Party</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Participation Section -->
+    <section id="participation">
+        <div class="container">
+            <h2 class="section-title">Participation Details</h2>
+            
+            <div class="about-content">
+                <p>This program is specifically designed for students of KIIT University who are interested in astronomy and space science.</p>
+                
+                <div class="highlights-grid">
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-users"></i>
+                        <h3>Team Formation</h3>
+                        <p>Initial target of 10 teams with 5 teams already confirmed</p>
+                    </div>
+                    
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Student Selection</h3>
+                        <p>From KIIT's Technical Domain and selected 1st, 2nd, and 3rd-year students</p>
+                    </div>
+                    
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-list-alt"></i>
+                        <h3>Final Team List</h3>
+                        <p>To be submitted to NASO and IASC before October 11, 2025</p>
+                    </div>
+                    
+                    <div class="highlight-card fade-in">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>IEEE CS KIIT Membership</h3>
+                        <p>50+ general members across Research, Technical Projects, and Patents & Innovation domains</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organizers Section -->
+    <section id="organizers">
+        <div class="container">
+            <h2 class="section-title">Organizers</h2>
+            
+            <div class="highlights-grid">
+                <div class="highlight-card fade-in">
+                    <i class="fas fa-university"></i>
+                    <h3>IEEE CS KIIT</h3>
+                    <p>IEEE Computer Society KIIT Student Branch Chapter (SBC15681N)</p>
+                    <p>Leading the technical implementation and student participation</p>
+                </div>
+                
+                <div class="highlight-card fade-in">
+                    <i class="fas fa-star-and-crescent"></i>
+                    <h3>NASO</h3>
+                    <p>Nepalese Astronomical Society</p>
+                    <p>Providing expertise, training resources, and campaign coordination</p>
+                </div>
+                
+                <div class="highlight-card fade-in">
+                    <i class="fas fa-user-astronaut"></i>
+                    <h3>Training Mentor</h3>
+                    <p>Ms. Deepti Gautam</p>
+                    <p>Mentor of the All-Nepal Asteroid Search Campaign (ANASC) and NASO's Asteroid Search Training</p>
+                </div>
+                
+                <div class="highlight-card fade-in">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>NASA Collaboration</h3>
+                    <p>International Astronomical Search Collaboration (IASC)</p>
+                    <p>Providing the platform and data for asteroid search campaigns</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="registration">
+        <div class="container">
+            <h2 class="section-title">Register Now</h2>
+            
+            <div class="registration-form">
+                <form id="training-registration" action="https://formsubmit.co/your-email@example.com" method="POST">
+                    <input type="hidden" name="_subject" value="New Registration - Asteroid Search Training">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="institution">Institution/Organization</label>
+                        <input type="text" id="institution" name="institution" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course">Course/Year</label>
+                        <input type="text" id="course" name="course" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Astronomy Experience Level</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select your experience level</option>
+                            <option value="beginner">Beginner (No prior experience)</option>
+                            <option value="intermediate">Intermediate (Some astronomy knowledge)</option>
+                            <option value="advanced">Advanced (Active in astronomy activities)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="hero-buttons" style="margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Registration
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Registration Received!</h3>
+            <p>Thank you for registering for the Asteroid Search Training Program.</p>
+            <p>You will receive confirmation details shortly via email.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <a href="#" class="footer-logo">Asteroid Search Training</a>
+                    <p class="footer-description">A collaborative program between IEEE CS KIIT and NASO to train students in asteroid detection and contribute to space science.</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Program</a></li>
+                        <li><a href="#training">Training Details</a></li>
+                        <li><a href="#schedule">Schedule</a></li>
+                        <li><a href="#mentor">Mentor</a></li>
+                        <li><a href="#participation">Participation</a></li>
+                        <li><a href="#organizers">Organizers</a></li>
+                        <li><a href="#registration">Register</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Organized By</h4>
+                    <ul class="footer-links">
+                        <li>IEEE CS KIIT Student Branch</li>
+                        <li>Nepalese Astronomical Society (NASO)</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">Training Info</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-calendar-alt"></i> October 7-8, 2025</li>
+                        <li><i class="fas fa-clock"></i> 7:00 PM - 9:00 PM IST</li>
+                        <li><i class="fas fa-laptop"></i> Online Live Sessions</li>
+                        <li><i class="fas fa-satellite"></i> Campaign Starts: Oct 15</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 IEEE Computer Society KIIT Student Branch Chapter & NASO. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create stars for background
+            function createStars() {
+                const starsContainer = document.getElementById('stars');
+                const starCount = 200;
+                
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    
+                    // Random position
+                    const x = Math.random() * 100;
+                    const y = Math.random() * 100;
+                    
+                    // Random size (0.5px to 2px)
+                    const size = Math.random() * 1.5 + 0.5;
+                    
+                    // Random animation delay
+                    const delay = Math.random() * 5;
+                    
+                    star.style.left = `${x}%`;
+                    star.style.top = `${y}%`;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    star.style.animationDelay = `${delay}s`;
+                    
+                    starsContainer.appendChild(star);
+                }
+            }
+            
+            createStars();
+            
+            // Countdown timer
+            function updateCountdown() {
+                const trainingDate = new Date('2025-10-07T19:00:00').getTime();
+                const now = new Date().getTime();
+                const distance = trainingDate - now;
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').innerText = days.toString().padStart(2, '0');
+                document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+            }
+            
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+            
+            // Fade-in animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                    
+                    if (isVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkFade);
+            window.addEventListener('load', checkFade);
+            checkFade();
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                }
+            });
+
+            // Form Submission
+            const registrationForm = document.getElementById('training-registration');
+            const successModal = document.getElementById('success-modal');
+
+            registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validate all required fields
+                const requiredFields = registrationForm.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'var(--accent-pink)';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (!isValid) {
+                    alert('Please fill all required fields.');
+                    return;
+                }
+
+                // Show loading state
+                const submitBtn = registrationForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; margin-right: 10px;"></div> Submitting...';
+                submitBtn.disabled = true;
+
+                // Submit the form
+                const formData = new FormData(registrationForm);
+                
+                // Using FormSubmit.co
+                fetch(registrationForm.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Show success modal
+                        successModal.style.display = 'flex';
+                        registrationForm.reset();
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error("Submission error:", error);
+                    alert('Registration failed. Please try again.');
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Registration';
+                    submitBtn.disabled = false;
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === successModal) {
+                    successModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
