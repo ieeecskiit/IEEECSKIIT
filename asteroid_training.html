@@ -1424,7 +1424,7 @@
                                     <i class="fab fa-google"></i> Sign in with KIIT Email
                                 </button>
                                 <div id="auth-status" class="auth-status info">
-                                    Please sign in with your KIIT email (@kiit.ac.in) to proceed with registration
+                                    Please sign in with your email to proceed with registration
                                 </div>
                             </div>
                         </div>
@@ -1725,7 +1725,7 @@ Deepti Gautam's story is one of curiosity, passion, and a relentless pursuit of 
                 userEmail = user.email;
                 
                 // Check if email is from KIIT domain
-                if (!userEmail.endsWith('@kiit.ac.in')) {
+                if (!userEmail.endsWith('@gmail.com')) {
                     authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please use your KIIT email (@kiit.ac.in) to register.';
                     authStatus.className = "auth-status error";
                     await auth.signOut();
