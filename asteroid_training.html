@@ -1323,11 +1323,11 @@
             <h2 class="section-title">Register Now</h2>
             
             <div class="registration-form">
-                <form id="training-registration">
+                <form id="training-registration" action="https://formsubmit.co/ieeecskiit@gmail.com.com" method="POST">
                     <input type="hidden" name="_subject" value="New Registration - Asteroid Search Training">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                    <input type="hidden" name="_next" value="index.html">
                     
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
@@ -1688,149 +1688,151 @@ Deepti Gautam's story is one of curiosity, passion, and a relentless pursuit of 
             });
 
             // Gmail Authentication
-            const gmailAuthBtn = document.getElementById('gmail-auth-btn');
-            const authStatus = document.getElementById('auth-status');
-            const submitSection = document.getElementById('submit-section');
-            const registrationForm = document.getElementById('training-registration');
-            const successModal = document.getElementById('success-modal');
-
-            let userEmail = null;
-
             // Gmail Authentication
-            gmailAuthBtn.addEventListener('click', async function() {
-                try {
-                    authStatus.innerHTML = '<div class="spinner"></div><span style="margin-left: 10px;">Connecting to Google...</span>';
-                    authStatus.className = "auth-status info";
+        const gmailAuthBtn = document.getElementById('gmail-auth-btn');
+        const authStatus = document.getElementById('auth-status');
+        const submitSection = document.getElementById('submit-section');
+        const registrationForm = document.getElementById('training-registration');
+        const successModal = document.getElementById('success-modal');
 
-                    const result = await auth.signInWithPopup(provider);
-                    const user = result.user;
-                    
-                    userEmail = user.email;
-                    
-                    // Check if email is from KIIT domain
-                    if (!userEmail.endsWith('@kiit.ac.in')) {
-                        authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please use your KIIT email (@kiit.ac.in) to register.';
-                        authStatus.className = "auth-status error";
-                        await auth.signOut();
-                        return;
-                    }
+        let userEmail = null;
 
-                    // Check if email already exists in Firestore
-                   
+        // Gmail Authentication
+        gmailAuthBtn.addEventListener('click', async function() {
+            try {
+                authStatus.innerHTML = '<div class="spinner"></div><span style="margin-left: 10px;">Connecting to Google...</span>';
+                authStatus.className = "auth-status info";
 
-                    // Show success and enable submission
-                    authStatus.innerHTML = `<i class="fas fa-check-circle"></i> Successfully verified: ${userEmail}`;
-                    authStatus.className = "auth-status success";
-                    submitSection.style.display = 'flex';
-                    gmailAuthBtn.disabled = true;
-                    gmailAuthBtn.innerHTML = '<i class="fas fa-check"></i> Email Verified';
-                    gmailAuthBtn.style.opacity = '0.7';
-
-                } catch (error) {
-                    console.error("Authentication error:", error);
-                    authStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Authentication failed. Please try again.';
-                    authStatus.className = "auth-status error";
-                    
-                    // Reset button state
-                    gmailAuthBtn.disabled = false;
-                    gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
-                }
-            });
-
-            // Form Submission
-            registrationForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
                 
-                if (!userEmail) {
-                    authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please verify your KIIT email first.';
+                userEmail = user.email;
+                
+                // Check if email is from KIIT domain
+                if (!userEmail.endsWith('@kiit.ac.in')) {
+                    authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please use your KIIT email (@kiit.ac.in) to register.';
                     authStatus.className = "auth-status error";
+                    await auth.signOut();
                     return;
                 }
 
-                // Validate all required fields
-                const requiredFields = registrationForm.querySelectorAll('[required]');
-                let isValid = true;
+                // Show success and enable submission
+                authStatus.innerHTML = `<i class="fas fa-check-circle"></i> Successfully verified: ${userEmail}`;
+                authStatus.className = "auth-status success";
+                submitSection.style.display = 'flex';
+                gmailAuthBtn.disabled = true;
+                gmailAuthBtn.innerHTML = '<i class="fas fa-check"></i> Email Verified';
+                gmailAuthBtn.style.opacity = '0.7';
+
+            } catch (error) {
+                console.error("Authentication error:", error);
+                authStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Authentication failed. Please try again.';
+                authStatus.className = "auth-status error";
                 
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = 'var(--accent-pink)';
-                    } else {
-                        field.style.borderColor = '';
-                    }
+                // Reset button state
+                gmailAuthBtn.disabled = false;
+                gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
+            }
+        });
+
+        // Form Submission
+        registrationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!userEmail) {
+                authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please verify your KIIT email first.';
+                authStatus.className = "auth-status error";
+                return;
+            }
+
+            // Validate all required fields
+            const requiredFields = registrationForm.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--accent-pink)';
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+
+            // Validate institution if "Other" is selected
+            const institutionSelect = document.getElementById('institution');
+            if (institutionSelect.value === 'Other' && !document.getElementById('institution-other').value.trim()) {
+                isValid = false;
+                document.getElementById('institution-other').style.borderColor = 'var(--accent-pink)';
+            }
+
+            if (!isValid) {
+                authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill all required fields.';
+                authStatus.className = "auth-status error";
+                return;
+            }
+
+            const formData = new FormData(this);
+            const registrationData = {
+                fullName: formData.get('fullName'),
+                gender: formData.get('gender'),
+                whatsapp: formData.get('whatsapp'),
+                institution: formData.get('institution') === 'Other' ? formData.get('institution-other') : formData.get('institution'),
+                course: formData.get('course'),
+                experience: formData.get('experience'),
+                certificate: formData.get('certificate'),
+                iasc: formData.get('iasc'),
+                email: userEmail
+            };
+
+            try {
+                // Show loading state
+                const submitBtn = registrationForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; margin-right: 10px;"></div> Submitting...';
+                submitBtn.disabled = true;
+
+                // Submit to FormSubmit (no Firebase database storage)
+                const formSubmitData = new FormData();
+                Object.keys(registrationData).forEach(key => {
+                    formSubmitData.append(key, registrationData[key]);
                 });
 
-                // Validate institution if "Other" is selected
-                if (institutionSelect.value === 'Other' && !document.getElementById('institution-other').value.trim()) {
-                    isValid = false;
-                    document.getElementById('institution-other').style.borderColor = 'var(--accent-pink)';
-                }
+                // Submit to FormSubmit
+                await fetch(registrationForm.action, {
+                    method: 'POST',
+                    body: formSubmitData
+                });
 
-                if (!isValid) {
-                    authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill all required fields.';
-                    authStatus.className = "auth-status error";
-                    return;
-                }
+                // Show success modal
+                successModal.style.display = 'flex';
 
-                const formData = new FormData(this);
-                const registrationData = {
-                    fullName: formData.get('fullName'),
-                    gender: formData.get('gender'),
-                    whatsapp: formData.get('whatsapp'),
-                    institution: formData.get('institution') === 'Other' ? formData.get('institution-other') : formData.get('institution'),
-                    course: formData.get('course'),
-                    experience: formData.get('experience'),
-                    certificate: formData.get('certificate'),
-                    iasc: formData.get('iasc'),
-                    email: userEmail,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                };
-
-                try {
-                    // Show loading state
-                    const submitBtn = registrationForm.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.innerHTML;
-                    submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; margin-right: 10px;"></div> Submitting...';
-                    submitBtn.disabled = true;
-
-                    // Store in Firestore
-                    await db.collection('registrations').add(registrationData);
-
-                    // Submit to FormSubmit
-                    const formSubmitData = new FormData();
-                    Object.keys(registrationData).forEach(key => {
-                        if (key !== 'timestamp') {
-                            formSubmitData.append(key, registrationData[key]);
-                        }
-                    });
-
-                    // Show success modal
-                    successModal.style.display = 'flex';
-
-                    // Reset form after successful submission
-                    setTimeout(() => {
-                        registrationForm.reset();
-                        successModal.style.display = 'none';
-                        authStatus.innerHTML = '<i class="fas fa-info-circle"></i> Please sign in with your KIIT email to register';
-                        authStatus.className = "auth-status info";
-                        submitSection.style.display = 'none';
-                        gmailAuthBtn.disabled = false;
-                        gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
-                        gmailAuthBtn.style.opacity = '1';
-                        userEmail = null;
-                    }, 3000);
-
-                } catch (error) {
-                    console.error("Submission error:", error);
-                    authStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Registration failed. Please try again.';
-                    authStatus.className = "auth-status error";
+                // Reset form after successful submission
+                setTimeout(() => {
+                    registrationForm.reset();
+                    successModal.style.display = 'none';
+                    authStatus.innerHTML = '<i class="fas fa-info-circle"></i> Please sign in with your KIIT email to register';
+                    authStatus.className = "auth-status info";
+                    submitSection.style.display = 'none';
+                    gmailAuthBtn.disabled = false;
+                    gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
+                    gmailAuthBtn.style.opacity = '1';
+                    userEmail = null;
                     
-                    // Reset button state
-                    const submitBtn = registrationForm.querySelector('button[type="submit"]');
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Registration';
-                    submitBtn.disabled = false;
-                }
-            });
+                    // Sign out from Firebase
+                    auth.signOut();
+                }, 3000);
+
+            } catch (error) {
+                console.error("Submission error:", error);
+                authStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Registration failed. Please try again.';
+                authStatus.className = "auth-status error";
+                
+                // Reset button state
+                const submitBtn = registrationForm.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Registration';
+                submitBtn.disabled = false;
+            }
+        });
 
             // Trainer Modal Functionality
             const trainerCards = document.querySelectorAll('.trainer-card');
