@@ -1010,6 +1010,14 @@
                 height: 150px;
             }
         }
+
+
+        .form-group input[readonly] {
+    background: rgba(10, 14, 23, 0.5) !important;
+    border-color: rgba(76, 201, 240, 0.5) !important;
+    color: var(--text-secondary) !important;
+    cursor: not-allowed;
+}
     </style>
 </head>
 <body>
@@ -1323,7 +1331,7 @@
             <h2 class="section-title">Register Now</h2>
             
             <div class="registration-form">
-                <form id="training-registration" action="https://formsubmit.co/sajansah205@gmail.com" method="POST">
+                <form id="training-registration" action="https://formsubmit.co/sah61509@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="New Registration - Asteroid Search Training">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
@@ -1511,40 +1519,40 @@
 
     <!-- JavaScript -->
     <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-    apiKey: "AIzaSyAdWE-NMm5NJHID1DyM1GhO21RM25Dr_Bw",
-    authDomain: "ieeecskiit-8d70d.firebaseapp.com",
-    databaseURL: "https://ieeecskiit-8d70d-default-rtdb.firebaseio.com",
-    projectId: "ieeecskiit-8d70d",
-    storageBucket: "ieeecskiit-8d70d.firebasestorage.app",
-    messagingSenderId: "229724806051",
-    appId: "1:229724806051:web:916351fc25b0daba765816",
-    measurementId: "G-7BS368SJWT"
-  };
-        
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        
-        // Google Provider
-        const provider = new firebase.auth.GoogleAuthProvider();
-        
-        // Trainer Data
-        const trainerData = {
-            "suresh": {
-                name: "Suresh Sir",
-                role: "Senior Mentor & Coordinator",
-                image: "pictures/suresh_cropped.png",
-                bio: `Mr. Suresh Bhattarai is a PhD Scholar at Insititute of Science and Technology, 
-                Tribhuvan University and an adjunct faculty at Department of Physics, Tri-Chandra Multiple Campus. Graduated with M.Sc. Physics degree with majors Astrophysics and Plasma Physics from Tribhuvan University in 2011, his research interests are Planetary Science, Star Formation, ISM, High Energy Astrophysics, Astrochemistry, and Astrobiology. He has eclectic experience on astronomy outreach and education in Nepal. He is a member at International Board of International Olympiad on Astronomy and Astrophysics (IOAA) and International Astronomy Olympiad (IAO) respectively. He also served at  Space  Generation  Advisory Council (SGAC) with different capacities such as National Point of Contact for Nepal, Executive Secretary for Vienna Office and Regional Coordinator for Asia-Pacific Regiion during 2009-2018. He has been working as NASA Space Apps Local Leads for eight different location across seven provinces of Nepal since 2020. He serves at IAU with different capacities. He is National Outreach Coordinator (NOC) and National Astronomy Education Coordinator (NAEC) respectively. He is also manager of the IAU OAE Node for Nepal..`
-            },
-            "prajwal": {
-                name: "Prajwal Panth",
-                role: "Technical Trainer & Coordinator",
-                image: "pictures/prajwal.jpg",
-                bio: `Prajwal Panth is a final-year B.Tech (Honours with Research) student in Computer Science and Engineering at KIIT University, with a minor in Applied Machine Learning. His research interests include machine learning, secure computation, and Large Language Models.
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAdWE-NMm5NJHID1DyM1GhO21RM25Dr_Bw",
+        authDomain: "ieeecskiit-8d70d.firebaseapp.com",
+        databaseURL: "https://ieeecskiit-8d70d-default-rtdb.firebaseio.com",
+        projectId: "ieeecskiit-8d70d",
+        storageBucket: "ieeecskiit-8d70d.firebasestorage.app",
+        messagingSenderId: "229724806051",
+        appId: "1:229724806051:web:916351fc25b0daba765816",
+        measurementId: "G-7BS368SJWT"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    // Google Provider
+    const provider = new firebase.auth.GoogleAuthProvider();
+    
+    // Trainer Data
+    const trainerData = {
+        "suresh": {
+            name: "Suresh Sir",
+            role: "Senior Mentor & Coordinator",
+            image: "pictures/suresh_cropped.png",
+            bio: `Mr. Suresh Bhattarai is a PhD Scholar at Insititute of Science and Technology, 
+            Tribhuvan University and an adjunct faculty at Department of Physics, Tri-Chandra Multiple Campus. Graduated with M.Sc. Physics degree with majors Astrophysics and Plasma Physics from Tribhuvan University in 2011, his research interests are Planetary Science, Star Formation, ISM, High Energy Astrophysics, Astrochemistry, and Astrobiology. He has eclectic experience on astronomy outreach and education in Nepal. He is a member at International Board of International Olympiad on Astronomy and Astrophysics (IOAA) and International Astronomy Olympiad (IAO) respectively. He also served at  Space  Generation  Advisory Council (SGAC) with different capacities such as National Point of Contact for Nepal, Executive Secretary for Vienna Office and Regional Coordinator for Asia-Pacific Regiion during 2009-2018. He has been working as NASA Space Apps Local Leads for eight different location across seven provinces of Nepal since 2020. He serves at IAU with different capacities. He is National Outreach Coordinator (NOC) and National Astronomy Education Coordinator (NAEC) respectively. He is also manager of the IAU OAE Node for Nepal..`
+        },
+        "prajwal": {
+            name: "Prajwal Panth",
+            role: "Technical Trainer & Coordinator",
+            image: "pictures/prajwal.jpg",
+            bio: `Prajwal Panth is a final-year B.Tech (Honours with Research) student in Computer Science and Engineering at KIIT University, with a minor in Applied Machine Learning. His research interests include machine learning, secure computation, and Large Language Models.
 
 He has co-authored multiple research papers in the domains of privacy-preserving computation and deep learning, which have been published in international journals and presented at IEEE conferences. In recognition of his innovative contributions, he holds two granted patents from the UK Intellectual Property Office.
 
@@ -1553,16 +1561,16 @@ Through NASA's International Astronomical Search Collaboration (IASC), Prajwal d
 Previously, he served as Chief Research Officer at BioFolk, where he led research combining deep learning and biosciences. At KIIT, he served as an R&D Mentor for research writing and publications within the UiPath Student Community.
 
 Prajwal has been recognized twice as a Galactic Problem Solver in the NASA International Space Apps Challenge (2020, 2021) and was the youngest recipient of the Scientific Innovation Award from the Government of Nepal in 2019.`,
-                social: {
-                    linkedin: "https://www.linkedin.com/in/prajwal-panth/",
-                    portfolio: "https://www.prajwalpanth.com.np"
-                }
-            },
-            "deepti": {
-                name: "Deepti Gautam",
-                role: "Lead Trainer & Astronomy Expert",
-                image: "pictures/Deepti_Gautam.webp",
-                bio: `Deepti Gautam, born in 2004, is a passionate amateur astronomer and educational outreach enthusiast from the scenic region of Rupandehi, Nepal. Her venture into the realm of astronomy was a spark that would soon become her life's pursuit.
+            social: {
+                linkedin: "https://www.linkedin.com/in/prajwal-panth/",
+                portfolio: "https://www.prajwalpanth.com.np"
+            }
+        },
+        "deepti": {
+            name: "Deepti Gautam",
+            role: "Lead Trainer & Astronomy Expert",
+            image: "pictures/Deepti_Gautam.webp",
+            bio: `Deepti Gautam, born in 2004, is a passionate amateur astronomer and educational outreach enthusiast from the scenic region of Rupandehi, Nepal. Her venture into the realm of astronomy was a spark that would soon become her life's pursuit.
 
 Education played a pivotal role in shaping Deepti's astronomical aspirations. She embarked on her academic voyage at Gyan Punj Bidhya Mandir Secondary School, where she nurtured her curiosity and laid the foundation for her future endeavors. Moving forward, she pursued higher education at Horizon GBSS and New Horizon College.
 
@@ -1579,174 +1587,172 @@ In her research endeavors, Deepti has found a home at the American Association o
 Beyond her academic and creative pursuits, Deepti calls the picturesque town of Butwal home. Living amidst the natural beauty of West Nepal, she finds inspiration in both the celestial wonders above and the terrestrial wonders below.
 
 Deepti Gautam's story is one of curiosity, passion, and a relentless pursuit of understanding the cosmos. As she continues her journey, she remains a beacon of inspiration for people young and old in Nepal and beyond. Regularly participating in the Explore Alliance's Global Star Party, Deepti continues to share her passion for astronomy on a global scale.`,
-                social: {
-                    aavso: "#",
-                    naso: "#",
-                    aen: "#"
-                }
+            social: {
+                aavso: "#",
+                naso: "#",
+                aen: "#"
             }
-        };
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create stars for background
-            function createStars() {
-                const starsContainer = document.getElementById('stars');
-                const starCount = 200;
-                
-                for (let i = 0; i < starCount; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    
-                    // Random position
-                    const x = Math.random() * 100;
-                    const y = Math.random() * 100;
-                    
-                    // Random size (0.5px to 2px)
-                    const size = Math.random() * 1.5 + 0.5;
-                    
-                    // Random animation delay
-                    const delay = Math.random() * 5;
-                    
-                    star.style.left = `${x}%`;
-                    star.style.top = `${y}%`;
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
-                    star.style.animationDelay = `${delay}s`;
-                    
-                    starsContainer.appendChild(star);
-                }
-            }
-            
-            createStars();
-            
-            // Countdown timer
-            function updateCountdown() {
-                const trainingDate = new Date('2025-10-07T19:00:00').getTime();
-                const now = new Date().getTime();
-                const distance = trainingDate - now;
-                
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-                document.getElementById('days').innerText = days.toString().padStart(2, '0');
-                document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-            }
-            
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
-            
-            // Fade-in animation on scroll
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            function checkFade() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
-                    
-                    if (isVisible) {
-                        element.classList.add('visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkFade);
-            window.addEventListener('load', checkFade);
-            checkFade();
-            
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                mobileMenuBtn.classList.toggle('active');
-            });
-            
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
-                });
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
-                }
-            });
-
-            // Institution selection handler
-            const institutionSelect = document.getElementById('institution');
-            const otherInstitution = document.getElementById('other-institution');
-            
-            institutionSelect.addEventListener('change', function() {
-                if (this.value === 'Other') {
-                    otherInstitution.style.display = 'block';
-                } else {
-                    otherInstitution.style.display = 'none';
-                }
-            });
-
-            // Gmail Authentication
-            // Gmail Authentication
-        // Gmail Authentication
-const gmailAuthBtn = document.getElementById('gmail-auth-btn');
-const authStatus = document.getElementById('auth-status');
-const submitSection = document.getElementById('submit-section');
-const registrationForm = document.getElementById('training-registration');
-const successModal = document.getElementById('success-modal');
-const emailInput = document.getElementById('email'); // Add this line
-
-let userEmail = null;
-
-// Gmail Authentication
-gmailAuthBtn.addEventListener('click', async function() {
-    try {
-        authStatus.innerHTML = '<div class="spinner"></div><span style="margin-left: 10px;">Connecting to Google...</span>';
-        authStatus.className = "auth-status info";
-
-        const result = await auth.signInWithPopup(provider);
-        const user = result.user;
-        
-        userEmail = user.email;
-        
-        // Check if email is from KIIT domain
-        if (!userEmail.endsWith('@kiit.ac.in')) {
-            authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please use your KIIT email (@kiit.ac.in) to register.';
-            authStatus.className = "auth-status error";
-            await auth.signOut();
-            return;
         }
+    };
 
-        // Auto-populate the email field
-        emailInput.value = userEmail;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create stars for background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size (0.5px to 2px)
+                const size = Math.random() * 1.5 + 0.5;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
         
-        // Show success and enable submission
-        authStatus.innerHTML = `<i class="fas fa-check-circle"></i> Successfully verified: ${userEmail}`;
-        authStatus.className = "auth-status success";
-        submitSection.style.display = 'flex';
-        gmailAuthBtn.disabled = true;
-        gmailAuthBtn.innerHTML = '<i class="fas fa-check"></i> Email Verified';
-        gmailAuthBtn.style.opacity = '0.7';
+        createStars();
+        
+        // Countdown timer
+        function updateCountdown() {
+            const trainingDate = new Date('2025-10-07T19:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = trainingDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                
+                if (isVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+        checkFade();
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
 
-    } catch (error) {
-        console.error("Authentication error:", error);
-        authStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Authentication failed. Please try again.';
-        authStatus.className = "auth-status error";
+        // Institution selection handler
+        const institutionSelect = document.getElementById('institution');
+        const otherInstitution = document.getElementById('other-institution');
         
-        // Reset button state
-        gmailAuthBtn.disabled = false;
-        gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
-    }
-});
+        institutionSelect.addEventListener('change', function() {
+            if (this.value === 'Other') {
+                otherInstitution.style.display = 'block';
+            } else {
+                otherInstitution.style.display = 'none';
+            }
+        });
+
+        // Gmail Authentication
+        const gmailAuthBtn = document.getElementById('gmail-auth-btn');
+        const authStatus = document.getElementById('auth-status');
+        const submitSection = document.getElementById('submit-section');
+        const registrationForm = document.getElementById('training-registration');
+        const successModal = document.getElementById('success-modal');
+        const emailInput = document.getElementById('email');
+
+        let userEmail = null;
+
+        // Gmail Authentication
+        gmailAuthBtn.addEventListener('click', async function() {
+            try {
+                authStatus.innerHTML = '<div class="spinner"></div><span style="margin-left: 10px;">Connecting to Google...</span>';
+                authStatus.className = "auth-status info";
+
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                
+                userEmail = user.email;
+                
+                // Check if email is from KIIT domain
+                if (!userEmail.endsWith('@kiit.ac.in')) {
+                    authStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please use your KIIT email (@kiit.ac.in) to register.';
+                    authStatus.className = "auth-status error";
+                    await auth.signOut();
+                    return;
+                }
+
+                // Auto-populate the email field
+                emailInput.value = userEmail;
+                
+                // Show success and enable submission
+                authStatus.innerHTML = `<i class="fas fa-check-circle"></i> Successfully verified: ${userEmail}`;
+                authStatus.className = "auth-status success";
+                submitSection.style.display = 'flex';
+                gmailAuthBtn.disabled = true;
+                gmailAuthBtn.innerHTML = '<i class="fas fa-check"></i> Email Verified';
+                gmailAuthBtn.style.opacity = '0.7';
+
+            } catch (error) {
+                console.error("Authentication error:", error);
+                authStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Authentication failed. Please try again.';
+                authStatus.className = "auth-status error";
+                
+                // Reset button state
+                gmailAuthBtn.disabled = false;
+                gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
+            }
+        });
 
         // Form Submission
         registrationForm.addEventListener('submit', async function(e) {
@@ -1820,22 +1826,21 @@ gmailAuthBtn.addEventListener('click', async function() {
                 successModal.style.display = 'flex';
 
                 // Reset form after successful submission
-                // Reset form after successful submission
-setTimeout(() => {
-    registrationForm.reset();
-    emailInput.value = ''; // Add this line to clear email field
-    successModal.style.display = 'none';
-    authStatus.innerHTML = '<i class="fas fa-info-circle"></i> Please sign in with your KIIT email to register';
-    authStatus.className = "auth-status info";
-    submitSection.style.display = 'none';
-    gmailAuthBtn.disabled = false;
-    gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
-    gmailAuthBtn.style.opacity = '1';
-    userEmail = null;
-    
-    // Sign out from Firebase
-    auth.signOut();
-}, 3000);
+                setTimeout(() => {
+                    registrationForm.reset();
+                    emailInput.value = ''; // Clear email field
+                    successModal.style.display = 'none';
+                    authStatus.innerHTML = '<i class="fas fa-info-circle"></i> Please sign in with your KIIT email to register';
+                    authStatus.className = "auth-status info";
+                    submitSection.style.display = 'none';
+                    gmailAuthBtn.disabled = false;
+                    gmailAuthBtn.innerHTML = '<i class="fab fa-google"></i> Sign in with KIIT Email';
+                    gmailAuthBtn.style.opacity = '1';
+                    userEmail = null;
+                    
+                    // Sign out from Firebase
+                    auth.signOut();
+                }, 3000);
 
             } catch (error) {
                 console.error("Submission error:", error);
@@ -1849,86 +1854,85 @@ setTimeout(() => {
             }
         });
 
-            // Trainer Modal Functionality
-            const trainerCards = document.querySelectorAll('.trainer-card');
-            const trainerModal = document.getElementById('trainer-modal');
-            const trainerModalBody = document.querySelector('.trainer-modal-body');
-            const trainerModalClose = document.querySelector('.trainer-modal-close');
+        // Trainer Modal Functionality
+        const trainerCards = document.querySelectorAll('.trainer-card');
+        const trainerModal = document.getElementById('trainer-modal');
+        const trainerModalBody = document.querySelector('.trainer-modal-body');
+        const trainerModalClose = document.querySelector('.trainer-modal-close');
 
-            // Function to open trainer modal
-            function openTrainerModal(trainerId) {
-                const trainer = trainerData[trainerId];
-                if (!trainer) return;
-                
-                trainerModalBody.innerHTML = `
-                    <div class="trainer-modal-header">
-                        <div class="trainer-modal-profile">
-                            <img src="${trainer.image}" alt="${trainer.name}" class="trainer-modal-img">
-                            <h3 class="trainer-modal-name">${trainer.name}</h3>
-                            <div class="trainer-modal-role">${trainer.role}</div>
-                        </div>
+        // Function to open trainer modal
+        function openTrainerModal(trainerId) {
+            const trainer = trainerData[trainerId];
+            if (!trainer) return;
+            
+            trainerModalBody.innerHTML = `
+                <div class="trainer-modal-header">
+                    <div class="trainer-modal-profile">
+                        <img src="${trainer.image}" alt="${trainer.name}" class="trainer-modal-img">
+                        <h3 class="trainer-modal-name">${trainer.name}</h3>
+                        <div class="trainer-modal-role">${trainer.role}</div>
                     </div>
+                </div>
+                
+                <div class="trainer-modal-content-body">
+                    <h4 class="trainer-modal-section-title">About</h4>
+                    <p class="trainer-detail-text">${trainer.bio}</p>
                     
-                    <div class="trainer-modal-content-body">
-                        <h4 class="trainer-modal-section-title">About</h4>
-                        <p class="trainer-detail-text">${trainer.bio}</p>
-                        
-                        ${trainer.social ? `
-                        <div class="trainer-modal-social">
-                            ${trainer.social.linkedin ? `<a href="${trainer.social.linkedin}" class="trainer-modal-social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
-                            ${trainer.social.portfolio ? `<a href="${trainer.social.portfolio}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-globe"></i></a>` : ''}
-                            ${trainer.social.aavso ? `<a href="${trainer.social.aavso}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-star"></i></a>` : ''}
-                            ${trainer.social.naso ? `<a href="${trainer.social.naso}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-users"></i></a>` : ''}
-                            ${trainer.social.aen ? `<a href="${trainer.social.aen}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-rocket"></i></a>` : ''}
-                        </div>
-                        ` : ''}
+                    ${trainer.social ? `
+                    <div class="trainer-modal-social">
+                        ${trainer.social.linkedin ? `<a href="${trainer.social.linkedin}" class="trainer-modal-social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>` : ''}
+                        ${trainer.social.portfolio ? `<a href="${trainer.social.portfolio}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-globe"></i></a>` : ''}
+                        ${trainer.social.aavso ? `<a href="${trainer.social.aavso}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-star"></i></a>` : ''}
+                        ${trainer.social.naso ? `<a href="${trainer.social.naso}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-users"></i></a>` : ''}
+                        ${trainer.social.aen ? `<a href="${trainer.social.aen}" class="trainer-modal-social-link" target="_blank"><i class="fas fa-rocket"></i></a>` : ''}
                     </div>
-                `;
-                
-                // Show the modal
-                trainerModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
+                    ` : ''}
+                </div>
+            `;
+            
+            // Show the modal
+            trainerModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
 
-            // Function to close trainer modal
-            function closeTrainerModal() {
-                trainerModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
+        // Function to close trainer modal
+        function closeTrainerModal() {
+            trainerModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
 
-            // Add click event to all trainer cards
-            trainerCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const trainerId = this.getAttribute('data-trainer');
-                    openTrainerModal(trainerId);
-                });
-            });
-
-            // Close modal when clicking close button
-            trainerModalClose.addEventListener('click', closeTrainerModal);
-
-            // Close modal when clicking outside content
-            window.addEventListener('click', function(event) {
-                if (event.target === trainerModal) {
-                    closeTrainerModal();
-                }
-            });
-
-            // Close modal with Escape key
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                    closeTrainerModal();
-                }
-            });
-
-            // Close success modal when clicking outside
-            window.addEventListener('click', (e) => {
-                if (e.target === successModal) {
-                    successModal.style.display = 'none';
-                }
+        // Add click event to all trainer cards
+        trainerCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const trainerId = this.getAttribute('data-trainer');
+                openTrainerModal(trainerId);
             });
         });
-    </script>
-</body>
 
+        // Close modal when clicking close button
+        trainerModalClose.addEventListener('click', closeTrainerModal);
+
+        // Close modal when clicking outside content
+        window.addEventListener('click', function(event) {
+            if (event.target === trainerModal) {
+                closeTrainerModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTrainerModal();
+            }
+        });
+
+        // Close success modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                successModal.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
 </html>
