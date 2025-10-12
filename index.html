@@ -2405,7 +2405,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                         <img src="pictures/ujjwal.jpg" alt="ujjawal">
                     </div>
                     <h3>Ujjawal Anand</h3>
-                    <div class="leader-role">Vice Chair (Operations)</div>
+                    <div class="leader-role">Vice Chair</div>
                     <div class="social-links">
                         <a href="https://www.linkedin.com/in/ujjawalanandofficial/" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -2428,19 +2428,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                     </div>
                 </div>
 
-                <div class="leader-card fade-in">
-                    <div class="leader-img">
-                        <img src="pictures/subhasis.jpg" alt="subhasis">
-                    </div>
-                    <h3>Shuvashish Barman Shuvo</h3>
-                    <div class="leader-role">Vice Chair (Techinical)</div>
-                    
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/shuvashish-barman" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fas fa-user"></i></a>
-                    </div>
-                </div>
+        
 
                 <div class="leader-card fade-in" >
                     <div class="leader-img">
@@ -2456,12 +2444,6 @@ To advance science and technology for the benefit of humanity and a sustainable 
                 </div>
 
 
-                
-
-            </div>
-            
-            <!-- Additional Team Members (Initially Hidden) -->
-            <div class="additional-members" id="additional-members">
 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -2476,6 +2458,14 @@ To advance science and technology for the benefit of humanity and a sustainable 
                         <a href="#" class="social-link"><i class="fas fa-user"></i></a>
                     </div>
                 </div>
+                
+
+            </div>
+            
+            <!-- Additional Team Members (Initially Hidden) -->
+            <div class="additional-members" id="additional-members">
+
+                
                 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -2503,18 +2493,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                         <a href="#" class="social-link"><i class="fas fa-user"></i></a>
                     </div>
                 </div>
-                <div class="leader-card fade-in">
-                    <div class="leader-img">
-                        <img src="pictures/rajona.png" alt="rajona">
-                    </div>
-                    <h3>Rajonna Choudhury</h3>
-                    <div class="leader-role">Design Coordinator</div>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                         <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                         <a href="#" class="social-link"><i class="fas fa-user"></i></a>
-                    </div>
-                </div>
+               
 
                 <div class="leader-card fade-in">
                     <div class="leader-img">
@@ -2911,7 +2890,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                         <i class="fas fa-users"></i>
                     </div>
                     <h3>Active Members</h3>
-                    <div class="achievement-number">15+</div>
+                    <div class="achievement-number">30+</div>
                     <p>Dedicated student community</p>
                 </div>
                 
@@ -2920,7 +2899,7 @@ To advance science and technology for the benefit of humanity and a sustainable 
                         <i class="fas fa-calendar-alt"></i>
                     </div>
                     <h3>Events Organized</h3>
-                    <div class="achievement-number">5+</div>
+                    <div class="achievement-number">10+</div>
                     <p>Workshops & Talks </p>
                 </div>
                 
@@ -4142,84 +4121,7 @@ organized by the Ministry of Education, Science and Technology, Nepal.
     });
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const eventPopup = document.getElementById('event-popup');
-        const popupClose = document.getElementById('popup-close');
-        const popupLater = document.getElementById('popup-later');
-        const dontShowAgain = document.getElementById('dont-show-again');
-        
-        // Check if user has already dismissed the popup
-        const popupDismissed = localStorage.getItem('eventPopupDismissed');
-        const popupTimestamp = localStorage.getItem('eventPopupTimestamp');
-        
-        // Show popup if not dismissed or dismissed more than 24 hours ago
-        const shouldShowPopup = () => {
-            if (popupDismissed === 'true' && dontShowAgain.checked) {
-                return false;
-            }
-            
-            if (popupTimestamp) {
-                const now = new Date().getTime();
-                const lastShown = parseInt(popupTimestamp);
-                const hoursSinceLastShow = (now - lastShown) / (1000 * 60 * 60);
-                
-                // Show again after 24 hours
-                return hoursSinceLastShow >= 24;
-            }
-            
-            return true;
-        };
-        
-        // Show popup after a short delay
-        setTimeout(() => {
-            if (shouldShowPopup()) {
-                eventPopup.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }, 200000); // Show after 2 seconds
-        
-        // Close popup
-        function closePopup() {
-            eventPopup.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Store dismissal state
-            if (dontShowAgain.checked) {
-                localStorage.setItem('eventPopupDismissed', 'true');
-            }
-            
-            // Store timestamp
-            localStorage.setItem('eventPopupTimestamp', new Date().getTime().toString());
-        }
-        
-        // Event listeners
-        popupClose.addEventListener('click', closePopup);
-        popupLater.addEventListener('click', closePopup);
-        
-        // Close when clicking outside the popup
-        eventPopup.addEventListener('click', function(e) {
-            if (e.target === eventPopup) {
-                closePopup();
-            }
-        });
-        
-        // Close with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && eventPopup.classList.contains('active')) {
-                closePopup();
-            }
-        });
-        
-        // Optional: Show popup when user is about to leave (exit intent)
-        document.addEventListener('mouseout', function(e) {
-            if (e.clientY < 0 && shouldShowPopup()) {
-                eventPopup.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    });
-</script>
+
 
 
     <!-- Add this modal structure before the closing </body> tag -->
